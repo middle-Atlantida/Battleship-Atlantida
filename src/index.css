@@ -1,0 +1,22 @@
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap";
+@import-normalize;
+
+:root {
+  --action-color: #7e83ff;
+  --main-dark-color: #222;
+  --danger-color: #f16858;
+  --dark-grey-color: #818181;
+  --grey-color: #b3b3b3;
+  --ship-color-color: #58a8f1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Inter, sans-serif;
+}

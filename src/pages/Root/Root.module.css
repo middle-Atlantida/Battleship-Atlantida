@@ -1,11 +1,22 @@
+@import "../../utils/mixins/text.css";
+@import "../../utils/mixins/window.css";
+
 .main {
-    font-size: 16px;
-    margin: 0;
-    padding: 0;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-content: center;
+  @mixin Bordered-window;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+  & h1 {
+    color: var(--action-color);
+
+    @mixin Uppercase-important-text;
+  }
 }
