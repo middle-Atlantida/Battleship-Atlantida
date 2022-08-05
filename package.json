@@ -7,6 +7,8 @@
     "start": "webpack serve",
     "build": "webpack",
     "check:eslint": "eslint ./src",
+    "check:stylelint": "stylelint \"**/*.css\"",
+    "fix:stylelint": "stylelint \"**/*.css\" --fix",
     "check:ts": "tsc --noEmit",
     "test": "jest --passWithNoTests"
   },
