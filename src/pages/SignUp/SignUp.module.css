@@ -1,0 +1,21 @@
+@import "../../utils/mixins/button.css";
+@import "../../utils/mixins/text.css";
+@import "../../utils/mixins/window.css";
+
+.container {
+  @mixin Bordered-window;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.title {
+  @mixin Uppercase-header-text;
+}
+
+.button {
+  @mixin Button;
+}
