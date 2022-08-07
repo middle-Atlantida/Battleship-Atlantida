@@ -21,8 +21,8 @@ import cn from 'classnames';
 import css from './SignUp.module.css';
 
 interface ISignUpFormikValues {
-	first_name: string;
-    second_name: string;
+    firstName: string;
+    secondName: string;
     email: string;
     phone: string;
     login: string;
@@ -38,12 +38,12 @@ interface IField {
 const SignUp = () => {
     const fields: IField[] = [
         {
-            id: 'first_name',
+            id: 'firstName',
             title: 'Имя',
             type: 'text',
         },
         {
-            id: 'second_name',
+            id: 'secondName',
             title: 'Фамилия',
             type: 'text',
         },
@@ -71,18 +71,18 @@ const SignUp = () => {
 
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
         initialValues: {
-            first_name: '',
-            second_name: '',
+            firstName: '',
+            secondName: '',
             email: '',
             phone: '',
             login: '',
             password: '',
         },
         validationSchema: Yup.object({
-            first_name: Yup.string()
+            firstName: Yup.string()
                 .matches(NAME_RULES.regexp, NAME_RULES.error)
                 .required('* Обязательно'),
-            second_name: Yup.string()
+            secondName: Yup.string()
                 .matches(NAME_RULES.regexp, NAME_RULES.error)
                 .required('* Обязательно'),
             email: Yup.string()
