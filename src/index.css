@@ -7,7 +7,17 @@
   --danger-color: #f16858;
   --dark-grey-color: #818181;
   --grey-color: #b3b3b3;
-  --ship-color-color: #58a8f1;
+  --ship-color: #58a8f1;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
 body {
