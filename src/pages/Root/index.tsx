@@ -1,8 +1,8 @@
-import SignUp from 'pages/SignUp';
 import React from 'react';
+import MainPage from '../MainPage';
 
 export const Root = () => (
     <>
-        <SignUp/>
+        <MainPage/>
     </>
 );

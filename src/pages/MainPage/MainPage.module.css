@@ -1,0 +1,43 @@
+.container {
+  text-align: center;
+}
+
+.mainPageTitle {
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 77px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--main-dark-color);
+  margin-top: 0;
+  margin-bottom: 110px;
+  cursor: default;
+}
+
+.menuSelection {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 77px;
+  margin: 0;
+  padding: 0;
+  color: var(--main-dark-color);
+  transition: 0.3s ease;
+}
+
+li {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  list-style-type: none;
+  width: fit-content;
+  cursor: pointer;
+}
+
+li:hover {
+  color: var(--dark-grey-color);
+}
