@@ -35,69 +35,73 @@ interface IField {
     type: string;
 }
 
-const SignUp = () => {
-    const fields: IField[] = [
-        {
-            id: 'firstName',
-            title: 'Имя',
-            type: 'text',
-        },
-        {
-            id: 'secondName',
-            title: 'Фамилия',
-            type: 'text',
-        },
-        {
-            id: 'email',
-            title: 'Email',
-            type: 'email',
-        },
-        {
-            id: 'phone',
-            title: 'Телефон',
-            type: 'phone',
-        },
-        {
-            id: 'login',
-            title: 'Логин',
-            type: 'text',
-        },
-        {
-            id: 'password',
-            title: 'Пароль',
-            type: 'password',
-        },
-    ];
+const fields: IField[] = [
+    {
+        id: 'firstName',
+        title: 'Имя',
+        type: 'text',
+    },
+    {
+        id: 'secondName',
+        title: 'Фамилия',
+        type: 'text',
+    },
+    {
+        id: 'email',
+        title: 'Email',
+        type: 'email',
+    },
+    {
+        id: 'phone',
+        title: 'Телефон',
+        type: 'phone',
+    },
+    {
+        id: 'login',
+        title: 'Логин',
+        type: 'text',
+    },
+    {
+        id: 'password',
+        title: 'Пароль',
+        type: 'password',
+    },
+];
 
+const initialValues = {
+    firstName: '',
+    secondName: '',
+    email: '',
+    phone: '',
+    login: '',
+    password: '',
+};
+
+const validationSchema = Yup.object({
+    firstName: Yup.string()
+        .matches(NAME_RULES.regexp, NAME_RULES.error)
+        .required('* Обязательно'),
+    secondName: Yup.string()
+        .matches(NAME_RULES.regexp, NAME_RULES.error)
+        .required('* Обязательно'),
+    email: Yup.string()
+        .matches(EMAIL_RULES.regexp, EMAIL_RULES.error)
+        .required('* Обязательно'),
+    phone: Yup.string()
+        .matches(PHONE_RULES.regexp, PHONE_RULES.error)
+        .required('* Обязательно'),
+    login: Yup.string()
+        .matches(LOGIN_RULES.regexp, LOGIN_RULES.error)
+        .required('* Обязательно'),
+    password: Yup.string()
+        .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
+        .required('* Обязательно'),
+});
+
+const SignUp = () => {
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
-        initialValues: {
-            firstName: '',
-            secondName: '',
-            email: '',
-            phone: '',
-            login: '',
-            password: '',
-        },
-        validationSchema: Yup.object({
-            firstName: Yup.string()
-                .matches(NAME_RULES.regexp, NAME_RULES.error)
-                .required('* Обязательно'),
-            secondName: Yup.string()
-                .matches(NAME_RULES.regexp, NAME_RULES.error)
-                .required('* Обязательно'),
-            email: Yup.string()
-                .matches(EMAIL_RULES.regexp, EMAIL_RULES.error)
-                .required('* Обязательно'),
-            phone: Yup.string()
-                .matches(PHONE_RULES.regexp, PHONE_RULES.error)
-                .required('* Обязательно'),
-            login: Yup.string()
-                .matches(LOGIN_RULES.regexp, LOGIN_RULES.error)
-                .required('* Обязательно'),
-            password: Yup.string()
-                .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
-                .required('* Обязательно'),
-        }),
+        initialValues,
+        validationSchema,
         onSubmit: values => {
             console.log(values);
             // TODO call signup

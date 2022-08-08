@@ -3,16 +3,16 @@
 @define-mixin Button {
   @mixin Uppercase-important-text;
 
-  height: 50px !important;
-  padding: 20px 40px !important;
-  border-radius: 25px !important;
-  border: solid 2px var(--main-dark-color) !important;
-  font-weight: bold !important;
-  color: #fff !important;
+  height: 50px;
+  padding: 20px 40px;
+  border-radius: 25px;
+  border: solid 2px var(--main-dark-color);
+  font-weight: bold;
+  color: #fff;
 }
 
 @define-mixin Outline-button {
   @mixin Button;
 
-  border: solid 2px #fff !important;
+  border: solid 2px #fff;
 }

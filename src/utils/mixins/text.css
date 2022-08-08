@@ -1,93 +1,93 @@
 @define-mixin Header-text {
-  font-size: 24px !important;
-  font-weight: bold !important;
-  font-stretch: normal !important;
-  font-style: normal !important;
-  line-height: normal !important;
-  letter-spacing: normal !important;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
 }
 
 @define-mixin Uppercase-header-text {
-  font-size: 24px !important;
-  font-weight: bold !important;
-  font-stretch: normal !important;
-  font-style: normal !important;
-  line-height: normal !important;
-  letter-spacing: normal !important;
-  text-transform: uppercase !important;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-transform: uppercase;
 }
 
 @define-mixin Important-text {
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  font-stretch: normal !important;
-  font-style: normal !important;
-  line-height: normal !important;
-  letter-spacing: normal !important;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
 }
 
 @define-mixin Uppercase-important-text {
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  font-stretch: normal !important;
-  font-style: normal !important;
-  line-height: normal !important;
-  letter-spacing: normal !important;
-  text-transform: uppercase !important;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-transform: uppercase;
 }
 
 @define-mixin Medium-bold-text {
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  font-stretch: normal !important;
-  font-style: normal !important;
-  line-height: 1.5 !important;
-  letter-spacing: normal !important;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
 }
 
 @define-mixin Regular-text {
-  font-size: 16px !important;
-  font-weight: normal !important;
-  font-stretch: normal !important;
-  font-style: normal !important;
-  line-height: normal !important;
-  letter-spacing: normal !important;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
 }
 
 @define-mixin Bold-small-text {
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  font-stretch: normal !important;
-  font-style: normal !important;
-  line-height: normal !important;
-  letter-spacing: normal !important;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
 }
 
 @define-mixin Link-text {
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  font-stretch: normal !important;
-  font-style: normal !important;
-  line-height: normal !important;
-  letter-spacing: normal !important;
-  text-decoration: underline !important;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-decoration: underline;
 }
 
 @define-mixin Uppercase-bold-small-text {
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  font-stretch: normal !important;
-  font-style: normal !important;
-  line-height: normal !important;
-  letter-spacing: normal !important;
-  text-transform: uppercase !important;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-transform: uppercase;
 }
 
 @define-mixin Regular-small-text {
-  font-size: 14px !important;
-  font-weight: normal !important;
-  font-stretch: normal !important;
-  font-style: normal !important;
-  line-height: normal !important;
-  letter-spacing: normal !important;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
 }
