@@ -11,51 +11,24 @@ import { Image } from 'components/Image';
 import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import {
-    NAME_RULES,
     LOGIN_RULES,
-    EMAIL_RULES,
     PASSWORD_RULES,
-    PHONE_RULES,
 } from 'const/validationRules';
 import cn from 'classnames';
-import css from './SignUp.module.css';
+import css from './SignIn.module.css';
 
-interface ISignUpFormikValues {
-    firstName: string;
-    secondName: string;
-    email: string;
-    phone: string;
+interface ISignInFormikValues {
     login: string;
     password: string;
 }
 
 interface IField {
-    id: keyof ISignUpFormikValues;
+    id: keyof ISignInFormikValues;
     title: string;
     type: string;
 }
 
 const fields: IField[] = [
-    {
-        id: 'firstName',
-        title: 'Имя',
-        type: 'text',
-    },
-    {
-        id: 'secondName',
-        title: 'Фамилия',
-        type: 'text',
-    },
-    {
-        id: 'email',
-        title: 'Email',
-        type: 'email',
-    },
-    {
-        id: 'phone',
-        title: 'Телефон',
-        type: 'phone',
-    },
     {
         id: 'login',
         title: 'Логин',
@@ -69,27 +42,12 @@ const fields: IField[] = [
 ];
 
 const initialValues = {
-    firstName: '',
-    secondName: '',
-    email: '',
-    phone: '',
     login: '',
     password: '',
 };
 
 const validationSchema = Yup.object({
-    firstName: Yup.string()
-        .matches(NAME_RULES.regexp, NAME_RULES.error)
-        .required('* Обязательно'),
-    secondName: Yup.string()
-        .matches(NAME_RULES.regexp, NAME_RULES.error)
-        .required('* Обязательно'),
-    email: Yup.string()
-        .matches(EMAIL_RULES.regexp, EMAIL_RULES.error)
-        .required('* Обязательно'),
-    phone: Yup.string()
-        .matches(PHONE_RULES.regexp, PHONE_RULES.error)
-        .required('* Обязательно'),
+
     login: Yup.string()
         .matches(LOGIN_RULES.regexp, LOGIN_RULES.error)
         .required('* Обязательно'),
@@ -98,8 +56,8 @@ const validationSchema = Yup.object({
         .required('* Обязательно'),
 });
 
-const SignUp = () => {
-    const formik: FormikProps<ISignUpFormikValues> = useFormik({
+const SignIn = () => {
+    const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
         onSubmit: values => {
@@ -120,7 +78,7 @@ const SignUp = () => {
                 spacing={3}
                 sx={{ width: '251px' }}
             >
-                <Typography variant="h1" className={cn(css.title)}>Регистрация</Typography>
+                <Typography variant="h1" className={cn(css.title)}>Вход</Typography>
                 <Stack
                     direction="column"
                     justifyContent="center"
@@ -153,12 +111,12 @@ const SignUp = () => {
                     alignItems="center"
                     spacing={2}
                 >
-                    <Button type="submit" variant="contained" className={cn(css.button)}>Создать аккаунт</Button>
-                    <Link href="#" color="primary" className={cn(css.link)}>Войти</Link>
+                    <Button type="submit" variant="contained" className={cn(css.button)}>Авторизация</Button>
+                    <Link href="#" color="primary" className={cn(css.link)}>Нет аккаунта? Зарегистрироваться</Link>
                 </Stack>
             </Stack>
         </div>
     );
 };
 
-export default SignUp;
+export default SignIn;
