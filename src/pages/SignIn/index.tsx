@@ -56,7 +56,7 @@ const validationSchema = Yup.object({
         .required('* Обязательно'),
 });
 
-const SignIn = () => {
+export const SignIn = () => {
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
@@ -118,5 +118,3 @@ const SignIn = () => {
         </div>
     );
 };
-
-export default SignIn;
