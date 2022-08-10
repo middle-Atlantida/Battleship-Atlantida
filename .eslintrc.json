@@ -38,6 +38,7 @@
               "tsx": "never"
           }
       ],
+      "class-methods-use-this": "off",
       "indent": ["error", 4, { "SwitchCase": 1 }],
       "import/prefer-default-export": "off",
       "arrow-parens": ["error", "as-needed"],
@@ -96,5 +97,8 @@
              "moduleDirectory": ["node_modules", "src/"]
          }
      }
+  },
+  "globals": {
+    "JSX": true
   }
 }

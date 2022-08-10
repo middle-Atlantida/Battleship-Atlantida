@@ -1,0 +1,29 @@
+@import "../../utils/mixins/button.css";
+@import "../../utils/mixins/text.css";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  width: 516px;
+  padding: 50px;
+}
+
+.title {
+  @mixin Header-main-text;
+
+  text-align: center;
+}
+
+.text {
+  @mixin Regular-text;
+
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+.button {
+  @mixin Button;
+}
