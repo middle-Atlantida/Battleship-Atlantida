@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { ErrorLayout } from 'components/ErrorLayout';
 
 interface ErrorBoundaryProps {
-    children: JSX.Element;
+    children: React.ReactNode;
 }
 
 interface ErrorBoundaryState {
@@ -20,12 +20,13 @@ export class ErrorBoundary extends PureComponent<ErrorBoundaryProps, ErrorBounda
         return { hasError: true, err };
     }
 
+    // eslint-disable-next-line class-methods-use-this
     override componentDidCatch(err: Error, errorInfo: React.ErrorInfo): void {
         // eslint-disable-next-line no-console
         console.error(err, { type: 'render_error', ...errorInfo });
     }
 
-    override render(): JSX.Element {
+    override render(): React.ReactNode {
         const { hasError, err } = this.state;
         const { children } = this.props;
 
