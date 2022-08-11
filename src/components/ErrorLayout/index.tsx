@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import {
     Button,
     Typography,
@@ -6,15 +6,13 @@ import {
 import cn from 'classnames';
 import css from './ErrorLayout.css';
 
-type OwnProps = {
+export type ErrorLayoutProps = {
     title: string;
     text: string;
     withoutBackButton?: boolean;
 }
 
-export type ErrorLayoutProps = FC<OwnProps>;
-
-export const ErrorLayout: ErrorLayoutProps = ({ title, text, withoutBackButton }) => (
+export const ErrorLayout = ({ title, text, withoutBackButton }: ErrorLayoutProps) => (
     <div className={cn(css.container)}>
         <Typography variant="h1" className={cn(css.title)}>{title}</Typography>
         <Typography className={cn(css.text)}>{text}</Typography>
