@@ -12,7 +12,11 @@ function useAuth() {
 }
 
 // eslint-disable-next-line no-undef
-export const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+type Props = {
+    children?: ReactNode;
+}
+
+export const ProtectedRoute = ({ children }: Props): JSX.Element => {
     const auth = useAuth();
     const location = useLocation();
 
