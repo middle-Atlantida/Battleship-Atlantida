@@ -1,10 +1,11 @@
 import { SignIn } from 'pages/SignIn';
+import { SignUp } from 'pages/SignUp';
 
 import React from 'react';
-import MainPage from '../MainPage';
+import { MainMenu } from '../MainMenu';
 
 export const Root = () => (
     <>
-        <MainPage/>
+        <SignIn/>
     </>
 );

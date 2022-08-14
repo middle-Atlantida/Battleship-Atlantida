@@ -15,6 +15,7 @@ import {
     PASSWORD_RULES,
 } from 'const/validationRules';
 import cn from 'classnames';
+import { signin } from 'api/auth';
 import css from './SignIn.module.css';
 
 interface ISignInFormikValues {
@@ -61,8 +62,12 @@ export const SignIn = () => {
         initialValues,
         validationSchema,
         onSubmit: values => {
-            console.log(values);
-            // TODO call signup
+            signin(values)
+                .then(res => {
+                    if (res.status === 200) {
+                        // TODO router push to main page
+                    }
+                });
         },
     });
 

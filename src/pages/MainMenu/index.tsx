@@ -1,8 +1,18 @@
 import React from 'react';
 import cn from 'classnames';
-import css from './MainPage.module.css';
+import { logout } from 'api/auth';
+import css from './MainMenu.module.css';
 
-const MainPage = () => (
+const onLogout = () => {
+    logout()
+        .then(res => {
+            if (res.status === 200) {
+            // TODO router push signin
+            }
+        });
+};
+
+export const MainMenu = () => (
     <div className={css.container}>
         <h1 className={cn(css.mainPageTitle)}>МОРСКОЙ БОЙ</h1>
         <ul className={cn(css.menuSelection)}>
@@ -10,9 +20,7 @@ const MainPage = () => (
             <li>Таблица лидеров</li>
             <li>Форум</li>
             <li>Настройки</li>
-            <li>Выйти</li>
+            <li onClick={onLogout}>Выйти</li>
         </ul>
     </div>
 );
-
-export default MainPage;

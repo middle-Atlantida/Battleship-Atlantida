@@ -18,6 +18,7 @@ import {
     PHONE_RULES,
 } from 'const/validationRules';
 import cn from 'classnames';
+import { signup } from 'api/auth';
 import css from './SignUp.module.css';
 
 interface ISignUpFormikValues {
@@ -103,8 +104,14 @@ export const SignUp = () => {
         initialValues,
         validationSchema,
         onSubmit: values => {
-            console.log(values);
-            // TODO call signup
+            // eslint-disable-next-line camelcase
+            const { firstName: first_name, secondName: second_name, ...rest } = values;
+            signup({ first_name, second_name, ...rest })
+                .then(res => {
+                    if (res.status === 200) {
+                        // TODO router push to main page
+                    }
+                });
         },
     });
 
