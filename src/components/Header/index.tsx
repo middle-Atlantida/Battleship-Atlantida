@@ -1,10 +1,17 @@
 import React from 'react';
-import cn from 'classnames';
 import css from './Header.module.css';
+import { ArrowLeft } from '../icons/ArrowLeft';
 
-const Header = () => (
-    <header className={cn(css.header)}>
+type IHeaderProps = {
+    title?: string
+};
 
+const Header = ({ title = '' }: IHeaderProps) => (
+    <header className={css.header}>
+        <a href="#" className={css.backButton}>
+            <ArrowLeft width={24} height={24} color={'white'}/>В главное меню
+        </a>
+        <h1 className={css.headerTitle}>{title}</h1>
     </header>
 );
 
