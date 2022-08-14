@@ -6,12 +6,16 @@
   "scripts": {
     "start": "webpack serve",
     "build": "webpack",
+    "test": "jest --passWithNoTests",
+    "check": "npm-run-all check:*",
     "check:eslint": "eslint ./src",
     "fix:eslint": "eslint ./src --fix",
     "check:stylelint": "stylelint \"**/*.css\"",
-    "fix:stylelint": "stylelint \"**/*.css\" --fix",
     "check:ts": "tsc --noEmit",
-    "test": "jest --passWithNoTests"
+    "fix": "npm-run-all fix:*",
+    "fix:eslint": "eslint ./src --fix",
+    "fix:stylelint": "stylelint \"**/*.css\" --fix",
+    "clean": "rimraf node_modules/"
   },
   "repository": {
     "type": "git",
@@ -47,6 +51,7 @@
     "jest": "28.1.2",
     "lint-staged": "13.0.3",
     "mini-css-extract-plugin": "2.6.1",
+    "npm-run-all": "4.1.5",
     "postcss-loader": "7.0.0",
     "postcss-normalize": "10.0.1",
     "style-loader": "3.3.1",

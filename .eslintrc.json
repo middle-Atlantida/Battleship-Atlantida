@@ -70,7 +70,8 @@
               "readonly": "generic"
           }
       ],
-      "@typescript-eslint/ban-types": "error"
+      "@typescript-eslint/ban-types": "error",
+      "import/no-default-export": "error"
   },
   "overrides": [
       {

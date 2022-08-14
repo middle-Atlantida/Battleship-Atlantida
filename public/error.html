@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" />
+    <title>Server error</title>
+    <style>
+      @import "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap";
+
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Inter, sans-serif;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+        width: 516px;
+        padding: 50px;
+      }
+
+      .title {
+        font-size: 64px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: normal;
+        text-align: center;
+        text-align: center;
+        color: #222222;
+      }
+
+      .text {
+        font-size: 16px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        white-space: pre-wrap;
+      }
+
+      .button {
+        font-size: 16px;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        font-weight: 600;
+        text-transform: uppercase;
+        height: 50px;
+        padding: 20px 40px;
+        border-radius: 25px;
+        border: solid 2px #222222;
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        outline: 0;
+        cursor: pointer;
+        user-select: none;
+        vertical-align: middle;
+        text-decoration: none;
+        min-width: 64px;
+        transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        background-color: #7e83ff;
+        box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+          0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+      }
+
+      .button:hover {
+        background-color: rgb(88, 91, 178);
+        box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+          0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">500</h1>
+      <p class="text">
+        Внутренняя ошибка сервера.<br />Мы о ней знаем и скоро ее исправим!
+      </p>
+      <a href="#" class="button">Вернуться</a>
+    </div>
+  </body>
+</html>
