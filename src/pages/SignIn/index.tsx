@@ -16,6 +16,7 @@ import {
     PASSWORD_RULES,
 } from 'const/validationRules';
 import cn from 'classnames';
+import { routes } from 'pages/Root';
 import css from './SignIn.module.css';
 
 interface ISignInFormikValues {
@@ -57,7 +58,7 @@ const validationSchema = Yup.object({
         .required('* Обязательно'),
 });
 
-const SignIn = () => {
+export const SignIn = () => {
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
@@ -113,7 +114,7 @@ const SignIn = () => {
                     spacing={2}
                 >
                     <Button type="submit" variant="contained" className={cn(css.button)}>Авторизация</Button>
-                    <RouteLink to={'/registration'}>
+                    <RouteLink to={routes.registration}>
                         <Link color="primary" className={cn(css.link)}>Нет аккаунта? Зарегистрироваться</Link>
                     </RouteLink>
                 </Stack>
@@ -121,5 +122,3 @@ const SignIn = () => {
         </div>
     );
 };
-
-export default SignIn;

@@ -19,6 +19,7 @@ import {
     PHONE_RULES,
 } from 'const/validationRules';
 import cn from 'classnames';
+import { routes } from 'pages/Root';
 import css from './SignUp.module.css';
 
 interface ISignUpFormikValues {
@@ -99,7 +100,7 @@ const validationSchema = Yup.object({
         .required('* Обязательно'),
 });
 
-const SignUp = () => {
+export const SignUp = () => {
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
         initialValues,
         validationSchema,
@@ -155,7 +156,7 @@ const SignUp = () => {
                     spacing={2}
                 >
                     <Button type="submit" variant="contained" className={cn(css.button)}>Создать аккаунт</Button>
-                    <RouteLink to={'/login'}>
+                    <RouteLink to={routes.login}>
                         <Link color="primary" className={cn(css.link)}>Войти</Link>
                     </RouteLink>
                 </Stack>
@@ -163,5 +164,3 @@ const SignUp = () => {
         </div>
     );
 };
-
-export default SignUp;

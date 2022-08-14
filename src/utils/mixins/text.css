@@ -1,50 +1,3 @@
-@define-mixin Header-text {
-  font-size: 24px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-}
-
-@define-mixin Uppercase-header-text {
-  font-size: 24px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-transform: uppercase;
-}
-
-@define-mixin Important-text {
-  font-size: 16px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-}
-
-@define-mixin Uppercase-important-text {
-  font-size: 16px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-transform: uppercase;
-}
-
-@define-mixin Medium-bold-text {
-  font-size: 16px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.5;
-  letter-spacing: normal;
-}
-
 @define-mixin Regular-text {
   font-size: 16px;
   font-weight: normal;
@@ -54,40 +7,74 @@
   letter-spacing: normal;
 }
 
-@define-mixin Bold-small-text {
-  font-size: 14px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
+@define-mixin Header-main-text {
+  @mixin Regular-text;
+
+  font-size: 64px;
+  line-height: 1.5;
+  font-weight: bold;
 }
 
-@define-mixin Link-text {
-  font-size: 14px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-decoration: underline;
+@define-mixin Header-text {
+  @mixin Regular-text;
+
+  font-size: 24px;
+  font-weight: bold;
 }
 
-@define-mixin Uppercase-bold-small-text {
-  font-size: 14px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
+@define-mixin Uppercase-header-text {
+  @mixin Header-text;
+
   text-transform: uppercase;
 }
 
-@define-mixin Regular-small-text {
+@define-mixin Important-text {
+  @mixin Regular-text;
+
+  font-weight: 600;
+}
+
+@define-mixin Uppercase-important-text {
+  @mixin Important-text;
+
+  text-transform: uppercase;
+}
+
+@define-mixin Medium-bold-text {
+  @mixin Regular-text;
+
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+@define-mixin Bold-small-text {
+  @mixin Regular-text;
+
   font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
+  font-weight: 600;
+}
+
+@define-mixin Uppercase-bold-small-text {
+  @mixin Bold-small-text;
+
+  text-transform: uppercase;
+}
+
+@define-mixin Link-text {
+  @mixin Regular-text;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--action-color-hover);
+  }
+}
+
+@define-mixin Regular-small-text {
+  @mixin Regular-text;
+
+  font-size: 14px;
 }

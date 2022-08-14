@@ -1,3 +1,4 @@
+/* eslint-disable import/no-default-export */
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="node" />
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
@@ -58,7 +59,7 @@ declare module '*.svg' {
     export default src;
 }
 
-declare module '*.module.css' {
+declare module '*.css' {
     const classes: { readonly [key: string]: string };
     export default classes;
 }
