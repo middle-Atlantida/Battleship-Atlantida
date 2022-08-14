@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 interface AuthContextType {
@@ -11,7 +11,6 @@ function useAuth() {
     return React.useContext(AuthContext);
 }
 
-// eslint-disable-next-line no-undef
 type Props = {
     children?: ReactNode;
 }
@@ -24,5 +23,5 @@ export const ProtectedRoute = ({ children }: Props): JSX.Element => {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
-    return children;
+    return children as JSX.Element;
 };
