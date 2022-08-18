@@ -7,7 +7,11 @@ import { Image } from 'components/Image';
 import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
-import { LOGIN_RULES, PASSWORD_RULES } from 'const/validationRules';
+import {
+    LOGIN_RULES,
+    PASSWORD_RULES,
+    REQUIRE_TEXT,
+} from 'const/validationRules';
 import cn from 'classnames';
 import { routes } from 'pages/Root';
 import { signin } from 'api/auth';
@@ -44,10 +48,12 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
-    login: Yup.string().matches(LOGIN_RULES.regexp, LOGIN_RULES.error).required('* Обязательно'),
+    login: Yup.string()
+        .matches(LOGIN_RULES.regexp, LOGIN_RULES.error)
+        .required(REQUIRE_TEXT),
     password: Yup.string()
         .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
 });
 
 export const SignIn = () => {

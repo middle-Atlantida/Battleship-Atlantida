@@ -18,6 +18,7 @@ import {
     EMAIL_RULES,
     PASSWORD_RULES,
     PHONE_RULES,
+    REQUIRE_TEXT,
 } from 'const/validationRules';
 import cn from 'classnames';
 import { routes } from 'pages/Root';
@@ -85,22 +86,22 @@ const initialValues = {
 const validationSchema = Yup.object({
     firstName: Yup.string()
         .matches(NAME_RULES.regexp, NAME_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
     secondName: Yup.string()
         .matches(NAME_RULES.regexp, NAME_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
     email: Yup.string()
         .matches(EMAIL_RULES.regexp, EMAIL_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
     phone: Yup.string()
         .matches(PHONE_RULES.regexp, PHONE_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
     login: Yup.string()
         .matches(LOGIN_RULES.regexp, LOGIN_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
     password: Yup.string()
         .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
 });
 
 export const SignUp = () => {
