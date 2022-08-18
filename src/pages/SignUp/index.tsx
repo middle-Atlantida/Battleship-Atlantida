@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
 import {
     Button,
+    FormHelperText,
     Link,
     Stack,
     TextField,
@@ -19,6 +20,7 @@ import {
 } from 'const/validationRules';
 import cn from 'classnames';
 import { signup } from 'api/auth';
+import axios from 'axios';
 import css from './SignUp.module.css';
 
 interface ISignUpFormikValues {
@@ -100,18 +102,26 @@ const validationSchema = Yup.object({
 });
 
 export const SignUp = () => {
+    const [errorMessage, setErrorMessage] = useState('');
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: values => {
+        onSubmit: async values => {
             // eslint-disable-next-line camelcase
             const { firstName: first_name, secondName: second_name, ...rest } = values;
-            signup({ first_name, second_name, ...rest })
-                .then(res => {
-                    if (res.status === 200) {
-                        // TODO router push to main page
-                    }
-                });
+
+            try {
+                const res = await signup({ first_name, second_name, ...rest });
+                if (res.status === 200) {
+                    // TODO router push to main page
+                    console.log(res);
+                }
+            } catch (err) {
+                if (axios.isAxiosError(err)) {
+                    const { message } = err;
+                    setErrorMessage(message);
+                }
+            }
         },
     });
 
@@ -160,6 +170,7 @@ export const SignUp = () => {
                     alignItems="center"
                     spacing={2}
                 >
+                    <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
                     <Button type="submit" variant="contained" className={cn(css.button)}>Создать аккаунт</Button>
                     <Link href="#" color="primary" className={cn(css.link)}>Войти</Link>
                 </Stack>
