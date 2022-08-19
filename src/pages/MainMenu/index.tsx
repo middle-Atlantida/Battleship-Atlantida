@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import cn from 'classnames';
 import { logout } from 'api/auth';
 import { Alert, Snackbar } from '@mui/material';
 import axios from 'axios';
+import { Link as RouteLink } from 'react-router-dom';
+import { routes } from 'pages/Root';
 import css from './MainMenu.module.css';
 
 export const MainMenu = () => {
@@ -12,8 +13,8 @@ export const MainMenu = () => {
         try {
             const res = await logout();
             if (res.status === 200) {
-                // TODO router push to signin page
                 console.log(res);
+                document.location.href = routes.login;
             }
         } catch (err) {
             if (axios.isAxiosError(err)) {
@@ -24,21 +25,26 @@ export const MainMenu = () => {
     };
 
     return (
-        <>
-            <div className={css.container}>
-                <h1 className={cn(css.mainPageTitle)}>МОРСКОЙ БОЙ</h1>
-                <ul className={cn(css.menuSelection)}>
+        <div className={css.container}>
+            <h1 className={css.mainPageTitle}>МОРСКОЙ БОЙ</h1>
+            <ul className={css.menuSelection}>
+                <RouteLink to={routes.game}>
                     <li>Играть</li>
+                </RouteLink>
+                <RouteLink to={routes.leaderboard}>
                     <li>Таблица лидеров</li>
+                </RouteLink>
+                <RouteLink to={routes.forum}>
                     <li>Форум</li>
+                </RouteLink>
+                <RouteLink to={routes.settings}>
                     <li>Настройки</li>
-                    <li onClick={onLogout}>Выйти</li>
-                </ul>
-                <Snackbar open={!!logoutError} onClose={() => setLogoutError('')} autoHideDuration={2000}>
-                    <Alert severity="error" variant="filled">{logoutError}</Alert>
-                </Snackbar>
-            </div>
-
-        </>
+                </RouteLink>
+                <li onClick={onLogout}>Выйти</li>
+            </ul>
+            <Snackbar open={!!logoutError} onClose={() => setLogoutError('')} autoHideDuration={2000}>
+                <Alert severity="error" variant="filled">{logoutError}</Alert>
+            </Snackbar>
+        </div>
     );
 };

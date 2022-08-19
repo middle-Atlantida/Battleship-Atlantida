@@ -3,8 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from 'components/ProtectedRoute';
 import { SignUp } from 'pages/SignUp';
 import { SignIn } from 'pages/SignIn';
-import { MainPage } from 'pages/MainPage';
+import { MainMenu } from 'pages/MainMenu';
 import { NotFound } from '../NotFound';
+import Leaderboard from '../Leaderboard';
 
 export const routes = {
     main: '/',
@@ -21,7 +22,7 @@ export const Root = () => (
     <Routes>
         <Route path="/" element={
             <ProtectedRoute>
-                <MainPage/>
+                <MainMenu/>
             </ProtectedRoute>
         }/>
         <Route path={routes.login} element={<SignIn/>}/>
@@ -38,7 +39,7 @@ export const Root = () => (
         }/>
         <Route path={routes.leaderboard} element={
             <ProtectedRoute>
-                <SignUp/>
+                <Leaderboard/>
             </ProtectedRoute>
         }/>
         <Route path={routes.forum} element={

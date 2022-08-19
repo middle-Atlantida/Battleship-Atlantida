@@ -1,7 +1,12 @@
 @import "../../utils/mixins/text.css";
 
 .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   text-align: center;
+  height: 100vh;
 }
 
 .mainPageTitle {
@@ -25,8 +30,12 @@
   line-height: 77px;
   margin: 0;
   padding: 0;
-  color: var(--main-dark-color);
   transition: 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+  color: var(--main-dark-color);
 }
 
 li {
