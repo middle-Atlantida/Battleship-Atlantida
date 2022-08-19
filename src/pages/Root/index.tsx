@@ -1,8 +1,8 @@
-import { SignIn } from 'pages/SignIn';
 import React from 'react';
+import Leaderboard from '../Leaderboard';
 
 export const Root = () => (
     <>
-        <SignIn/>
+        <Leaderboard/>
     </>
 );
