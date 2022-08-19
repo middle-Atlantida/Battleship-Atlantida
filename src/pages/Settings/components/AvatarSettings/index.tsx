@@ -7,7 +7,6 @@ import {
     Typography,
 } from '@mui/material';
 import { Image } from 'components/Image';
-import { PageWithHeader } from 'components/PageWithHeader';
 import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -18,7 +17,6 @@ import {
     REQUIRE_TEXT,
 } from 'const/validationRules';
 import cn from 'classnames';
-import css from './Settings.css';
 
 interface ISettingsProfileFormikValues {
     firstName: string;
@@ -27,8 +25,20 @@ interface ISettingsProfileFormikValues {
     phone: string;
     login: string;
 }
+
+interface ISettingsPasswordFormikValues {
+    oldPassword: string;
+    newPassword: string;
+    repeatePassword: string;
+}
+interface ISettingsAvatarFormikValues {
+    avatar: string;
+}
+
 interface IField {
-    id: keyof ISettingsProfileFormikValues;
+    id: keyof ISettingsProfileFormikValues
+        | keyof ISettingsPasswordFormikValues
+        | keyof ISettingsAvatarFormikValues;
     title: string;
     type: string;
 }
@@ -67,6 +77,7 @@ const initialValues = {
     email: '',
     phone: '',
     login: '',
+    password: '',
 };
 
 const validationSchema = Yup.object({
@@ -99,58 +110,52 @@ export const Settings = () => {
 
     return (
         <div className={cn(css.container)}>
-            <PageWithHeader
-                headerText="Настройки"
-                backText="В главное меню"
-                backUrl="menu"
+            <Image src={sailor} alt="Sailor" height={600} />
+            <Stack
+                component="form"
+                onSubmit={formik.handleSubmit}
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                spacing={3}
+                sx={{ width: '251px' }}
             >
-                <Image src={sailor} alt="Sailor" height={600} />
+                <Typography variant="h1" className={cn(css.title)}>Регистрация</Typography>
                 <Stack
-                    component="form"
-                    onSubmit={formik.handleSubmit}
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="stretch"
+                    spacing={1}
+                >
+                    {fields.map(({ id, title, type }: IField) => (
+                        <TextField
+                            key={id}
+                            id={id}
+                            name={id}
+                            label={title}
+                            value={formik.values[id]}
+                            type={type}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={!!formik.touched[id] && !!formik.errors[id]}
+                            helperText={
+                                !!formik.touched[id] && !!formik.errors[id]
+                                    ? formik.errors[id]
+                                    : null
+                            }
+                            variant="standard"
+                        />
+                    ))}
+                </Stack>
+                <Stack
                     direction="column"
                     justifyContent="center"
                     alignItems="center"
-                    spacing={3}
-                    sx={{ width: '251px' }}
+                    spacing={2}
                 >
-                    <Typography variant="h1" className={cn(css.title)}>Регистрация</Typography>
-                    <Stack
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="stretch"
-                        spacing={1}
-                    >
-                        {fields.map(({ id, title, type }: IField) => (
-                            <TextField
-                                key={id}
-                                id={id}
-                                name={id}
-                                label={title}
-                                value={formik.values[id]}
-                                type={type}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={!!formik.touched[id] && !!formik.errors[id]}
-                                helperText={
-                                    !!formik.touched[id] && !!formik.errors[id]
-                                        ? formik.errors[id]
-                                        : null
-                                }
-                                variant="standard"
-                            />
-                        ))}
-                    </Stack>
-                    <Stack
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={2}
-                    >
-                        <Button type="submit" variant="contained" className={cn(css.button)}>Создать аккаунт</Button>
-                    </Stack>
+                    <Button type="submit" variant="contained" className={cn(css.button)}>Создать аккаунт</Button>
                 </Stack>
-            </PageWithHeader>
+            </Stack>
         </div>
     );
 };
