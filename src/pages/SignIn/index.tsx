@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
 import {
     Button,
+    FormHelperText,
     Link,
     Stack,
     TextField,
@@ -17,6 +18,8 @@ import {
 } from 'const/validationRules';
 import cn from 'classnames';
 import { routes } from 'pages/Root';
+import { signin } from 'api/auth';
+import axios from 'axios';
 import css from './SignIn.module.css';
 
 interface ISignInFormikValues {
@@ -49,7 +52,6 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
-
     login: Yup.string()
         .matches(LOGIN_RULES.regexp, LOGIN_RULES.error)
         .required('* Обязательно'),
@@ -59,12 +61,23 @@ const validationSchema = Yup.object({
 });
 
 export const SignIn = () => {
+    const [errorMessage, setErrorMessage] = useState('');
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: values => {
-            console.log(values);
-            // TODO call signup
+        onSubmit: async values => {
+            try {
+                const res = await signin(values);
+                if (res.status === 200) {
+                    // TODO router push to main page
+                    console.log(res);
+                }
+            } catch (err) {
+                if (axios.isAxiosError(err)) {
+                    const { message } = err;
+                    setErrorMessage(message);
+                }
+            }
         },
     });
 
@@ -113,6 +126,7 @@ export const SignIn = () => {
                     alignItems="center"
                     spacing={2}
                 >
+                    <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
                     <Button type="submit" variant="contained" className={cn(css.button)}>Авторизация</Button>
                     <RouteLink to={routes.registration}>
                         <Link color="primary" className={cn(css.link)}>Нет аккаунта? Зарегистрироваться</Link>
