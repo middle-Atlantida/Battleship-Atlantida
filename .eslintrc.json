@@ -2,27 +2,27 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-      "project": "./tsconfig.json"
+    "project": "./tsconfig.json"
   },
   "env": {
-      "browser": true,
-      "node": true,
-      "jest": true,
-      "jest/globals": true
+    "browser": true,
+    "node": true,
+    "jest": true,
+    "jest/globals": true
   },
   "plugins": [
-      "@typescript-eslint",
-      "import",
-      "jest",
-      "react-hooks"
+    "@typescript-eslint",
+    "import",
+    "jest",
+    "react-hooks"
   ],
   "extends": [
-      "plugin:@typescript-eslint/recommended",
-      "airbnb-base",
-      "plugin:import/recommended",
-      "plugin:jest/recommended",
-      "plugin:jest/style",
-      "plugin:react/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "airbnb-base",
+    "plugin:import/recommended",
+    "plugin:jest/recommended",
+    "plugin:jest/style",
+    "plugin:react/recommended"
   ],
   "rules": {
       "react-hooks/rules-of-hooks": "error",
@@ -74,28 +74,42 @@
       "import/no-default-export": "error"
   },
   "overrides": [
-      {
-          "files": ["**/*.js"],
-          "parser": "@babel/eslint-parser",
-          "parserOptions": {
-              "sourceType": "module",
-              "impliedStrict": true
-          },
-          "rules": {
-              "@typescript-eslint/no-var-requires": "off"
-          }
+    {
+      "files": [
+        "**/*.js",
+        ",*.ts",
+        ",*.tsx"
+      ],
+      "parser": "@babel/eslint-parser",
+      "parserOptions": {
+        "sourceType": "module",
+        "impliedStrict": true
+      },
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
       }
+    }
   ],
   "settings": {
-     "react": {
-         "pragma": "React",
-         "version": "detect"
-     },
-     "import/resolver": {
-         "node": {
-             "extensions": [".js", ".ts", ".tsx"],
-             "moduleDirectory": ["node_modules", "src/"]
-         }
-     }
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".ts",
+          ".tsx"
+        ],
+        "moduleDirectory": [
+          "node_modules",
+          "src/"
+        ]
+      }
+    }
+  },
+  "globals": {
+    "JSX": "readonly"
   }
 }

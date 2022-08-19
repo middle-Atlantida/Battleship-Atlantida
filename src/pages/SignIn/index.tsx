@@ -11,11 +11,13 @@ import {
 import { Image } from 'components/Image';
 import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
+import { Link as RouteLink } from 'react-router-dom';
 import {
     LOGIN_RULES,
     PASSWORD_RULES,
 } from 'const/validationRules';
 import cn from 'classnames';
+import { routes } from 'pages/Root';
 import { signin } from 'api/auth';
 import axios from 'axios';
 import css from './SignIn.module.css';
@@ -81,7 +83,7 @@ export const SignIn = () => {
 
     return (
         <div className={cn(css.container)}>
-            <Image src={sailor} alt="Sailor" height={600} />
+            <Image src={sailor} alt="Sailor" height={600}/>
             <Stack
                 component="form"
                 onSubmit={formik.handleSubmit}
@@ -126,7 +128,9 @@ export const SignIn = () => {
                 >
                     <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
                     <Button type="submit" variant="contained" className={cn(css.button)}>Авторизация</Button>
-                    <Link href="#" color="primary" className={cn(css.link)}>Нет аккаунта? Зарегистрироваться</Link>
+                    <RouteLink to={routes.registration}>
+                        <Link color="primary" className={cn(css.link)}>Нет аккаунта? Зарегистрироваться</Link>
+                    </RouteLink>
                 </Stack>
             </Stack>
         </div>

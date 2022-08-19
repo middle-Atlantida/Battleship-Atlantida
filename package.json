@@ -10,6 +10,7 @@
     "test": "jest --passWithNoTests",
     "check": "npm-run-all check:*",
     "check:eslint": "eslint ./src",
+    "fix:eslint": "eslint ./src --fix",
     "check:stylelint": "stylelint \"**/*.css\"",
     "check:ts": "tsc --noEmit",
     "fix": "npm-run-all fix:*",
@@ -78,6 +79,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router": "6.3.0",
+    "react-router-dom": "6.3.0",
     "yup": "0.32.11"
   },
   "bugs": {

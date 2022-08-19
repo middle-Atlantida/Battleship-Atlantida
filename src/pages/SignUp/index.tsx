@@ -11,6 +11,7 @@ import {
 import { Image } from 'components/Image';
 import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
+import { Link as RouteLink } from 'react-router-dom';
 import {
     NAME_RULES,
     LOGIN_RULES,
@@ -19,6 +20,7 @@ import {
     PHONE_RULES,
 } from 'const/validationRules';
 import cn from 'classnames';
+import { routes } from 'pages/Root';
 import { signup } from 'api/auth';
 import axios from 'axios';
 import css from './SignUp.module.css';
@@ -172,7 +174,9 @@ export const SignUp = () => {
                 >
                     <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
                     <Button type="submit" variant="contained" className={cn(css.button)}>Создать аккаунт</Button>
-                    <Link href="#" color="primary" className={cn(css.link)}>Войти</Link>
+                    <RouteLink to={routes.login}>
+                        <Link color="primary" className={cn(css.link)}>Войти</Link>
+                    </RouteLink>
                 </Stack>
             </Stack>
         </div>
