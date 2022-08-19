@@ -1,3 +1,5 @@
+@import "../../utils/mixins/text.css";
+
 .container {
   text-align: center;
 }
@@ -28,11 +30,9 @@
 }
 
 li {
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 19px;
+  @mixin Uppercase-important-text;
+
   margin-bottom: 20px;
-  text-transform: uppercase;
   list-style-type: none;
   width: fit-content;
   cursor: pointer;
