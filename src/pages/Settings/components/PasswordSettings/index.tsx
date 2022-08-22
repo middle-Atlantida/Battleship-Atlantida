@@ -1,22 +1,18 @@
 import React from 'react';
-import sailor from 'img/sailor.svg';
 import {
     Button,
     Stack,
     TextField,
     Typography,
 } from '@mui/material';
-import { Image } from 'components/Image';
 import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import {
-    NAME_RULES,
-    LOGIN_RULES,
-    EMAIL_RULES,
-    PHONE_RULES,
+    PASSWORD_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
 import cn from 'classnames';
+import css from './PasswordSettings.css';
 
 interface ISettingsPasswordFormikValues {
     oldPassword: string;
@@ -32,60 +28,41 @@ interface IField {
 
 const fields: IField[] = [
     {
-        id: 'firstName',
-        title: 'Имя',
-        type: 'text',
+        id: 'oldPassword',
+        title: 'Старый пароль',
+        type: 'password',
     },
     {
-        id: 'secondName',
-        title: 'Фамилия',
-        type: 'text',
+        id: 'newPassword',
+        title: 'Новый пароль',
+        type: 'password',
     },
     {
-        id: 'login',
-        title: 'Логин',
-        type: 'text',
-    },
-    {
-        id: 'email',
-        title: 'Email',
-        type: 'email',
-    },
-    {
-        id: 'phone',
-        title: 'Телефон',
-        type: 'phone',
+        id: 'repeatePassword',
+        title: 'Повторите пароль',
+        type: 'password',
     },
 ];
 
 const initialValues = {
-    firstName: '',
-    secondName: '',
-    email: '',
-    phone: '',
-    login: '',
-    password: '',
+    oldPassword: '',
+    newPassword: '',
+    repeatePassword: '',
 };
 
 const validationSchema = Yup.object({
-    firstName: Yup.string()
-        .matches(NAME_RULES.regexp, NAME_RULES.error)
+    oldPassword: Yup.string()
+        .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
         .required(REQUIRE_TEXT),
-    secondName: Yup.string()
-        .matches(NAME_RULES.regexp, NAME_RULES.error)
+    newPassword: Yup.string()
+        .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
         .required(REQUIRE_TEXT),
-    email: Yup.string()
-        .matches(EMAIL_RULES.regexp, EMAIL_RULES.error)
-        .required(REQUIRE_TEXT),
-    phone: Yup.string()
-        .matches(PHONE_RULES.regexp, PHONE_RULES.error)
-        .required(REQUIRE_TEXT),
-    login: Yup.string()
-        .matches(LOGIN_RULES.regexp, LOGIN_RULES.error)
+    repeatePassword: Yup.string()
+        .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
         .required(REQUIRE_TEXT),
 });
 
-export const Settings = () => {
+export const PasswordSettings = () => {
     const formik: FormikProps<ISettingsPasswordFormikValues> = useFormik({
         initialValues,
         validationSchema,
@@ -96,23 +73,18 @@ export const Settings = () => {
     });
 
     return (
-        <div className={cn(css.container)}>
-            <Image src={sailor} alt="Sailor" height={600} />
+        <div className={css.container}>
             <Stack
                 component="form"
                 onSubmit={formik.handleSubmit}
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
                 spacing={3}
-                sx={{ width: '251px' }}
+                sx={{ gap: '50px' }}
             >
-                <Typography variant="h1" className={cn(css.title)}>Регистрация</Typography>
+                <Typography variant="h2" className={cn(css.title)}>Поменять пароль</Typography>
                 <Stack
                     direction="column"
-                    justifyContent="center"
-                    alignItems="stretch"
                     spacing={1}
+                    sx={{ margin: '0 !important' }}
                 >
                     {fields.map(({ id, title, type }: IField) => (
                         <TextField
@@ -134,14 +106,7 @@ export const Settings = () => {
                         />
                     ))}
                 </Stack>
-                <Stack
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={2}
-                >
-                    <Button type="submit" variant="contained" className={cn(css.button)}>Создать аккаунт</Button>
-                </Stack>
+                <Button type="submit" variant="contained" className={cn(css.button)}>Сохранить</Button>
             </Stack>
         </div>
     );

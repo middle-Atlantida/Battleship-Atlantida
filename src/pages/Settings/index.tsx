@@ -1,13 +1,14 @@
-import React from 'react';
-import sailor from 'img/sailor.svg';
+import React, { useCallback, useState } from 'react';
+import avatar from 'img/avatar.svg';
 import {
     Button,
     Stack,
     TextField,
-    Typography,
+    Link,
 } from '@mui/material';
 import { Image } from 'components/Image';
-import { PageWithHeader } from 'components/PageWithHeader';
+import { Header } from 'components/Header';
+import { Modal } from 'components/Modal';
 import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -19,6 +20,8 @@ import {
 } from 'const/validationRules';
 import cn from 'classnames';
 import css from './Settings.css';
+import { PasswordSettings } from './components/PasswordSettings';
+import { AvatarSettings } from './components/AvatarSettings';
 
 interface ISettingsProfileFormikValues {
     firstName: string;
@@ -87,70 +90,83 @@ const validationSchema = Yup.object({
         .required(REQUIRE_TEXT),
 });
 
+const MODAL_VARIANTS = {
+    avatar: 'avatar',
+    password: 'password',
+};
+
 export const Settings = () => {
+    const [open, setOpen] = useState(false);
+    const [currentModal, setCurrentModal] = useState('');
+
+    const handleOpen = useCallback(() => {
+        setOpen(true);
+    }, []);
+
+    const handleOpenAvatar = useCallback(() => {
+        setCurrentModal(MODAL_VARIANTS.avatar);
+        handleOpen();
+    }, [handleOpen]);
+
+    const handleOpenPassword = useCallback(() => {
+        setCurrentModal(MODAL_VARIANTS.password);
+        handleOpen();
+    }, [handleOpen]);
+
+    const handleClose = useCallback(() => {
+        setOpen(false);
+    }, []);
+
     const formik: FormikProps<ISettingsProfileFormikValues> = useFormik({
         initialValues,
         validationSchema,
         onSubmit: values => {
             console.log(values);
-            // TODO call signup
+            // TODO call change Profile
         },
     });
 
     return (
-        <div className={cn(css.container)}>
-            <PageWithHeader
-                headerText="Настройки"
-                backText="В главное меню"
-                backUrl="menu"
-            >
-                <Image src={sailor} alt="Sailor" height={600} />
+        <>
+            <Header title='Настройки' />
+            <div className={css.container}>
+                <Image className={css.avatar} src={avatar} alt="Avatar" width={116} onClick={handleOpenAvatar} />
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}
                     direction="column"
-                    justifyContent="center"
-                    alignItems="center"
                     spacing={3}
-                    sx={{ width: '251px' }}
+                    sx={{ width: '750px' }}
                 >
-                    <Typography variant="h1" className={cn(css.title)}>Регистрация</Typography>
-                    <Stack
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="stretch"
-                        spacing={1}
-                    >
-                        {fields.map(({ id, title, type }: IField) => (
-                            <TextField
-                                key={id}
-                                id={id}
-                                name={id}
-                                label={title}
-                                value={formik.values[id]}
-                                type={type}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={!!formik.touched[id] && !!formik.errors[id]}
-                                helperText={
-                                    !!formik.touched[id] && !!formik.errors[id]
-                                        ? formik.errors[id]
-                                        : null
-                                }
-                                variant="standard"
-                            />
-                        ))}
-                    </Stack>
-                    <Stack
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={2}
-                    >
-                        <Button type="submit" variant="contained" className={cn(css.button)}>Создать аккаунт</Button>
-                    </Stack>
+                    {fields.map(({ id, title, type }: IField) => (
+                        <TextField
+                            key={id}
+                            id={id}
+                            name={id}
+                            label={title}
+                            value={formik.values[id]}
+                            type={type}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={!!formik.touched[id] && !!formik.errors[id]}
+                            helperText={
+                                !!formik.touched[id] && !!formik.errors[id]
+                                    ? formik.errors[id]
+                                    : null
+                            }
+                            variant="standard"
+                        />
+                    ))}
+                    <Link color="primary" className={cn(css.link)} onClick={handleOpenPassword}>Поменять пароль</Link>
+                    <Button type="submit" variant="contained" className={cn(css.button)}>Сохранить</Button>
                 </Stack>
-            </PageWithHeader>
-        </div>
+            </div>
+            <Modal
+                open={open}
+                onClose={handleClose}
+            >
+                {currentModal === MODAL_VARIANTS.avatar ? <AvatarSettings/> : <PasswordSettings/>}
+            </Modal>
+        </>
     );
 };

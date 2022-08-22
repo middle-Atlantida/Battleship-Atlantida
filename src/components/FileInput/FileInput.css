@@ -1,0 +1,17 @@
+@import "../../utils/mixins/text";
+
+.input {
+  display: none;
+}
+
+.label {
+  @mixin Important-text;
+
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.uploadLogo {
+  margin-right: 10px;
+}

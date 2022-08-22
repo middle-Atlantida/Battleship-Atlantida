@@ -3,7 +3,7 @@ import { Header } from 'components/Header';
 import { routes } from 'pages/Root';
 import cn from 'classnames';
 import { Image } from 'components/Image';
-import css from './Leaderboard.module.css';
+import css from './Leaderboard.css';
 
 type ILeaderProfile = {
   urlImg: string;
@@ -30,7 +30,6 @@ export const Leaderboard = () => (
     <>
         <Header
             title={'Таблица лидеров'}
-            backText={'В главное меню'}
             backLink={routes.main}
         />
         <main className={cn(css.container)}>

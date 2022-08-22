@@ -16,7 +16,7 @@ import cn from 'classnames';
 import { routes } from 'pages/Root';
 import { signin } from 'api/auth';
 import axios from 'axios';
-import css from './SignIn.module.css';
+import css from './SignIn.css';
 
 interface ISignInFormikValues {
     login: string;

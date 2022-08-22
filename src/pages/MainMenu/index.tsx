@@ -4,7 +4,7 @@ import { Alert, Snackbar } from '@mui/material';
 import axios from 'axios';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import { routes } from 'pages/Root';
-import css from './MainMenu.module.css';
+import css from './MainMenu.css';
 
 export const MainMenu = () => {
     const [logoutError, setLogoutError] = useState('');
