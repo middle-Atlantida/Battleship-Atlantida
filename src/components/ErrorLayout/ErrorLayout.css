@@ -1,5 +1,5 @@
-@import "../../utils/mixins/button.css";
-@import "../../utils/mixins/text.css";
+@import "../../utils/mixins/button";
+@import "../../utils/mixins/text";
 
 .container {
   display: flex;

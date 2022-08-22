@@ -1,6 +1,6 @@
-@import "../../utils/mixins/button.css";
-@import "../../utils/mixins/text.css";
-@import "../../utils/mixins/window.css";
+@import "../../utils/mixins/button";
+@import "../../utils/mixins/text";
+@import "../../utils/mixins/window";
 
 main {
   display: flex;
@@ -22,6 +22,8 @@ main {
 
 .button {
   @mixin Button;
+
+  margin-top: 50px;
 }
 
 .link {

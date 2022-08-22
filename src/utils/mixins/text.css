@@ -67,6 +67,7 @@
   font-size: 14px;
   font-weight: 600;
   text-decoration: underline;
+  cursor: pointer;
 
   &:hover {
     color: var(--action-color-hover);

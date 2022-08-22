@@ -1,19 +1,16 @@
-import React from 'react';
+import React, { ImgHTMLAttributes } from 'react';
 
-type ImageProps = {
+type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
+    className?: string | undefined;
     src: string;
     alt: string;
-    width?: number;
-    height?: number;
-    className?: string | undefined;
 };
 
 export const Image = ({
     src,
     alt,
-    width,
-    height,
     className,
+    ...props
 }: ImageProps) => (
-    <img src={src} width={width} height={height} alt={alt} className={className}/>
+    <img className={className} src={src} alt={alt} {...props} />
 );

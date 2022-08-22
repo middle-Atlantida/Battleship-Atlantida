@@ -1,4 +1,4 @@
-@import "../../utils/mixins/text.css";
+@import "../../utils/mixins/text";
 
 .container {
   display: flex;

@@ -9,6 +9,7 @@ import { Leaderboard } from 'pages/Leaderboard';
 import { Forums } from 'pages/Forums';
 import { Topics } from 'pages/Topics';
 import { Topic } from 'pages/Topic';
+import { Settings } from '../Settings';
 
 export const routes = {
     main: '/',
@@ -37,7 +38,7 @@ export const Root = () => (
         } />
         <Route path={routes.settings} element={
             <ProtectedRoute>
-                <SignUp />
+                <Settings/>
             </ProtectedRoute>
         } />
         <Route path={routes.leaderboard} element={

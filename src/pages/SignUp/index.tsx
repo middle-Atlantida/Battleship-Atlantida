@@ -24,7 +24,7 @@ import cn from 'classnames';
 import { routes } from 'pages/Root';
 import { signup } from 'api/auth';
 import axios from 'axios';
-import css from './SignUp.module.css';
+import css from './SignUp.css';
 
 interface ISignUpFormikValues {
     firstName: string;
