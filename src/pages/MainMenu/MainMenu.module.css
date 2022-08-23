@@ -31,22 +31,22 @@
   margin: 0;
   padding: 0;
   transition: 0.3s ease;
-}
 
-a {
-  text-decoration: none;
-  color: var(--main-dark-color);
-}
+  a {
+    text-decoration: none;
+    color: var(--main-dark-color);
+  }
 
-li {
-  @mixin Uppercase-important-text;
+  li {
+    @mixin Uppercase-important-text;
 
-  margin-bottom: 20px;
-  list-style-type: none;
-  width: fit-content;
-  cursor: pointer;
-}
+    margin-bottom: 20px;
+    list-style-type: none;
+    width: fit-content;
+    cursor: pointer;
+  }
 
-li:hover {
-  color: var(--dark-grey-color);
+  li:hover {
+    color: var(--dark-grey-color);
+  }
 }

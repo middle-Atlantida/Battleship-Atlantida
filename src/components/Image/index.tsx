@@ -5,6 +5,7 @@ type ImageProps = {
     alt: string;
     width?: number;
     height?: number;
+    className?: string | undefined;
 };
 
 export const Image = ({
@@ -12,6 +13,7 @@ export const Image = ({
     alt,
     width,
     height,
+    className,
 }: ImageProps) => (
-    <img src={src} width={width} height={height} alt={alt} />
+    <img src={src} width={width} height={height} alt={alt} className={className}/>
 );
