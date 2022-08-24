@@ -121,6 +121,7 @@ export const Settings = () => {
         initialValues,
         validationSchema,
         onSubmit: values => {
+            // eslint-disable-next-line no-console
             console.log(values);
             // TODO call change Profile
         },

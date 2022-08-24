@@ -67,6 +67,7 @@ export const PasswordSettings = () => {
         initialValues,
         validationSchema,
         onSubmit: values => {
+            // eslint-disable-next-line no-console
             console.log(values);
             // TODO call signup
         },

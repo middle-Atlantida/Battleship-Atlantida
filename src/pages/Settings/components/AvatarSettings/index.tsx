@@ -36,6 +36,7 @@ export const AvatarSettings = () => {
     const formik: FormikProps<ISettingsAvatarFormikValues> = useFormik({
         initialValues,
         onSubmit: values => {
+            // eslint-disable-next-line no-console
             console.log(values);
             // TODO call signup
         },
@@ -53,7 +54,12 @@ export const AvatarSettings = () => {
                 alignItems="center"
                 spacing={3}
             >
-                <FileInput id={id} name={id} label={title} value={formik.values[id]} onChange={formik.handleChange} onBlur={formik.handleBlur}/>
+                <FileInput
+                    id={id}
+                    label={title}
+                    value={formik.values[id]}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}/>
             </Stack>
         </div>
     );
