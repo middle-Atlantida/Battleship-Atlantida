@@ -14,7 +14,6 @@
     "check:stylelint": "stylelint \"**/*.css\"",
     "check:ts": "tsc --noEmit",
     "fix": "npm-run-all fix:*",
-    "fix:eslint": "eslint ./src --fix",
     "fix:stylelint": "stylelint \"**/*.css\" --fix",
     "clean": "rimraf node_modules/"
   },
@@ -36,6 +35,8 @@
     "@babel/preset-typescript": "7.18.6",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
+    "@types/react-redux": "7.1.24",
+    "@types/redux": "3.6.0",
     "@typescript-eslint/eslint-plugin": "5.30.4",
     "@typescript-eslint/parser": "5.30.4",
     "babel-loader": "8.2.5",
@@ -78,8 +79,10 @@
     "postcss-nested": "5.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-redux": "8.0.2",
     "react-router": "6.3.0",
     "react-router-dom": "6.3.0",
+    "redux": "4.2.0",
     "yup": "0.32.11"
   },
   "bugs": {
