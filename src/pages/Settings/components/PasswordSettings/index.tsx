@@ -8,6 +8,7 @@ import {
 import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import {
+    PASSWORDS_MUST_MATCH_TEXT,
     PASSWORD_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
@@ -17,7 +18,7 @@ import css from './PasswordSettings.css';
 interface ISettingsPasswordFormikValues {
     oldPassword: string;
     newPassword: string;
-    repeatePassword: string;
+    repeatPassword: string;
 }
 
 interface IField {
@@ -38,7 +39,7 @@ const fields: IField[] = [
         type: 'password',
     },
     {
-        id: 'repeatePassword',
+        id: 'repeatPassword',
         title: 'Повторите пароль',
         type: 'password',
     },
@@ -47,7 +48,7 @@ const fields: IField[] = [
 const initialValues = {
     oldPassword: '',
     newPassword: '',
-    repeatePassword: '',
+    repeatPassword: '',
 };
 
 const validationSchema = Yup.object({
@@ -57,8 +58,8 @@ const validationSchema = Yup.object({
     newPassword: Yup.string()
         .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
         .required(REQUIRE_TEXT),
-    repeatePassword: Yup.string()
-        .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
+    repeatPassword: Yup.string()
+        .oneOf([Yup.ref('newPassword')], PASSWORDS_MUST_MATCH_TEXT)
         .required(REQUIRE_TEXT),
 });
 
