@@ -11,19 +11,20 @@ import {
 import { Image } from 'components/Image';
 import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
-import { Link as RouteLink } from 'react-router-dom';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import {
     NAME_RULES,
     LOGIN_RULES,
     EMAIL_RULES,
     PASSWORD_RULES,
     PHONE_RULES,
+    REQUIRE_TEXT,
 } from 'const/validationRules';
 import cn from 'classnames';
 import { routes } from 'pages/Root';
 import { signup } from 'api/auth';
 import axios from 'axios';
-import css from './SignUp.module.css';
+import css from './SignUp.css';
 
 interface ISignUpFormikValues {
     firstName: string;
@@ -85,25 +86,26 @@ const initialValues = {
 const validationSchema = Yup.object({
     firstName: Yup.string()
         .matches(NAME_RULES.regexp, NAME_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
     secondName: Yup.string()
         .matches(NAME_RULES.regexp, NAME_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
     email: Yup.string()
         .matches(EMAIL_RULES.regexp, EMAIL_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
     phone: Yup.string()
         .matches(PHONE_RULES.regexp, PHONE_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
     login: Yup.string()
         .matches(LOGIN_RULES.regexp, LOGIN_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
     password: Yup.string()
         .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
-        .required('* Обязательно'),
+        .required(REQUIRE_TEXT),
 });
 
 export const SignUp = () => {
+    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
         initialValues,
@@ -116,7 +118,7 @@ export const SignUp = () => {
                 const res = await signup({ first_name, second_name, ...rest });
                 if (res.status === 200) {
                     // TODO router push to main page
-                    console.log(res);
+                    navigate(routes.main);
                 }
             } catch (err) {
                 if (axios.isAxiosError(err)) {
@@ -128,57 +130,68 @@ export const SignUp = () => {
     });
 
     return (
-        <div className={cn(css.container)}>
-            <Image src={sailor} alt="Sailor" height={600} />
-            <Stack
-                component="form"
-                onSubmit={formik.handleSubmit}
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                spacing={3}
-                sx={{ width: '251px' }}
-            >
-                <Typography variant="h1" className={cn(css.title)}>Регистрация</Typography>
+        <main>
+            <div className={cn(css.container)}>
+                <Image src={sailor} alt="Sailor" height={600} />
                 <Stack
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="stretch"
-                    spacing={1}
-                >
-                    {fields.map(({ id, title, type }: IField) => (
-                        <TextField
-                            key={id}
-                            id={id}
-                            name={id}
-                            label={title}
-                            value={formik.values[id]}
-                            type={type}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={!!formik.touched[id] && !!formik.errors[id]}
-                            helperText={
-                                !!formik.touched[id] && !!formik.errors[id]
-                                    ? formik.errors[id]
-                                    : null
-                            }
-                            variant="standard"
-                        />
-                    ))}
-                </Stack>
-                <Stack
+                    component="form"
+                    onSubmit={formik.handleSubmit}
                     direction="column"
                     justifyContent="center"
                     alignItems="center"
-                    spacing={2}
+                    spacing={3}
+                    sx={{ width: '251px' }}
                 >
-                    <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
-                    <Button type="submit" variant="contained" className={cn(css.button)}>Создать аккаунт</Button>
-                    <RouteLink to={routes.login}>
-                        <Link color="primary" className={cn(css.link)}>Войти</Link>
-                    </RouteLink>
+                    <Typography variant="h1" className={cn(css.title)}>
+                        Регистрация
+                    </Typography>
+                    <Stack
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="stretch"
+                        spacing={1}
+                    >
+                        {fields.map(({ id, title, type }: IField) => (
+                            <TextField
+                                key={id}
+                                id={id}
+                                name={id}
+                                label={title}
+                                value={formik.values[id]}
+                                type={type}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={!!formik.touched[id] && !!formik.errors[id]}
+                                helperText={
+                                    !!formik.touched[id] && !!formik.errors[id]
+                                        ? formik.errors[id]
+                                        : null
+                                }
+                                variant="standard"
+                            />
+                        ))}
+                    </Stack>
+                    <Stack
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
+                        <Button type="submit" variant="contained" className={cn(css.button)}>
+                            Создать аккаунт
+                        </Button>
+                        <Link
+                            color="primary"
+                            className={cn(css.link)}
+                            component={RouteLink}
+                            to={routes.login}
+                        >
+                            Войти
+                        </Link>
+                    </Stack>
                 </Stack>
-            </Stack>
-        </div>
+            </div>
+        </main>
     );
 };

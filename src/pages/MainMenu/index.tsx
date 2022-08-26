@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import { logout } from 'api/auth';
 import { Alert, Snackbar } from '@mui/material';
 import axios from 'axios';
-import { Link as RouteLink } from 'react-router-dom';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import { routes } from 'pages/Root';
-import css from './MainMenu.module.css';
+import css from './MainMenu.css';
 
 export const MainMenu = () => {
     const [logoutError, setLogoutError] = useState('');
+    const navigate = useNavigate();
 
     const onLogout = async () => {
         try {
             const res = await logout();
             if (res.status === 200) {
-                console.log(res);
-                document.location.href = routes.login;
+                navigate(routes.login);
             }
         } catch (err) {
             if (axios.isAxiosError(err)) {

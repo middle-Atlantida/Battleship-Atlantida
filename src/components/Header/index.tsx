@@ -1,18 +1,28 @@
 import React from 'react';
-import css from './Header.module.css';
-import { ArrowLeft } from '../icons/ArrowLeft';
+import { Link } from '@mui/material';
+import { Link as RouteLink } from 'react-router-dom';
+import { Image } from 'components/Image';
+import arrowLeft from 'img/arrowLeft.svg';
+import cn from 'classnames';
+import css from './Header.css';
 
 type IHeaderProps = {
-    title?: string
+    title?: string | undefined,
+    backText?: string | undefined,
+    backLink?: string | undefined,
+    children?: React.ReactNode
 };
 
-const Header = ({ title = '' }: IHeaderProps) => (
+export const Header = ({
+    title = '', backText = 'В главное меню', backLink = '', children,
+}: IHeaderProps) => (
     <header className={css.header}>
-        <a href="#" className={css.backButton}>
-            <ArrowLeft width={24} height={24} color={'white'}/>В главное меню
-        </a>
-        <h1 className={css.headerTitle}>{title}</h1>
+        <Link color="primary" className={cn(css.backButton)} component={RouteLink} to={backLink}>
+            <Image src={arrowLeft} alt="back" width={24} />{backText}
+        </Link>
+        <div className={css.headerGroup}>
+            <h1 className={css.headerTitle}>{title}</h1>
+            {children}
+        </div>
     </header>
 );
-
-export default Header;

@@ -1,0 +1,28 @@
+@import "../../utils/mixins/text.css";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 20px;
+  border: solid 2px var(--dark-grey-color);
+
+  & .header {
+    @mixin Uppercase-important-text;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+
+    .profileImg {
+      width: 50px;
+      height: 50px;
+      border-radius: 100px;
+    }
+  }
+}
