@@ -42,26 +42,26 @@ export const Root = () => (
             // </ProtectedRoute>
         } />
         <Route path={routes.leaderboard} element={
-            <ProtectedRoute>
-                <Leaderboard />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <Leaderboard />
+            // </ProtectedRoute>
         } />
         <Route path={routes.forum}>
             <Route index element={
-                <ProtectedRoute>
-                    <Forums />
-                </ProtectedRoute>
+                // <ProtectedRoute>
+                <Forums />
+                // </ProtectedRoute>
             } />
             <Route path=":forumId">
                 <Route index element={
-                    <ProtectedRoute>
-                        <Topics />
-                    </ProtectedRoute>
+                    // <ProtectedRoute>
+                    <Topics />
+                    // </ProtectedRoute>
                 } />
                 <Route path=":topicId" element={
-                    <ProtectedRoute>
-                        <Topic />
-                    </ProtectedRoute>
+                    // <ProtectedRoute>
+                    <Topic />
+                    // </ProtectedRoute>
                 } />
             </Route>
 

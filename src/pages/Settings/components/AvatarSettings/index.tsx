@@ -9,8 +9,9 @@ import { FileInput } from 'components/FileInput';
 import { useFormik, FormikProps } from 'formik';
 import cn from 'classnames';
 
-import avatar from 'img/avatar.svg';
+import avatarSvg from 'img/avatar.svg';
 
+import { setAvatar } from 'api/user';
 import css from './AvatarSettings.css';
 
 interface ISettingsAvatarFormikValues {
@@ -56,10 +57,13 @@ export const AvatarSettings = () => {
 
     const formik: FormikProps<ISettingsAvatarFormikValues> = useFormik({
         initialValues,
-        onSubmit: values => {
+        onSubmit: ({ avatar }) => {
             // eslint-disable-next-line no-console
-            console.log(values);
+            const formData = new FormData();
+            formData.append('avatar', avatar);
             // TODO call signup
+
+            setAvatar(formData).then(r => console.log(r));
         },
     });
 
@@ -70,7 +74,7 @@ export const AvatarSettings = () => {
             {
                 isImageSelected
                     ? <Image className={css.avatar} src={imagePreviewSrc} alt="Avatar" width={116} />
-                    : <Image className={css.avatar} src={avatar} alt="Avatar" width={116} />
+                    : <Image className={css.avatar} src={avatarSvg} alt="Avatar" width={116} />
             }
 
             <Stack

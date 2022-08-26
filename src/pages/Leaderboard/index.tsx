@@ -3,6 +3,7 @@ import { Header } from 'components/Header';
 import { routes } from 'pages/Root';
 import cn from 'classnames';
 import { Image } from 'components/Image';
+import { PageWithHeader } from 'components/PageWithHeader';
 import css from './Leaderboard.css';
 
 type ILeaderProfile = {
@@ -28,11 +29,10 @@ const leadersInfo: ILeaderProfile[] = [
 
 export const Leaderboard = () => (
     <>
-        <Header
-            title={'Таблица лидеров'}
-            backLink={routes.main}
-        />
-        <main className={cn(css.container)}>
+        <PageWithHeader
+            headerTitle='Таблица лидеров'
+            headerBackLink={routes.main}
+        >
             <ul className={css.tableRow}>
                 <li>#</li>
                 <li className={css.profileInfo}>Игрок</li>
@@ -50,6 +50,6 @@ export const Leaderboard = () => (
                     </ul>
                 ),
             )}
-        </main>
+        </PageWithHeader>
     </>
 );

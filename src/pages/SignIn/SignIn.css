@@ -2,30 +2,23 @@
 @import "../../utils/mixins/text";
 @import "../../utils/mixins/window";
 
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
 .container {
   @mixin Bordered-window;
 
   display: flex;
   gap: 50px;
-}
 
-.title {
-  @mixin Uppercase-header-text;
-}
+  .title {
+    @mixin Uppercase-header-text;
+  }
 
-.button {
-  @mixin Button;
+  .button {
+    @mixin Button;
 
-  margin-top: 50px;
-}
+    margin-top: 50px;
+  }
 
-.link {
-  @mixin Link-text;
+  .link {
+    @mixin Link-text;
+  }
 }

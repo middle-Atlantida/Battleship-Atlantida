@@ -19,6 +19,8 @@ import {
     REQUIRE_TEXT,
 } from 'const/validationRules';
 import cn from 'classnames';
+import { routes } from 'pages/Root';
+import { PageWithHeader } from 'components/PageWithHeader';
 import css from './Settings.css';
 import { PasswordSettings } from './components/PasswordSettings';
 import { AvatarSettings } from './components/AvatarSettings';
@@ -129,45 +131,53 @@ export const Settings = () => {
 
     return (
         <>
-            <Header title='Настройки' />
-            <div className={css.container}>
-                <Image className={css.avatar} src={avatar} alt="Avatar" width={116} onClick={handleOpenAvatar} />
-                <Stack
-                    component="form"
-                    onSubmit={formik.handleSubmit}
-                    direction="column"
-                    spacing={3}
-                    sx={{ width: '750px' }}
-                >
-                    {fields.map(({ id, title, type }: IField) => (
-                        <TextField
-                            key={id}
-                            id={id}
-                            name={id}
-                            label={title}
-                            value={formik.values[id]}
-                            type={type}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={!!formik.touched[id] && !!formik.errors[id]}
-                            helperText={
-                                !!formik.touched[id] && !!formik.errors[id]
-                                    ? formik.errors[id]
-                                    : null
-                            }
-                            variant="standard"
-                        />
-                    ))}
-                    <Link color="primary" className={cn(css.link)} onClick={handleOpenPassword}>Поменять пароль</Link>
-                    <Button type="submit" variant="contained" className={cn(css.button)}>Сохранить</Button>
-                </Stack>
-            </div>
-            <Modal
-                open={open}
-                onClose={handleClose}
+            <PageWithHeader
+                headerTitle='Настройки'
+                headerBackLink={routes.main}
             >
-                {currentModal === MODAL_VARIANTS.avatar ? <AvatarSettings/> : <PasswordSettings/>}
-            </Modal>
+                <div className={css.container}>
+                    <Image className={css.avatar} src={avatar} alt="Avatar" width={116} onClick={handleOpenAvatar} />
+                    <Stack
+                        component="form"
+                        onSubmit={formik.handleSubmit}
+                        direction="column"
+                        spacing={3}
+                        sx={{ width: 1 }}
+                    >
+                        {fields.map(({ id, title, type }: IField) => (
+                            <TextField
+                                key={id}
+                                id={id}
+                                name={id}
+                                label={title}
+                                value={formik.values[id]}
+                                type={type}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={!!formik.touched[id] && !!formik.errors[id]}
+                                helperText={
+                                    !!formik.touched[id] && !!formik.errors[id]
+                                        ? formik.errors[id]
+                                        : null
+                                }
+                                variant="standard"
+                            />
+                        ))}
+                        <Link color="primary" className={cn(css.link)} onClick={handleOpenPassword}>Поменять пароль</Link>
+                        <Button type="submit" variant="contained" className={cn(css.button)}>Сохранить</Button>
+                    </Stack>
+                </div>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                >
+                    {
+                        currentModal === MODAL_VARIANTS.avatar
+                            ? <AvatarSettings/>
+                            : <PasswordSettings/>
+                    }
+                </Modal>
+            </PageWithHeader>
         </>
     );
 };

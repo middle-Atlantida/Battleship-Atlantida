@@ -24,6 +24,7 @@ import cn from 'classnames';
 import { routes } from 'pages/Root';
 import { signup } from 'api/auth';
 import axios from 'axios';
+import { ApiError } from 'api/axiosClient';
 import css from './SignUp.css';
 
 interface ISignUpFormikValues {
@@ -122,8 +123,8 @@ export const SignUp = () => {
                 }
             } catch (err) {
                 if (axios.isAxiosError(err)) {
-                    const { message } = err;
-                    setErrorMessage(message);
+                    const reason = (err as ApiError).response.data.reason ?? '';
+                    setErrorMessage(reason);
                 }
             }
         },

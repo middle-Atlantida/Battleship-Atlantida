@@ -16,6 +16,7 @@ import cn from 'classnames';
 import { routes } from 'pages/Root';
 import { signin } from 'api/auth';
 import axios from 'axios';
+import { ApiError } from 'api/axiosClient';
 import css from './SignIn.css';
 
 interface ISignInFormikValues {
@@ -71,8 +72,8 @@ export const SignIn = () => {
                 }
             } catch (err) {
                 if (axios.isAxiosError(err)) {
-                    const { message } = err;
-                    setErrorMessage(message);
+                    const reason = (err as ApiError).response.data.reason ?? '';
+                    setErrorMessage(reason);
                 }
             }
         },
