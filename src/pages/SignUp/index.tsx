@@ -24,7 +24,7 @@ import cn from 'classnames';
 import { routes } from 'pages/Root';
 import { signup } from 'api/auth';
 import axios from 'axios';
-import { storeReducers } from 'store/store';
+import { configureStore } from 'store/store';
 import { setUser } from 'store/reducers/userReducer';
 import css from './SignUp.css';
 
@@ -107,7 +107,7 @@ const validationSchema = Yup.object({
 });
 
 export const SignUp = () => {
-    const store = storeReducers();
+    const store = configureStore();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
