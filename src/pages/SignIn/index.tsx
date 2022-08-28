@@ -1,14 +1,12 @@
 import * as Yup from 'yup';
-import axios from 'axios';
 import cn from 'classnames';
 import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
-import { ApiError } from 'api/axiosClient';
 import { FormikProps, useFormik } from 'formik';
 import { Image } from 'components/Image';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import { routes } from 'pages/Root';
-import { signin } from 'api/auth';
+import { AuthAPI } from 'api/auth';
 import {
     Button, FormHelperText, Link, Stack, TextField, Typography,
 } from '@mui/material';
@@ -60,21 +58,18 @@ const validationSchema = Yup.object({
 export const SignIn = () => {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
         onSubmit: async values => {
             try {
-                const res = await signin(values);
-                if (res.status === 200) {
-                    // TODO router push to main page
+                const data = await AuthAPI.signin(values);
+                if (data) {
                     navigate(routes.main);
                 }
-            } catch (err) {
-                if (axios.isAxiosError(err)) {
-                    const reason = (err as ApiError).response.data.reason ?? '';
-                    setErrorMessage(reason);
-                }
+            } catch (error) {
+                if (error instanceof Error) { setErrorMessage(error.message); }
             }
         },
     });

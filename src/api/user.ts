@@ -24,14 +24,13 @@ export interface IGetUserRequest {
     id: number;
 }
 
-export const changeProfile = (data: IChangeProfileRequest) => axiosClient.put(PROFILE_URL, data);
-
-export const changeAvatar = (data: FormData) => axiosClient.put(AVATAR_URL, data, {
-    headers: {
-        'content-type': 'multipart/form-data',
-    },
-});
-
-export const changePassword = (data: IChangePasswordRequest) => axiosClient.put(PASSWORD_URL, data);
-
-export const getUser = ({ id }: IGetUserRequest) => axiosClient.get(`${USER_URL}/${id}`);
+export const UserAPI = {
+    profile: (data: IChangeProfileRequest) => axiosClient.put(PROFILE_URL, data),
+    avatar: (data: FormData) => axiosClient.put(AVATAR_URL, data, {
+        headers: {
+            'content-type': 'multipart/form-data',
+        },
+    }),
+    password: (data: IChangePasswordRequest) => axiosClient.put(PASSWORD_URL, data),
+    user: ({ id }: IGetUserRequest) => axiosClient.get(`${USER_URL}/${id}`),
+};

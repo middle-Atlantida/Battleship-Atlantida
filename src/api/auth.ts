@@ -19,10 +19,9 @@ export interface ISignUpRequest {
   phone: string
 }
 
-export const signin = (data: ISignInRequest) => axiosClient.post(SIGNIN_URL, data);
-
-export const signup = (data: ISignUpRequest) => axiosClient.post(SIGNUP_URL, data);
-
-export const logout = () => axiosClient.post(LOGOUT_URL);
-
-export const currentUser = () => axiosClient.get(CURR_USER_URL);
+export const AuthAPI = {
+    signin: async (data: ISignInRequest) => axiosClient.post(SIGNIN_URL, data),
+    signup: (data: ISignUpRequest) => axiosClient.post(SIGNUP_URL, data),
+    logout: () => axiosClient.post(LOGOUT_URL),
+    me: () => axiosClient.get(CURR_USER_URL),
+};

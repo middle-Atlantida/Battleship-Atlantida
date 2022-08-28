@@ -1,9 +1,7 @@
 import avatarSvg from 'img/avatar.svg';
-import axios from 'axios';
 import cn from 'classnames';
 import React, { ChangeEvent, useState } from 'react';
-import { ApiError } from 'api/axiosClient';
-import { changeAvatar } from 'api/user';
+import { UserAPI } from 'api/user';
 import { FileInput } from 'components/FileInput';
 import { FormikProps, useFormik } from 'formik';
 import { Image } from 'components/Image';
@@ -71,16 +69,13 @@ export const AvatarSettings = () => {
             formData.append('avatar', selectedFile);
 
             try {
-                const res = await changeAvatar(formData);
-                if (res.status === 200) {
+                const data = await UserAPI.avatar(formData);
+                if (data) {
                     setErrorMessage('');
                     setIsResultOK(true);
                 }
-            } catch (err) {
-                if (axios.isAxiosError(err)) {
-                    const reason = (err as ApiError).response.data.reason ?? '';
-                    setErrorMessage(reason);
-                }
+            } catch (error) {
+                if (error instanceof Error) { setErrorMessage(error.message); }
             }
         },
     });

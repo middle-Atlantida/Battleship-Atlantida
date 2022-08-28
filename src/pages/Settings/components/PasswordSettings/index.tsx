@@ -1,9 +1,7 @@
 import * as Yup from 'yup';
-import axios from 'axios';
 import cn from 'classnames';
 import React, { useState } from 'react';
-import { ApiError } from 'api/axiosClient';
-import { changePassword } from 'api/user';
+import { UserAPI } from 'api/user';
 import { FormikProps, useFormik } from 'formik';
 import {
     Button,
@@ -78,17 +76,15 @@ export const PasswordSettings = () => {
         validationSchema,
         onSubmit: async values => {
             const { oldPassword, newPassword } = values;
+
             try {
-                const res = await changePassword({ oldPassword, newPassword });
-                if (res.status === 200) {
+                const data = await UserAPI.password({ oldPassword, newPassword });
+                if (data) {
                     setErrorMessage('');
                     setIsResultOK(true);
                 }
-            } catch (err) {
-                if (axios.isAxiosError(err)) {
-                    const reason = (err as ApiError).response.data.reason ?? '';
-                    setErrorMessage(reason);
-                }
+            } catch (error) {
+                if (error instanceof Error) { setErrorMessage(error.message); }
             }
         },
     });

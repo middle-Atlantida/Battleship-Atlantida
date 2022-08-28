@@ -1,14 +1,12 @@
 import * as Yup from 'yup';
-import axios from 'axios';
 import cn from 'classnames';
 import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
-import { ApiError } from 'api/axiosClient';
 import { FormikProps, useFormik } from 'formik';
 import { Image } from 'components/Image';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import { routes } from 'pages/Root';
-import { signup } from 'api/auth';
+import { AuthAPI } from 'api/auth';
 import {
     Button,
     FormHelperText,
@@ -116,16 +114,12 @@ export const SignUp = () => {
             const { firstName: first_name, secondName: second_name, ...rest } = values;
 
             try {
-                const res = await signup({ first_name, second_name, ...rest });
-                if (res.status === 200) {
-                    // TODO router push to main page
+                const data = await AuthAPI.signup({ first_name, second_name, ...rest });
+                if (data) {
                     navigate(routes.main);
                 }
-            } catch (err) {
-                if (axios.isAxiosError(err)) {
-                    const reason = (err as ApiError).response.data.reason ?? '';
-                    setErrorMessage(reason);
-                }
+            } catch (error) {
+                if (error instanceof Error) { setErrorMessage(error.message); }
             }
         },
     });

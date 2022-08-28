@@ -1,10 +1,8 @@
 import * as Yup from 'yup';
 import avatar from 'img/avatar.svg';
-import axios from 'axios';
 import cn from 'classnames';
 import React, { useCallback, useState } from 'react';
-import { ApiError } from 'api/axiosClient';
-import { changeProfile } from 'api/user';
+import { UserAPI } from 'api/user';
 import { FormikProps, useFormik } from 'formik';
 import { Image } from 'components/Image';
 import { Modal } from 'components/Modal';
@@ -146,19 +144,15 @@ export const Settings = () => {
             } = values;
 
             try {
-                const res = await changeProfile({
+                const data = await UserAPI.profile({
                     first_name, second_name, display_name, ...rest,
                 });
-
-                if (res.status === 200) {
+                if (data) {
                     setErrorMessage('');
                     setIsResultOK(true);
                 }
-            } catch (err) {
-                if (axios.isAxiosError(err)) {
-                    const reason = (err as ApiError).response.data.reason ?? '';
-                    setErrorMessage(reason);
-                }
+            } catch (error) {
+                if (error instanceof Error) { setErrorMessage(error.message); }
             }
         },
     });
