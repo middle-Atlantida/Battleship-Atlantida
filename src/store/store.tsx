@@ -1,6 +1,7 @@
-import { legacy_createStore as createStore } from 'redux';
+import { legacy_createStore as createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { reducers } from './reducers';
 
 export function storeReducers(initialState = {}) {
-    return createStore(reducers, initialState);
+    return createStore(reducers, initialState, applyMiddleware(thunk));
 }
