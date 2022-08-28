@@ -206,7 +206,9 @@ export const Settings = () => {
                         >
                             {
                                 errorMessage
-                                && <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
+                                && <FormHelperText error={!!errorMessage}>
+                                    {errorMessage}
+                                </FormHelperText>
                             }
                             {
                                 isResultOK
