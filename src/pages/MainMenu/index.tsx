@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { logout } from 'api/auth';
-import { Alert, Snackbar } from '@mui/material';
 import axios from 'axios';
+import React, { useState } from 'react';
+import { Alert, Snackbar } from '@mui/material';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
+import { logout } from 'api/auth';
 import { routes } from 'pages/Root';
 import css from './MainMenu.css';
 

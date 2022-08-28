@@ -1,5 +1,5 @@
 import {
-    LOGOUT_URL, SIGNIN_URL, SIGNUP_URL, USER_URL,
+    LOGOUT_URL, SIGNIN_URL, SIGNUP_URL, CURR_USER_URL,
 } from 'const/apiConstants';
 import { axiosClient } from './axiosClient';
 
@@ -25,4 +25,4 @@ export const signup = (data: ISignUpRequest) => axiosClient.post(SIGNUP_URL, dat
 
 export const logout = () => axiosClient.post(LOGOUT_URL);
 
-export const user = () => axiosClient.get(USER_URL);
+export const currentUser = () => axiosClient.get(CURR_USER_URL);

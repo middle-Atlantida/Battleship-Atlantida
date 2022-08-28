@@ -5,10 +5,10 @@ export const RESOURCES_URL = `${BASE_URL}resources`;
 export const SIGNIN_URL = 'auth/signin';
 export const SIGNUP_URL = 'auth/signup';
 export const LOGOUT_URL = 'auth/logout';
-export const USER_URL = 'auth/user';
+export const CURR_USER_URL = 'auth/user';
 
 // user
-export const PROFILE_URL = 'user/profile';
+export const USER_URL = '/user';
+export const PROFILE_URL = `${USER_URL}/profile`;
 export const AVATAR_URL = `${PROFILE_URL}/avatar`;
-export const PASSWORD_URL = 'user/password';
-// export const USER_URL = '/user/search';
+export const PASSWORD_URL = `${USER_URL}/password`;

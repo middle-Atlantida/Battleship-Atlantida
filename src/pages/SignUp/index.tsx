@@ -1,5 +1,14 @@
+import * as Yup from 'yup';
+import axios from 'axios';
+import cn from 'classnames';
 import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
+import { ApiError } from 'api/axiosClient';
+import { FormikProps, useFormik } from 'formik';
+import { Image } from 'components/Image';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
+import { routes } from 'pages/Root';
+import { signup } from 'api/auth';
 import {
     Button,
     FormHelperText,
@@ -8,10 +17,6 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
-import { Image } from 'components/Image';
-import { useFormik, FormikProps } from 'formik';
-import * as Yup from 'yup';
-import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import {
     NAME_RULES,
     LOGIN_RULES,
@@ -20,11 +25,6 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import cn from 'classnames';
-import { routes } from 'pages/Root';
-import { signup } from 'api/auth';
-import axios from 'axios';
-import { ApiError } from 'api/axiosClient';
 import css from './SignUp.css';
 
 interface ISignUpFormikValues {

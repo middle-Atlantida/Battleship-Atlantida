@@ -1,18 +1,23 @@
-import React from 'react';
+import * as Yup from 'yup';
+import axios from 'axios';
+import cn from 'classnames';
+import React, { useState } from 'react';
+import { ApiError } from 'api/axiosClient';
+import { changePassword } from 'api/user';
+import { FormikProps, useFormik } from 'formik';
 import {
     Button,
+    FormHelperText,
     Stack,
     TextField,
     Typography,
 } from '@mui/material';
-import { useFormik, FormikProps } from 'formik';
-import * as Yup from 'yup';
 import {
+    PASSWORDS_MUST_DIFFER_TEXT,
     PASSWORDS_MUST_MATCH_TEXT,
     PASSWORD_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import cn from 'classnames';
 import css from './PasswordSettings.css';
 
 interface ISettingsPasswordFormikValues {
@@ -57,6 +62,7 @@ const validationSchema = Yup.object({
         .required(REQUIRE_TEXT),
     newPassword: Yup.string()
         .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
+        .notOneOf([Yup.ref('oldPassword')], PASSWORDS_MUST_DIFFER_TEXT)
         .required(REQUIRE_TEXT),
     repeatPassword: Yup.string()
         .oneOf([Yup.ref('newPassword')], PASSWORDS_MUST_MATCH_TEXT)
@@ -64,13 +70,26 @@ const validationSchema = Yup.object({
 });
 
 export const PasswordSettings = () => {
+    const [errorMessage, setErrorMessage] = useState('');
+    const [isResultOK, setIsResultOK] = useState(false);
+
     const formik: FormikProps<ISettingsPasswordFormikValues> = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: values => {
-            // eslint-disable-next-line no-console
-            console.log(values);
-            // TODO call signup
+        onSubmit: async values => {
+            const { oldPassword, newPassword } = values;
+            try {
+                const res = await changePassword({ oldPassword, newPassword });
+                if (res.status === 200) {
+                    setErrorMessage('');
+                    setIsResultOK(true);
+                }
+            } catch (err) {
+                if (axios.isAxiosError(err)) {
+                    const reason = (err as ApiError).response.data.reason ?? '';
+                    setErrorMessage(reason);
+                }
+            }
         },
     });
 
@@ -85,6 +104,8 @@ export const PasswordSettings = () => {
                 <Typography variant="h2" className={cn(css.title)}>Поменять пароль</Typography>
                 <Stack
                     direction="column"
+                    justifyContent="center"
+                    alignItems="center"
                     spacing={1}
                     sx={{ margin: '0 !important' }}
                 >
@@ -107,6 +128,14 @@ export const PasswordSettings = () => {
                             variant="standard"
                         />
                     ))}
+                    {
+                        errorMessage
+                        && <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
+                    }
+                    {
+                        isResultOK
+                        && <FormHelperText>Пароль изменён.</FormHelperText>
+                    }
                 </Stack>
                 <Button type="submit" variant="contained" className={cn(css.button)}>Сохранить</Button>
             </Stack>

@@ -1,12 +1,10 @@
-import { Header } from 'components/Header';
-import { forumsData, ITopic } from 'const/mockForumsData';
-import { routes } from 'pages/Root';
 import React from 'react';
-import { useParams } from 'react-router';
 import { Button, Link } from '@mui/material';
+import { forumsData, ITopic } from 'const/mockForumsData';
 import { Link as RouteLink } from 'react-router-dom';
-import cn from 'classnames';
 import { PageWithHeader } from 'components/PageWithHeader';
+import { routes } from 'pages/Root';
+import { useParams } from 'react-router';
 import css from './Topics.module.css';
 
 export const Topics = () => {
@@ -23,7 +21,7 @@ export const Topics = () => {
                     <Button
                         type="submit"
                         variant="contained"
-                        className={cn(css.button)}
+                        className={css.button ?? ''}
                     >
                         Создать тему
                     </Button>

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Header } from 'components/Header';
-import { routes } from 'pages/Root';
-import cn from 'classnames';
 import { Image } from 'components/Image';
 import { PageWithHeader } from 'components/PageWithHeader';
+import { routes } from 'pages/Root';
 import css from './Leaderboard.css';
 
 type ILeaderProfile = {

@@ -1,15 +1,15 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { ProtectedRoute } from 'components/ProtectedRoute';
-import { SignUp } from 'pages/SignUp';
-import { SignIn } from 'pages/SignIn';
+import { Forums } from 'pages/Forums';
+import { Leaderboard } from 'pages/Leaderboard';
 import { MainMenu } from 'pages/MainMenu';
 import { NotFound } from 'pages/NotFound';
-import { Leaderboard } from 'pages/Leaderboard';
-import { Forums } from 'pages/Forums';
-import { Topics } from 'pages/Topics';
-import { Topic } from 'pages/Topic';
+import { ProtectedRoute } from 'components/ProtectedRoute';
+import { Route, Routes } from 'react-router-dom';
 import { Settings } from 'pages/Settings';
+import { SignIn } from 'pages/SignIn';
+import { SignUp } from 'pages/SignUp';
+import { Topic } from 'pages/Topic';
+import { Topics } from 'pages/Topics';
 
 export const routes = {
     main: '/',
@@ -37,31 +37,31 @@ export const Root = () => (
             </ProtectedRoute>
         } />
         <Route path={routes.settings} element={
-            // <ProtectedRoute>
-            <Settings/>
-            // </ProtectedRoute>
+            <ProtectedRoute>
+                <Settings/>
+            </ProtectedRoute>
         } />
         <Route path={routes.leaderboard} element={
-            // <ProtectedRoute>
-            <Leaderboard />
-            // </ProtectedRoute>
+            <ProtectedRoute>
+                <Leaderboard />
+            </ProtectedRoute>
         } />
         <Route path={routes.forum}>
             <Route index element={
-                // <ProtectedRoute>
-                <Forums />
-                // </ProtectedRoute>
+                <ProtectedRoute>
+                    <Forums />
+                </ProtectedRoute>
             } />
             <Route path=":forumId">
                 <Route index element={
-                    // <ProtectedRoute>
-                    <Topics />
-                    // </ProtectedRoute>
+                    <ProtectedRoute>
+                        <Topics />
+                    </ProtectedRoute>
                 } />
                 <Route path=":topicId" element={
-                    // <ProtectedRoute>
-                    <Topic />
-                    // </ProtectedRoute>
+                    <ProtectedRoute>
+                        <Topic />
+                    </ProtectedRoute>
                 } />
             </Route>
 
