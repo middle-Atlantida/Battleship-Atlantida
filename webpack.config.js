@@ -5,7 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.tsx',
+    entry: {
+        main: './src/index.tsx',
+        'service-worker': './public/service-worker.js',
+    },
     devtool: 'inline-source-map',
     devServer: {
         static: {
