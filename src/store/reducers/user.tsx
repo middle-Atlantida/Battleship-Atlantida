@@ -1,4 +1,6 @@
-type IUser = {
+import { action } from '../actions/user';
+
+export type IUser = {
     'id': number,
     'first_name': string,
     'second_name': string,
@@ -11,13 +13,9 @@ type IUser = {
 
 export function user(state: IUser | object = {}, { type, user }: any = {}) {
     switch (type) {
-        case 'SET_USER':
+        case action.SET_USER:
             return { ...state, user };
         default:
             return state;
     }
-}
-
-export function setUser(userInfo: IUser) {
-    return { type: 'SET_USER', user: userInfo };
 }

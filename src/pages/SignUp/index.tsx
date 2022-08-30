@@ -23,9 +23,7 @@ import {
 import cn from 'classnames';
 import { routes } from 'pages/Root';
 import { signup } from 'api/auth';
-import axios from 'axios';
-import { configureStore } from 'store/store';
-import { setUser } from 'src/store/reducers/user';
+import { setUser } from 'store/actions/user';
 import css from './SignUp.css';
 
 interface ISignUpFormikValues {
@@ -107,36 +105,42 @@ const validationSchema = Yup.object({
 });
 
 export const SignUp = () => {
-    const store = configureStore();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: async values => {
+        onSubmit: values => {
             // eslint-disable-next-line camelcase
             const { firstName: first_name, secondName: second_name, ...rest } = values;
 
-            try {
-                const res = await signup({ first_name, second_name, ...rest });
-                if (res.status === 200) {
-                    // TODO router push to main page
-                    store.dispatch(setUser(JSON.parse(res.data)));
-                    navigate(routes.main);
-                }
-            } catch (err) {
-                if (axios.isAxiosError(err)) {
-                    const { message } = err;
-                    setErrorMessage(message);
-                }
-            }
+            return dispatch => {
+                signup({ first_name, second_name, ...rest }).then(res => {
+                    dispatch(setUser(JSON.parse(res.data)));
+                }).catch(err => {
+                    setErrorMessage(err);
+                });
+            };
+            // try {
+            //     const res = await signup({ first_name, second_name, ...rest });
+            //     if (res.status === 200) {
+            //         // TODO router push to main page
+            //         store.dispatch(setUser(JSON.parse(res.data)));
+            //         navigate(routes.main);
+            //     }
+            // } catch (err) {
+            //     if (axios.isAxiosError(err)) {
+            //         const { message } = err;
+            //         setErrorMessage(message);
+            //     }
+            // }
         },
     });
 
     return (
         <main>
             <div className={cn(css.container)}>
-                <Image src={sailor} alt="Sailor" height={600} />
+                <Image src={sailor} alt="Sailor" height={600}/>
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}
