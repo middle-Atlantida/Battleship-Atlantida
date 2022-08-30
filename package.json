@@ -15,6 +15,7 @@
     "fix": "npm-run-all fix:*",
     "fix:eslint": "eslint ./src --fix",
     "fix:stylelint": "stylelint \"**/*.css\" --fix",
+    "fix:eslint": "eslint ./src --fix",
     "clean": "rimraf node_modules/"
   },
   "repository": {

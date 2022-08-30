@@ -6,7 +6,7 @@ import {
 import { Image } from 'components/Image';
 import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
-import { Link as RouteLink } from 'react-router-dom';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import {
     LOGIN_RULES,
     PASSWORD_RULES,
@@ -15,8 +15,9 @@ import {
 import cn from 'classnames';
 import { routes } from 'pages/Root';
 import { signin } from 'api/auth';
-import { storeReducers } from 'store/store';
-import { setUser } from 'store/reducers/userReducer';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setUser } from 'store/actions/user';
 import css from './SignIn.css';
 
 interface ISignInFormikValues {
@@ -58,26 +59,32 @@ const validationSchema = Yup.object({
 });
 
 export const SignIn = () => {
-    const store = storeReducers();
-    // const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: values => {
-            signin(values).then(res => {
-                store.dispatch(setUser(JSON.parse(res.data)));
-            }).catch(err => {
-                const { message } = err;
-                setErrorMessage(message);
-            });
+        onSubmit: async values => {
+            try {
+                const res = await signin(values);
+                if (res.status === 200) {
+                    dispatch(setUser(JSON.parse(res.data)));
+                    navigate(routes.main);
+                }
+            } catch (err) {
+                if (axios.isAxiosError(err)) {
+                    const { message } = err;
+                    setErrorMessage(message);
+                }
+            }
         },
     });
 
     return (
         <main>
             <div className={cn(css.container)}>
-                <Image src={sailor} alt="Sailor" height={600}/>
+                <Image src={sailor} alt="Sailor" height={600} />
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}
