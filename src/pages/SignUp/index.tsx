@@ -25,7 +25,7 @@ import { routes } from 'pages/Root';
 import { signup } from 'api/auth';
 import axios from 'axios';
 import { configureStore } from 'store/store';
-import { setUser } from 'store/reducers/userReducer';
+import { setUser } from 'src/store/reducers/user';
 import css from './SignUp.css';
 
 interface ISignUpFormikValues {

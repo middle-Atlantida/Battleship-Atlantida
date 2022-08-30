@@ -9,7 +9,7 @@ type IUser = {
     'avatar': string
 };
 
-export function userReducer(state: IUser | object = {}, { type, user }: any = {}) {
+export function user(state: IUser | object = {}, { type, user }: any = {}) {
     switch (type) {
         case 'SET_USER':
             return { ...state, user };

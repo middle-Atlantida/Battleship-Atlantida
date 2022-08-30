@@ -16,8 +16,8 @@ import cn from 'classnames';
 import { routes } from 'pages/Root';
 import { signin } from 'api/auth';
 import axios from 'axios';
-import { configureStore } from 'store/store';
-import { setUser } from 'store/reducers/userReducer';
+import { useDispatch } from 'react-redux';
+import { setUser } from 'store/actions/user';
 import css from './SignIn.css';
 
 interface ISignInFormikValues {
@@ -59,7 +59,7 @@ const validationSchema = Yup.object({
 });
 
 export const SignIn = () => {
-    const store = configureStore();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const formik: FormikProps<ISignInFormikValues> = useFormik({
@@ -69,7 +69,7 @@ export const SignIn = () => {
             try {
                 const res = await signin(values);
                 if (res.status === 200) {
-                    store.dispatch(setUser(JSON.parse(res.data)));
+                    dispatch(setUser(JSON.parse(res.data)));
                     navigate(routes.main);
                 }
             } catch (err) {
