@@ -1,5 +1,12 @@
+import * as Yup from 'yup';
+import cn from 'classnames';
 import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
+import { FormikProps, useFormik } from 'formik';
+import { Image } from 'components/Image';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
+import { routes } from 'pages/Root';
+import { AuthAPI } from 'api/auth';
 import {
     Button,
     FormHelperText,
@@ -8,10 +15,6 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
-import { Image } from 'components/Image';
-import { useFormik, FormikProps } from 'formik';
-import * as Yup from 'yup';
-import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import {
     NAME_RULES,
     LOGIN_RULES,
@@ -20,10 +23,6 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import cn from 'classnames';
-import { routes } from 'pages/Root';
-import { signup } from 'api/auth';
-import axios from 'axios';
 import css from './SignUp.css';
 
 interface ISignUpFormikValues {
@@ -115,16 +114,12 @@ export const SignUp = () => {
             const { firstName: first_name, secondName: second_name, ...rest } = values;
 
             try {
-                const res = await signup({ first_name, second_name, ...rest });
-                if (res.status === 200) {
-                    // TODO router push to main page
+                const data = await AuthAPI.signup({ first_name, second_name, ...rest });
+                if (data) {
                     navigate(routes.main);
                 }
-            } catch (err) {
-                if (axios.isAxiosError(err)) {
-                    const { message } = err;
-                    setErrorMessage(message);
-                }
+            } catch (error) {
+                if (error instanceof Error) { setErrorMessage(error.message); }
             }
         },
     });

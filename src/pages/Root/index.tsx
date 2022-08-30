@@ -1,15 +1,15 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { ProtectedRoute } from 'components/ProtectedRoute';
-import { SignUp } from 'pages/SignUp';
-import { SignIn } from 'pages/SignIn';
+import { Forums } from 'pages/Forums';
+import { Leaderboard } from 'pages/Leaderboard';
 import { MainMenu } from 'pages/MainMenu';
 import { NotFound } from 'pages/NotFound';
-import { Leaderboard } from 'pages/Leaderboard';
-import { Forums } from 'pages/Forums';
-import { Topics } from 'pages/Topics';
+import { ProtectedRoute } from 'components/ProtectedRoute';
+import { Route, Routes } from 'react-router-dom';
+import { Settings } from 'pages/Settings';
+import { SignIn } from 'pages/SignIn';
+import { SignUp } from 'pages/SignUp';
 import { Topic } from 'pages/Topic';
-import { Settings } from '../Settings';
+import { Topics } from 'pages/Topics';
 
 export const routes = {
     main: '/',

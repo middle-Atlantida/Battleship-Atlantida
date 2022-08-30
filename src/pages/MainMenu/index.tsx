@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { logout } from 'api/auth';
 import { Alert, Snackbar } from '@mui/material';
-import axios from 'axios';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import { routes } from 'pages/Root';
+import { AuthAPI } from 'api/auth';
 import css from './MainMenu.css';
 
 export const MainMenu = () => {
@@ -12,15 +11,12 @@ export const MainMenu = () => {
 
     const onLogout = async () => {
         try {
-            const res = await logout();
-            if (res.status === 200) {
+            const data = await AuthAPI.logout();
+            if (data) {
                 navigate(routes.login);
             }
-        } catch (err) {
-            if (axios.isAxiosError(err)) {
-                const { message } = err;
-                setLogoutError(message);
-            }
+        } catch (error) {
+            if (error instanceof Error) { setLogoutError(error.message); }
         }
     };
 

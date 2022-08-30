@@ -1,16 +1,20 @@
-import React, { useCallback, useState } from 'react';
+import * as Yup from 'yup';
 import avatar from 'img/avatar.svg';
+import cn from 'classnames';
+import React, { useCallback, useState } from 'react';
+import { UserAPI } from 'api/user';
+import { FormikProps, useFormik } from 'formik';
+import { Image } from 'components/Image';
+import { Modal } from 'components/Modal';
+import { PageWithHeader } from 'components/PageWithHeader';
+import { routes } from 'pages/Root';
 import {
     Button,
     Stack,
     TextField,
     Link,
+    FormHelperText,
 } from '@mui/material';
-import { Image } from 'components/Image';
-import { Header } from 'components/Header';
-import { Modal } from 'components/Modal';
-import { useFormik, FormikProps } from 'formik';
-import * as Yup from 'yup';
 import {
     NAME_RULES,
     LOGIN_RULES,
@@ -18,14 +22,14 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import cn from 'classnames';
-import css from './Settings.css';
 import { PasswordSettings } from './components/PasswordSettings';
 import { AvatarSettings } from './components/AvatarSettings';
+import css from './Settings.css';
 
 interface ISettingsProfileFormikValues {
     firstName: string;
     secondName: string;
+    displayName: string;
     email: string;
     phone: string;
     login: string;
@@ -48,6 +52,11 @@ const fields: IField[] = [
         type: 'text',
     },
     {
+        id: 'displayName',
+        title: 'Никнейм',
+        type: 'text',
+    },
+    {
         id: 'login',
         title: 'Логин',
         type: 'text',
@@ -64,9 +73,11 @@ const fields: IField[] = [
     },
 ];
 
+// TODO initial values - user info
 const initialValues = {
     firstName: '',
     secondName: '',
+    displayName: '',
     email: '',
     phone: '',
     login: '',
@@ -77,6 +88,9 @@ const validationSchema = Yup.object({
         .matches(NAME_RULES.regexp, NAME_RULES.error)
         .required(REQUIRE_TEXT),
     secondName: Yup.string()
+        .matches(NAME_RULES.regexp, NAME_RULES.error)
+        .required(REQUIRE_TEXT),
+    displayName: Yup.string()
         .matches(NAME_RULES.regexp, NAME_RULES.error)
         .required(REQUIRE_TEXT),
     email: Yup.string()
@@ -98,6 +112,8 @@ const MODAL_VARIANTS = {
 export const Settings = () => {
     const [open, setOpen] = useState(false);
     const [currentModal, setCurrentModal] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [isResultOK, setIsResultOK] = useState(false);
 
     const handleOpen = useCallback(() => {
         setOpen(true);
@@ -120,54 +136,99 @@ export const Settings = () => {
     const formik: FormikProps<ISettingsProfileFormikValues> = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: values => {
-            // eslint-disable-next-line no-console
-            console.log(values);
-            // TODO call change Profile
+        onSubmit: async values => {
+            const {
+                // eslint-disable-next-line camelcase
+                firstName: first_name, secondName: second_name, displayName: display_name,
+                ...rest
+            } = values;
+
+            try {
+                const data = await UserAPI.profile({
+                    first_name, second_name, display_name, ...rest,
+                });
+                if (data) {
+                    setErrorMessage('');
+                    setIsResultOK(true);
+                }
+            } catch (error) {
+                if (error instanceof Error) { setErrorMessage(error.message); }
+            }
         },
     });
 
     return (
         <>
-            <Header title='Настройки' />
-            <div className={css.container}>
-                <Image className={css.avatar} src={avatar} alt="Avatar" width={116} onClick={handleOpenAvatar} />
-                <Stack
-                    component="form"
-                    onSubmit={formik.handleSubmit}
-                    direction="column"
-                    spacing={3}
-                    sx={{ width: '750px' }}
-                >
-                    {fields.map(({ id, title, type }: IField) => (
-                        <TextField
-                            key={id}
-                            id={id}
-                            name={id}
-                            label={title}
-                            value={formik.values[id]}
-                            type={type}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={!!formik.touched[id] && !!formik.errors[id]}
-                            helperText={
-                                !!formik.touched[id] && !!formik.errors[id]
-                                    ? formik.errors[id]
-                                    : null
-                            }
-                            variant="standard"
-                        />
-                    ))}
-                    <Link color="primary" className={cn(css.link)} onClick={handleOpenPassword}>Поменять пароль</Link>
-                    <Button type="submit" variant="contained" className={cn(css.button)}>Сохранить</Button>
-                </Stack>
-            </div>
-            <Modal
-                open={open}
-                onClose={handleClose}
+            <PageWithHeader
+                headerTitle='Настройки'
+                headerBackLink={routes.main}
             >
-                {currentModal === MODAL_VARIANTS.avatar ? <AvatarSettings/> : <PasswordSettings/>}
-            </Modal>
+                <div className={css.container}>
+                    <Image className={css.avatar} src={avatar} alt="Avatar" width={116} onClick={handleOpenAvatar} />
+                    <Stack
+                        component="form"
+                        onSubmit={formik.handleSubmit}
+                        direction="column"
+                        spacing={3}
+                        sx={{ width: 1 }}
+                    >
+                        <Stack
+                            direction="column"
+                            spacing={2}
+                        >
+                            {fields.map(({ id, title, type }: IField) => (
+                                <TextField
+                                    key={id}
+                                    id={id}
+                                    name={id}
+                                    label={title}
+                                    value={formik.values[id]}
+                                    type={type}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    error={!!formik.touched[id] && !!formik.errors[id]}
+                                    helperText={
+                                        !!formik.touched[id] && !!formik.errors[id]
+                                            ? formik.errors[id]
+                                            : null
+                                    }
+                                    variant="standard"
+                                />
+                            ))}
+                            <Link color="primary" className={cn(css.link)} onClick={handleOpenPassword}>Поменять пароль</Link>
+                        </Stack>
+                        <Stack
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="center"
+                            spacing={2}
+                            sx={{ paddingTop: '26px' }}
+                        >
+                            {
+                                errorMessage
+                                && <FormHelperText error={!!errorMessage}>
+                                    {errorMessage}
+                                </FormHelperText>
+                            }
+                            {
+                                isResultOK
+                                && <FormHelperText>Данные профиля изменены.</FormHelperText>
+                            }
+                            <Button type="submit" variant="contained" className={cn(css.button)}>Сохранить</Button>
+                        </Stack>
+                    </Stack>
+                </div>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                >
+                    {
+                        currentModal === MODAL_VARIANTS.avatar
+                            ? <AvatarSettings/>
+                            : <PasswordSettings/>
+                    }
+                </Modal>
+            </PageWithHeader>
         </>
     );
 };
