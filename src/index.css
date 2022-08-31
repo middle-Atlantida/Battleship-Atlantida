@@ -28,3 +28,10 @@ body {
   width: 100vw;
   font-family: Inter, sans-serif;
 }
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

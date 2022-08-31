@@ -1,5 +1,12 @@
+import * as Yup from 'yup';
+import cn from 'classnames';
 import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
+import { FormikProps, useFormik } from 'formik';
+import { Image } from 'components/Image';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
+import { routes } from 'pages/Root';
+import { AuthAPI } from 'api/auth';
 import {
     Button,
     FormHelperText,
@@ -8,10 +15,6 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
-import { Image } from 'components/Image';
-import { useFormik, FormikProps } from 'formik';
-import * as Yup from 'yup';
-import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import {
     NAME_RULES,
     LOGIN_RULES,
@@ -20,12 +23,8 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import cn from 'classnames';
-import { routes } from 'pages/Root';
-import { signup } from 'api/auth';
-import axios from 'axios';
-import { configureStore } from 'store/store';
 import { setUser } from 'store/actions/user';
+import { useDispatch } from 'react-redux';
 import css from './SignUp.css';
 
 interface ISignUpFormikValues {
@@ -107,7 +106,7 @@ const validationSchema = Yup.object({
 });
 
 export const SignUp = () => {
-    const store = configureStore();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
@@ -118,17 +117,14 @@ export const SignUp = () => {
             const { firstName: first_name, secondName: second_name, ...rest } = values;
 
             try {
-                const res = await signup({ first_name, second_name, ...rest });
-                if (res.status === 200) {
-                    // TODO router push to main page
-                    store.dispatch(setUser(JSON.parse(res.data)));
+                const data: string | unknown = await
+                AuthAPI.signup({ first_name, second_name, ...rest });
+                if (data && typeof data === 'string') {
+                    dispatch(setUser(JSON.parse(data)));
                     navigate(routes.main);
                 }
-            } catch (err) {
-                if (axios.isAxiosError(err)) {
-                    const { message } = err;
-                    setErrorMessage(message);
-                }
+            } catch (error) {
+                if (error instanceof Error) { setErrorMessage(error.message); }
             }
         },
     });

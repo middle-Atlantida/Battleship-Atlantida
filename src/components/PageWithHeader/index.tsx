@@ -1,26 +1,30 @@
 import React from 'react';
-import {
-    Link,
-} from '@mui/material';
-import cn from 'classnames';
+import { Header } from 'components/Header';
 import css from './PageWithHeader.css';
 
-type PageWithHeaderProps = {
-    backText: string;
-    backUrl: string;
-    headerText: string;
-    children: React.ReactNode;
+type IPageWithHeaderProps = {
+    headerTitle?: string;
+    headerBackText?: string;
+    headerBackLink?: string;
+    headerChildren?: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export const PageWithHeader = ({
-    children, headerText, backText, backUrl,
-}: PageWithHeaderProps) => (
-    <div className={cn(css.container)}>
-        <header>
-            <p>{backText}</p>
-            <Link>{backUrl}</Link>
-            {headerText}
-        </header>
-        {children}
-    </div>
+    children, headerTitle, headerBackText, headerBackLink, headerChildren,
+}: IPageWithHeaderProps) => (
+    <>
+        <Header
+            title={headerTitle}
+            backText={headerBackText}
+            backLink={headerBackLink}
+        >
+            {headerChildren}
+        </Header>
+        <main>
+            <div className={css.container}>
+                {children}
+            </div>
+        </main>
+    </>
 );

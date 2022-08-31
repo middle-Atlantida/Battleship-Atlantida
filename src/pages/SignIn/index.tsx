@@ -1,21 +1,20 @@
+import * as Yup from 'yup';
 import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
+import { FormikProps, useFormik } from 'formik';
+import { Image } from 'components/Image';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import {
     Button, FormHelperText, Link, Stack, TextField, Typography,
 } from '@mui/material';
-import { Image } from 'components/Image';
-import { useFormik, FormikProps } from 'formik';
-import * as Yup from 'yup';
-import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import {
     LOGIN_RULES,
     PASSWORD_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
+import { AuthAPI } from 'api/auth';
 import cn from 'classnames';
 import { routes } from 'pages/Root';
-import { signin } from 'api/auth';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setUser } from 'store/actions/user';
 import css from './SignIn.css';
@@ -62,21 +61,19 @@ export const SignIn = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
         onSubmit: async values => {
             try {
-                const res = await signin(values);
-                if (res.status === 200) {
-                    dispatch(setUser(JSON.parse(res.data)));
+                const data: string | unknown = await AuthAPI.signin(values);
+                if (data && typeof data === 'string') {
+                    dispatch(setUser(JSON.parse(data)));
                     navigate(routes.main);
                 }
-            } catch (err) {
-                if (axios.isAxiosError(err)) {
-                    const { message } = err;
-                    setErrorMessage(message);
-                }
+            } catch (error) {
+                if (error instanceof Error) { setErrorMessage(error.message); }
             }
         },
     });

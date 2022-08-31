@@ -1,11 +1,5 @@
 @import "../../utils/mixins/table.css";
 
-.container {
-  display: block;
-  width: 50%;
-  margin: 60px auto auto;
-}
-
 .tableRow {
   @mixin Table-row;
 

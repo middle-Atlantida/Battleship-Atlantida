@@ -1,16 +1,17 @@
 import React from 'react';
-import { Header } from 'components/Header';
-import { routes } from 'pages/Root';
+import { forumsData, IForum } from 'const/mockForumsData';
 import { Link as RouteLink } from 'react-router-dom';
 import { Link } from '@mui/material';
-import cn from 'classnames';
-import { forumsData, IForum } from 'const/mockForumsData';
+import { PageWithHeader } from 'components/PageWithHeader';
+import { routes } from 'pages/Root';
 import css from './Forums.module.css';
 
 export const Forums = () => (
     <>
-        <Header title={'Форумы'} backText={'В главное меню'} backLink={routes.main} />
-        <main className={cn(css.container)}>
+        <PageWithHeader
+            headerTitle='Форумы'
+            headerBackLink={routes.main}
+        >
             <ul className={css.tableRow}>
                 <li>Форумы</li>
                 <li>Темы</li>
@@ -33,6 +34,6 @@ export const Forums = () => (
                     <li>{replies}</li>
                 </ul>
             ))}
-        </main>
+        </PageWithHeader>
     </>
 );
