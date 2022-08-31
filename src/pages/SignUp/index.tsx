@@ -105,7 +105,6 @@ const validationSchema = Yup.object({
 });
 
 export const SignUp = () => {
-    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
         initialValues,
@@ -114,9 +113,10 @@ export const SignUp = () => {
             // eslint-disable-next-line camelcase
             const { firstName: first_name, secondName: second_name, ...rest } = values;
 
-            return dispatch => {
+            return (dispatch: any, getState: any) => {
                 signup({ first_name, second_name, ...rest }).then(res => {
                     dispatch(setUser(JSON.parse(res.data)));
+                    console.log(getState);
                 }).catch(err => {
                     setErrorMessage(err);
                 });

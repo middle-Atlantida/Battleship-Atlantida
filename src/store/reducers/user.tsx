@@ -1,4 +1,4 @@
-import { action } from '../actions/user';
+import { actions } from '../actions/user';
 
 export type IUser = {
     'id': number,
@@ -13,7 +13,7 @@ export type IUser = {
 
 export function user(state: IUser | object = {}, { type, user }: any = {}) {
     switch (type) {
-        case action.SET_USER:
+        case actions.SET_USER:
             return { ...state, user };
         default:
             return state;
