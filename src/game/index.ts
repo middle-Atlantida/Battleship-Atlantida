@@ -11,13 +11,19 @@ export class Game {
 
   private screens: Record<('preparation' | 'buttle'), ScreenClass>
 
-  private gameIsFininsh: (playerWinner: boolean) => void;
+  private gameIsFininsh: (playerWinner: boolean, couterShots: number) => void;
+
+  private checkScreenName: (screenName: string) => void
 
   player: Battlefield;
 
   opponent: Battlefield;
 
-  constructor(canvas: CanvasContainer, gameIsFininsh: (playerWinner: boolean) => void) {
+  constructor(
+      canvas: CanvasContainer,
+      gameIsFininsh: (playerWinner: boolean, couterShots: number) => void,
+      checkScreenName: (screenName: string) => void,
+  ) {
       this.canvas = canvas;
       this.player = new Battlefield();
       this.opponent = new Battlefield(true);
@@ -28,9 +34,11 @@ export class Game {
       };
       this.activeScreen = 'preparation';
       this.gameIsFininsh = gameIsFininsh;
+      this.checkScreenName = checkScreenName;
   }
 
   start() {
+      this.checkScreenName(this.activeScreen);
       this.screens[this.activeScreen].start();
   }
 
@@ -39,8 +47,8 @@ export class Game {
       this.start();
   }
 
-  stop(playerWin: boolean) {
-      this.gameIsFininsh(playerWin);
+  stop(playerWin: boolean, couterShots: number) {
+      this.gameIsFininsh(playerWin, couterShots);
       console.log(playerWin ? 'Я выиграл' : 'Я проиграл');
   }
 }

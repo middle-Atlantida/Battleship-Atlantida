@@ -103,7 +103,6 @@ export class Battlefield {
       }
 
       this.getMarkers(battlefield);
-      console.log('this.isComputer', this.isComputer);
 
       if (this.isComputer && !force) {
           setTimeout(this.randomize, 0);

@@ -380,7 +380,12 @@ export class PreparationScreen {
       this.generateStartScreen();
   }
 
+  checkAllShipsInBattlefield = () => !!this.player.ships.filter(ship => ship.cells.length).length
+
   stop = () => {
+      if (!this.checkAllShipsInBattlefield()) {
+          return;
+      }
       this.removeAllEvents();
       this.app.update('buttle');
   }

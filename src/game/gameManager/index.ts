@@ -1,18 +1,26 @@
 import { Game } from '..';
 import CanvasContainer from '../renderer';
 
-export default class GameManager {
+export class GameManager {
   private canvasContainer: CanvasContainer | null = null;
 
   private game: Game;
 
-  private gameIsFininsh: (playerWinner: boolean) => void;
+  private gameIsFininsh: (playerWinner: boolean, couterShots: number) => void;
 
-  constructor(canvas: HTMLCanvasElement, gameIsFininsh: (playerWinner: boolean) => void) {
+  private checkScreenName: (screenName: string) => void
+
+  constructor(
+      canvas: HTMLCanvasElement,
+      gameIsFininsh: (playerWinner: boolean, couterShots: number) => void,
+      checkScreenName: (screenName: string) => void,
+  ) {
       this.canvasContainer = new CanvasContainer(canvas);
       this.gameIsFininsh = gameIsFininsh;
+      this.checkScreenName = checkScreenName;
 
-      this.game = new Game(this.canvasContainer as CanvasContainer, this.gameIsFininsh);
+      // eslint-disable-next-line max-len
+      this.game = new Game(this.canvasContainer as CanvasContainer, this.gameIsFininsh, this.checkScreenName);
   }
 
   run() {
@@ -20,7 +28,10 @@ export default class GameManager {
   }
 
   restart() {
-      this.game = new Game(this.canvasContainer as CanvasContainer, this.gameIsFininsh);
+      console.log('valera');
+
+      // eslint-disable-next-line max-len
+      this.game = new Game(this.canvasContainer as CanvasContainer, this.gameIsFininsh, this.checkScreenName);
 
       this.game.start();
   }

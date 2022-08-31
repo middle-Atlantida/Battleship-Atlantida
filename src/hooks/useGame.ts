@@ -4,12 +4,14 @@ import {
     useCallback,
     useEffect,
 } from 'react';
-import GameManager from '../game/gameManager';
+import { GameManager } from '../game/gameManager';
 
-export default () => {
+export const useGame = (
+    checkScreenName: (screenName: string) => void,
+    finishGame: (playerWinner: boolean, couterShots: number) => void,
+) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [gameManager, setGameManager] = useState<GameManager | null>(null);
-    const [winner, setWinner] = useState<boolean | null>(null);
 
     const restart = useCallback(() => {
         gameManager?.restart();
@@ -23,15 +25,10 @@ export default () => {
         }
     }, []);
 
-    const finishGameCallback = useCallback((playerWinner: boolean) => {
-        console.log('playerWinner', playerWinner);
-        setWinner(playerWinner);
-        console.log(winner);
-    }, []);
-
     useEffect(() => {
         if (canvasRef.current) {
-            const newGameManager = new GameManager(canvasRef.current, finishGameCallback);
+            // eslint-disable-next-line max-len
+            const newGameManager = new GameManager(canvasRef.current, finishGame, checkScreenName);
 
             newGameManager?.run();
             setGameManager(newGameManager);

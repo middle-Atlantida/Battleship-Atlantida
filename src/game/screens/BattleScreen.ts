@@ -185,6 +185,10 @@ export class ButtleScreen {
       this.isComputerTurn();
   }
 
+  countPlayerShots() {
+      return this.opponent.battlefield.flat().filter(item => item.hasShot).length;
+  }
+
   isComputerTurn() {
       const x = getRandomBetween(0, 9);
       const y = getRandomBetween(0, 9);
@@ -271,11 +275,13 @@ export class ButtleScreen {
       this.update();
       this.addEvent('click', this.isPlayerTurn);
       this.addEvent('click', this.onClickButton);
+      this.stop(); // TODO
   }
 
   stop() {
+      const counterShots = this.playerTurn ? this.countPlayerShots() : 0;
       console.log('Game is finish');
-      this.app.stop(this.playerTurn);
+      this.app.stop(this.playerTurn, counterShots);
   }
 
   update() {
