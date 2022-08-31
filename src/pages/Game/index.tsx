@@ -30,7 +30,6 @@ export const Game = () => {
                 setTitle('Результат');
                 break;
         }
-        console.log(screenName);
     };
 
     const finishGame = useCallback((playerWinner: boolean, couterShots: number) => {

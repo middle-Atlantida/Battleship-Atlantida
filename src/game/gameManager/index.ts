@@ -28,8 +28,6 @@ export class GameManager {
   }
 
   restart() {
-      console.log('valera');
-
       // eslint-disable-next-line max-len
       this.game = new Game(this.canvasContainer as CanvasContainer, this.gameIsFininsh, this.checkScreenName);
 
