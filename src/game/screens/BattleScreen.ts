@@ -275,7 +275,6 @@ export class ButtleScreen {
       this.update();
       this.addEvent('click', this.isPlayerTurn);
       this.addEvent('click', this.onClickButton);
-      this.stop(); // TODO
   }
 
   stop() {
