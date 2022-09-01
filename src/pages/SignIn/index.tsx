@@ -1,12 +1,9 @@
 import * as Yup from 'yup';
-import cn from 'classnames';
 import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
 import { FormikProps, useFormik } from 'formik';
 import { Image } from 'components/Image';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
-import { routes } from 'pages/Root';
-import { AuthAPI } from 'api/auth';
 import {
     Button, FormHelperText, Link, Stack, TextField, Typography,
 } from '@mui/material';
@@ -15,6 +12,11 @@ import {
     PASSWORD_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
+import { AuthAPI } from 'api/auth';
+import cn from 'classnames';
+import { routes } from 'pages/Root';
+import { useDispatch } from 'react-redux';
+import { setUser } from 'store/actions/user';
 import css from './SignIn.css';
 
 interface ISignInFormikValues {
@@ -56,6 +58,7 @@ const validationSchema = Yup.object({
 });
 
 export const SignIn = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -64,8 +67,9 @@ export const SignIn = () => {
         validationSchema,
         onSubmit: async values => {
             try {
-                const data = await AuthAPI.signin(values);
-                if (data) {
+                const data: string | unknown = await AuthAPI.signin(values);
+                if (data && typeof data === 'string') {
+                    dispatch(setUser(JSON.parse(data)));
                     navigate(routes.main);
                 }
             } catch (error) {

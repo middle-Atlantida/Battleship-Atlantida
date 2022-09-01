@@ -23,6 +23,8 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
+import { setUser } from 'store/actions/user';
+import { useDispatch } from 'react-redux';
 import css from './SignUp.css';
 
 interface ISignUpFormikValues {
@@ -104,6 +106,7 @@ const validationSchema = Yup.object({
 });
 
 export const SignUp = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
@@ -114,8 +117,10 @@ export const SignUp = () => {
             const { firstName: first_name, secondName: second_name, ...rest } = values;
 
             try {
-                const data = await AuthAPI.signup({ first_name, second_name, ...rest });
-                if (data) {
+                const data: string | unknown = await
+                AuthAPI.signup({ first_name, second_name, ...rest });
+                if (data && typeof data === 'string') {
+                    dispatch(setUser(JSON.parse(data)));
                     navigate(routes.main);
                 }
             } catch (error) {
