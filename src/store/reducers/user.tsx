@@ -11,7 +11,10 @@ export type IUser = {
     'avatar': string
 };
 
-export function user(state: IUser | object = {}, { type, user }: any = {}) {
+export function userReducer(
+    state: IUser | object,
+    { type, user }: { type: string, user: IUser },
+) {
     switch (type) {
         case actions.SET_USER:
             return { ...state, user };
