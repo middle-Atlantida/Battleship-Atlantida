@@ -53,6 +53,8 @@
       "@typescript-eslint/no-shadow": ["error"],
       "import/no-named-as-default-member": 0,
       "no-restricted-syntax": 0,
+      "default-param-last": 0,
+      "prefer-arrow-callback": 0,
       "@typescript-eslint/ban-ts-comment": [
           "error",
           {
@@ -96,16 +98,8 @@
       "version": "detect"
     },
     "import/resolver": {
-      "node": {
-        "extensions": [
-          ".js",
-          ".ts",
-          ".tsx"
-        ],
-        "moduleDirectory": [
-          "node_modules",
-          "src/"
-        ]
+      "webpack": {
+        "config": "webpack.config.js"
       }
     }
   },
