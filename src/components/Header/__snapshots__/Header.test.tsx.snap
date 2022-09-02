@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Header to match snapshot 1`] = `
+<header>
+  <a
+    className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ps4owl-MuiTypography-root-MuiLink-root"
+    href="/"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+  >
+    <img
+      alt="back"
+      src=""
+      width={24}
+    />
+    В главное меню
+  </a>
+  <div>
+    <h1 />
+  </div>
+</header>
+`;

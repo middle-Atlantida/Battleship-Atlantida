@@ -14,9 +14,9 @@ import {
 } from 'const/validationRules';
 import { AuthAPI } from 'api/auth';
 import cn from 'classnames';
-import { routes } from 'pages/Root';
 import { useDispatch } from 'react-redux';
 import { setUser } from 'store/actions/user';
+import { routes } from 'src/Root';
 import css from './SignIn.css';
 
 interface ISignInFormikValues {

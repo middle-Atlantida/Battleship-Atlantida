@@ -3,8 +3,8 @@ import { forumsData, IForum } from 'const/mockForumsData';
 import { Link as RouteLink } from 'react-router-dom';
 import { Link } from '@mui/material';
 import { PageWithHeader } from 'components/PageWithHeader';
-import { routes } from 'pages/Root';
-import css from './Forums.module.css';
+import { routes } from 'src/Root';
+import css from './Forums.css';
 
 export const Forums = () => (
     <>

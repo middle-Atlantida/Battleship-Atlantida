@@ -7,7 +7,6 @@ import { FormikProps, useFormik } from 'formik';
 import { Image } from 'components/Image';
 import { Modal } from 'components/Modal';
 import { PageWithHeader } from 'components/PageWithHeader';
-import { routes } from 'pages/Root';
 import {
     Button,
     Stack,
@@ -22,6 +21,7 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
+import { routes } from 'src/Root';
 import { PasswordSettings } from './components/PasswordSettings';
 import { AvatarSettings } from './components/AvatarSettings';
 import css from './Settings.css';

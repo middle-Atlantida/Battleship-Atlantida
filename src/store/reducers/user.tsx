@@ -12,12 +12,14 @@ export type IUser = {
 };
 
 export function userReducer(
-    state: IUser | object,
-    { type, user }: { type: string, user: IUser },
+    state: IUser | object = {},
+    action: { type: string, payload: {
+        user: IUser
+     } },
 ) {
-    switch (type) {
+    switch (action.type) {
         case actions.SET_USER:
-            return { ...state, user };
+            return { ...state, user: action.payload.user };
         default:
             return state;
     }

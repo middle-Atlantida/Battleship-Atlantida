@@ -3,8 +3,8 @@ import { Button, Link } from '@mui/material';
 import { forumsData, ITopic } from 'const/mockForumsData';
 import { Link as RouteLink } from 'react-router-dom';
 import { PageWithHeader } from 'components/PageWithHeader';
-import { routes } from 'pages/Root';
 import { useParams } from 'react-router';
+import { routes } from 'src/Root';
 import css from './Topics.module.css';
 
 export const Topics = () => {

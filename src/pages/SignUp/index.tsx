@@ -5,7 +5,6 @@ import sailor from 'img/sailor.svg';
 import { FormikProps, useFormik } from 'formik';
 import { Image } from 'components/Image';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
-import { routes } from 'pages/Root';
 import { AuthAPI } from 'api/auth';
 import {
     Button,
@@ -25,6 +24,7 @@ import {
 } from 'const/validationRules';
 import { setUser } from 'store/actions/user';
 import { useDispatch } from 'react-redux';
+import { routes } from 'src/Root';
 import css from './SignUp.css';
 
 interface ISignUpFormikValues {

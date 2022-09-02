@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+// self = this
 const staticCacheName = 's-app-v3';
 const dynamicCacheName = 'd-app-v3';
 
@@ -32,12 +34,12 @@ async function networkFirst(request) {
     }
 }
 
-this.addEventListener('install', async () => {
+self.addEventListener('install', async () => {
     const cache = await caches.open(staticCacheName);
     await cache.addAll(assetUrls);
 });
 
-this.addEventListener('activate', async () => {
+self.addEventListener('activate', async () => {
     const cacheNames = await caches.keys();
     await Promise.all(
         cacheNames
@@ -47,7 +49,7 @@ this.addEventListener('activate', async () => {
     );
 });
 
-this.addEventListener('fetch', event => {
+self.addEventListener('fetch', event => {
     const { request } = event;
 
     const url = new URL(request.url);

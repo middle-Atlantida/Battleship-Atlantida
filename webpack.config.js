@@ -79,6 +79,7 @@ module.exports = {
     },
     resolve: {
         alias: {
+            src: path.resolve(__dirname, 'src'),
             api: path.join('src', 'api'),
             components: path.join('src', 'components'),
             pages: path.join('src', 'pages'),

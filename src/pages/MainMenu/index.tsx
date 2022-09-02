@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Alert, Snackbar } from '@mui/material';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
-import { routes } from 'pages/Root';
 import { AuthAPI } from 'api/auth';
+import { routes } from 'src/Root';
 import css from './MainMenu.css';
 
 export const MainMenu = () => {
