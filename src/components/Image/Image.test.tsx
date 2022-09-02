@@ -11,15 +11,3 @@ describe('components/Image', () => {
         expect(tree).toMatchSnapshot();
     });
 });
-
-// it('hello jest', () => {
-//   const tree = renderer.create(
-//     <Button onClick={() => ''}>Hello, Jest!</Button>
-//   ).toJSON();
-//   expect(tree).toMatchSnapshot();
-// });
-
-// test('hello jest', () => {
-//   const wrapper = mount(<Button>Hello, Jest!</Button>);
-//   expect(wrapper.text()).toMatch('Hello, Jest!');
-// });
