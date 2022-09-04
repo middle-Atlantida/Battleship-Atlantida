@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@mui/material';
-import { Link as RouteLink } from 'react-router-dom';
+import { Link as RouteLink, LinkProps } from 'react-router-dom';
 import { Image } from 'components/Image';
 import arrowLeft from 'img/arrowLeft.svg';
 import cn from 'classnames';
@@ -13,12 +13,17 @@ type IHeaderProps = {
     children?: React.ReactNode
 };
 
+// eslint-disable-next-line @typescript-eslint/no-shadow
+const ForwardRouteLink = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(props, ref) {
+    return <RouteLink {...props} ref={ref} />;
+});
+
 export const Header = ({
     title = '', backText = 'В главное меню', backLink = '', children,
 }: IHeaderProps) => (
     <header className={css.header}>
-        <Link color="primary" className={cn(css.backButton)} component={RouteLink} to={backLink}>
-            <Image src={arrowLeft} alt="back" width={24} />{backText}
+        <Link color="primary" className={cn(css.backButton)} component={ForwardRouteLink} to={backLink}>
+            <Image src={arrowLeft} alt="back" width={24} className={css.backButtonIcon} />{backText}
         </Link>
         <div className={css.headerGroup}>
             <h1 className={css.headerTitle}>{title}</h1>

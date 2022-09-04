@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { routes } from 'pages/Root';
+import { routes } from 'src/Root';
 
 interface AuthContextType {
     user: unknown;

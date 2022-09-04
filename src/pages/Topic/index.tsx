@@ -1,11 +1,11 @@
 import cn from 'classnames';
 import React from 'react';
+import { useParams } from 'react-router';
 import { Button } from '@mui/material';
 import { ForumMessage } from 'components/ForumMessage';
 import { forumsData, IReply } from 'const/mockForumsData';
 import { PageWithHeader } from 'components/PageWithHeader';
-import { routes } from 'pages/Root';
-import { useParams } from 'react-router';
+import { routes } from 'src/Root';
 import css from './Topic.module.css';
 
 export const Topic = () => {
