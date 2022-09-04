@@ -11,12 +11,12 @@
     @mixin Button;
 
     width: fit-content;
-    margin: 50px auto 0;
   }
 
   .avatar {
     cursor: pointer;
     margin-bottom: 50px;
+    border-radius: 100px;
   }
 
   .link {

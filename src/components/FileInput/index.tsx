@@ -1,6 +1,6 @@
 import React, { InputHTMLAttributes } from 'react';
-import { Image } from 'components/Image';
 import uploadFile from 'img/uploadFile.svg';
+import { Image } from 'components/Image';
 import css from './FileInput.css';
 
 type IFileInputProps = InputHTMLAttributes<HTMLInputElement> & {

@@ -2,13 +2,6 @@
 @import "../../utils/mixins/text";
 @import "../../utils/mixins/window";
 
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
 .container {
   @mixin Bordered-window;
 

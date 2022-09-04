@@ -1,5 +1,12 @@
+import * as Yup from 'yup';
+import cn from 'classnames';
 import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
+import { FormikProps, useFormik } from 'formik';
+import { Image } from 'components/Image';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
+import { routes } from 'pages/Root';
+import { AuthAPI } from 'api/auth';
 import {
     Button,
     FormHelperText,
@@ -8,10 +15,6 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
-import { Image } from 'components/Image';
-import { useFormik, FormikProps } from 'formik';
-import * as Yup from 'yup';
-import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import {
     NAME_RULES,
     LOGIN_RULES,
@@ -20,13 +23,10 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import cn from 'classnames';
-import { routes } from 'pages/Root';
-import { signup } from 'api/auth';
 import { setUser } from 'store/actions/user';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
 import css from './SignUp.css';
-import { axiosClient } from '../../api/axiosClient';
 
 interface ISignUpFormikValues {
     firstName: string;
@@ -106,73 +106,30 @@ const validationSchema = Yup.object({
         .required(REQUIRE_TEXT),
 });
 
-const addTodoSuccess = todo => ({
-    type: 'ADD_TODO_SUCCESS',
-    payload: {
-        ...todo,
-    },
-});
-
-const addTodoStarted = () => ({
-    type: 'ADD_TODO_STARTED',
-});
-
-const addTodoFailure = error => ({
-    type: 'ADD_TODO_FAILURE',
-    payload: {
-        error,
-    },
-});
-
-const onSignUpSubmit = values => dispatch => {
-    dispatch(addTodoStarted());
-
-    console.log('test');
-
-    // axios
-    //     .post('https://jsonplaceholder.typicode.com/todos', {})
-    //     .then(res => {
-    //         dispatch(addTodoSuccess(res.data));
-    //     })
-    //     .catch(err => {
-    //         dispatch(addTodoFailure(err.message));
-    //     });
-}
-// const { firstName: first_name, secondName: second_name, ...rest } = values;
-// dispatch(addTodoStarted());
-//
-// signup({ first_name, second_name, ...rest })
-//     .then(res => {
-//         dispatch(setUser(JSON.parse(res.data)));
-//     })
-//     .catch(err => {
-//         // setErrorMessage(err);
-//         console.log(err);
-//     });
-;
-
 export const SignUp = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+
+    function signUpSubmit(values) {
+        return (dispatch: Dispatch) => {
+            AuthAPI.signin(values).then((res: any) => {
+                dispatch(setUser(JSON.parse(res)));
+                navigate(routes.main);
+            }).catch(err => {
+                setErrorMessage(err);
+            });
+        };
+    }
+
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
         initialValues,
         validationSchema,
         onSubmit: values => {
-            onSignUpSubmit(values);
             // eslint-disable-next-line camelcase
-            // const { firstName: first_name, secondName: second_name, ...rest } = values;
-            // try {
-            //     const res = await signup({ first_name, second_name, ...rest });
-            //     if (res.status === 200) {
-            //         // TODO router push to main page
-            //         store.dispatch(setUser(JSON.parse(res.data)));
-            //         navigate(routes.main);
-            //     }
-            // } catch (err) {
-            //     if (axios.isAxiosError(err)) {
-            //         const { message } = err;
-            //         setErrorMessage(message);
-            //     }
-            // }
+            const { firstName: first_name, secondName: second_name, ...rest } = values;
+
+            dispatch(signUpSubmit({ firstName: first_name, secondName: second_name, ...rest }));
         },
     });
 

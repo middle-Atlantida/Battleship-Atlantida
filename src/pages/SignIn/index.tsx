@@ -1,23 +1,23 @@
+import * as Yup from 'yup';
 import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
+import { FormikProps, useFormik } from 'formik';
+import { Image } from 'components/Image';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import {
     Button, FormHelperText, Link, Stack, TextField, Typography,
 } from '@mui/material';
-import { Image } from 'components/Image';
-import { useFormik, FormikProps } from 'formik';
-import * as Yup from 'yup';
-import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import {
     LOGIN_RULES,
     PASSWORD_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
+import { AuthAPI, ISignInRequest } from 'api/auth';
 import cn from 'classnames';
 import { routes } from 'pages/Root';
-import { signin } from 'api/auth';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setUser } from 'store/actions/user';
+import { Dispatch } from 'redux';
 import css from './SignIn.css';
 
 interface ISignInFormikValues {
@@ -62,29 +62,30 @@ export const SignIn = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+
+    function signInSubmit(values: ISignInRequest) {
+        return (dispatch: Dispatch) => {
+            AuthAPI.signin(values).then((res: any) => {
+                dispatch(setUser(JSON.parse(res)));
+                navigate(routes.main);
+            }).catch(err => {
+                setErrorMessage(err);
+            });
+        };
+    }
+
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: async values => {
-            try {
-                const res = await signin(values);
-                if (res.status === 200) {
-                    dispatch(setUser(JSON.parse(res.data)));
-                    navigate(routes.main);
-                }
-            } catch (err) {
-                if (axios.isAxiosError(err)) {
-                    const { message } = err;
-                    setErrorMessage(message);
-                }
-            }
+        onSubmit: values => {
+            dispatch(signInSubmit(values));
         },
     });
 
     return (
         <main>
             <div className={cn(css.container)}>
-                <Image src={sailor} alt="Sailor" height={600} />
+                <Image src={sailor} alt="Sailor" height={600}/>
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}

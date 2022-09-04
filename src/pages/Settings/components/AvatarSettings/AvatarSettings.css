@@ -1,11 +1,11 @@
+@import "../../../../utils/mixins/button";
 @import "../../../../utils/mixins/text";
 @import "../../../../utils/mixins/window";
 
 .container {
-  @mixin Bordered-window
+  @mixin Bordered-window;
 
-    outline: none;
-
+  outline: none;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -16,5 +16,16 @@
 
     text-align: center;
     margin-bottom: 0;
+  }
+
+  .avatar {
+    border-radius: 100px;
+  }
+
+  .button {
+    @mixin Button;
+
+    width: fit-content;
+    margin-top: 0;
   }
 }

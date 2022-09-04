@@ -1,24 +1,32 @@
-import { Header } from 'components/Header';
-import { forumsData, ITopic } from 'const/mockForumsData';
-import { routes } from 'pages/Root';
 import React from 'react';
-import { useParams } from 'react-router';
 import { Button, Link } from '@mui/material';
+import { forumsData, ITopic } from 'const/mockForumsData';
 import { Link as RouteLink } from 'react-router-dom';
-import cn from 'classnames';
+import { PageWithHeader } from 'components/PageWithHeader';
+import { routes } from 'pages/Root';
+import { useParams } from 'react-router';
 import css from './Topics.module.css';
 
 export const Topics = () => {
     const { forumId } = useParams();
     const forum = forumsData.find(f => f.id === Number(forumId));
+
     return (
         <>
-            <Header title={forum?.title ?? ''} backText={'К форумам'} backLink={routes.forum}>
-                <Button type="submit" variant="contained" className={cn(css.button)}>
+            <PageWithHeader
+                headerTitle={forum?.title ?? ''}
+                headerBackText='К форумам'
+                headerBackLink={routes.forum}
+                headerChildren={
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        className={css.button ?? ''}
+                    >
                         Создать тему
-                </Button>
-            </Header>
-            <main className={cn(css.container)}>
+                    </Button>
+                }
+            >
                 <ul className={css.tableRow}>
                     <li>Темы</li>
                     <li>Ответы</li>
@@ -39,7 +47,7 @@ export const Topics = () => {
                         <li>{replyCount}</li>
                     </ul>
                 ))}
-            </main>
+            </PageWithHeader>
         </>
     );
 };
