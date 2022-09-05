@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+
 import { BASE_URL } from 'const/apiConstants';
 
 export type ApiError = AxiosError & {

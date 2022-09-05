@@ -1,8 +1,5 @@
-import * as Yup from 'yup';
-import cn from 'classnames';
 import React, { useState } from 'react';
-import { UserAPI } from 'api/user';
-import { FormikProps, useFormik } from 'formik';
+
 import {
     Button,
     FormHelperText,
@@ -10,12 +7,18 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
+import cn from 'classnames';
+import { FormikProps, useFormik } from 'formik';
+import * as Yup from 'yup';
+
+import { UserAPI } from 'api/user';
 import {
     PASSWORDS_MUST_DIFFER_TEXT,
     PASSWORDS_MUST_MATCH_TEXT,
     PASSWORD_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
+
 import css from './PasswordSettings.css';
 
 interface ISettingsPasswordFormikValues {

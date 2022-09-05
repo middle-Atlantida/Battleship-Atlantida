@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+
 import { Alert, Snackbar } from '@mui/material';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
+
 import { AuthAPI } from 'api/auth';
+import { useAppDispatch } from 'hooks';
 import { routes } from 'src/Root';
 import { logoutUser } from 'store/actions/user';
-import { useAppDispatch } from 'utils/hooks';
+
 import css from './MainMenu.css';
 
 export const MainMenu = () => {
@@ -17,10 +20,15 @@ export const MainMenu = () => {
             const data = await AuthAPI.logout();
             if (data) {
                 await dispatch(logoutUser());
-                navigate(routes.login);
+
+                navigate(routes.signIn);
             }
         } catch (error) {
-            if (error instanceof Error) { setLogoutError(error.message); }
+            if (error instanceof Error) {
+                setLogoutError(error.message);
+            } else {
+                setLogoutError(`Unknown error: ${error}`);
+            }
         }
     };
 
@@ -34,7 +42,7 @@ export const MainMenu = () => {
                 <RouteLink to={routes.leaderboard}>
                     <li>Таблица лидеров</li>
                 </RouteLink>
-                <RouteLink to={routes.forum}>
+                <RouteLink to={routes.forums}>
                     <li>Форум</li>
                 </RouteLink>
                 <RouteLink to={routes.settings}>

@@ -1,9 +1,12 @@
 import React from 'react';
-import { forumsData, IForum } from 'const/mockForumsData';
-import { Link as RouteLink } from 'react-router-dom';
+
 import { Link } from '@mui/material';
+import { Link as RouteLink } from 'react-router-dom';
+
 import { PageWithHeader } from 'components/PageWithHeader';
+import { forumsData, IForum } from 'const/mockForumsData';
 import { routes } from 'src/Root';
+
 import css from './Forums.css';
 
 export const Forums = () => (
