@@ -1,29 +1,32 @@
-import * as Yup from 'yup';
-import avatar from 'img/avatar.svg';
-import cn from 'classnames';
 import React, { useCallback, useState } from 'react';
-import { UserAPI } from 'api/user';
+
+import {
+    Button,
+    FormHelperText,
+    Link,
+    Stack,
+    TextField,
+} from '@mui/material';
+import cn from 'classnames';
 import { FormikProps, useFormik } from 'formik';
+import * as Yup from 'yup';
+
+import { UserAPI } from 'api/user';
 import { Image } from 'components/Image';
 import { Modal } from 'components/Modal';
 import { PageWithHeader } from 'components/PageWithHeader';
 import {
-    Button,
-    Stack,
-    TextField,
-    Link,
-    FormHelperText,
-} from '@mui/material';
-import {
-    NAME_RULES,
-    LOGIN_RULES,
     EMAIL_RULES,
+    LOGIN_RULES,
+    NAME_RULES,
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
+import avatar from 'img/avatar.svg';
 import { routes } from 'src/Root';
-import { PasswordSettings } from './components/PasswordSettings';
+
 import { AvatarSettings } from './components/AvatarSettings';
+import { PasswordSettings } from './components/PasswordSettings';
 import css from './Settings.css';
 
 interface ISettingsProfileFormikValues {

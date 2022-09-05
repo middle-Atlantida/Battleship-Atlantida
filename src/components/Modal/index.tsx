@@ -1,8 +1,10 @@
 import React from 'react';
+
 import {
     Modal as MuiModal,
 } from '@mui/material';
 import cn from 'classnames';
+
 import css from './Modal.css';
 
 type IHeaderProps = {

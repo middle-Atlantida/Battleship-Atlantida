@@ -1,7 +1,8 @@
 const path = require('path');
-const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
@@ -87,6 +88,7 @@ module.exports = {
             utils: path.join('src', 'utils'),
             const: path.join('src', 'const'),
             store: path.join('src', 'store'),
+            hooks: path.join('src', 'hooks'),
         },
         modules: [
             __dirname,

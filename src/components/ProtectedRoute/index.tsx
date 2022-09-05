@@ -1,7 +1,9 @@
 import React, { ReactNode } from 'react';
+
 import { Navigate, useLocation } from 'react-router-dom';
+
+import { useAuth } from 'hooks';
 import { routes } from 'src/Root';
-import { useAuth } from 'utils/hooks';
 
 type Props = {
     children?: ReactNode;
@@ -12,7 +14,7 @@ export const ProtectedRoute = ({ children }: Props): JSX.Element => {
     const isAuthenticated = useAuth();
 
     if (!isAuthenticated) {
-        return <Navigate to={routes.login} state={{ from: location }} replace />;
+        return <Navigate to={routes.signIn} state={{ from: location }} replace />;
     }
 
     return children as JSX.Element;

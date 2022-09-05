@@ -1,6 +1,7 @@
 import {
     LOGOUT_URL, SIGNIN_URL, SIGNUP_URL, CURR_USER_URL,
 } from 'const/apiConstants';
+
 import { axiosClient } from './axiosClient';
 
 export interface ISignInRequest {
