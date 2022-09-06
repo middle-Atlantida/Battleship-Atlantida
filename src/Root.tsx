@@ -34,8 +34,8 @@ export const Root = () => {
         const initializeStore = async () => {
             try {
                 await dispatch(init());
-            } catch (e: unknown) {
-                console.log('Error while initialization:', e);
+            } catch (err) {
+                console.log('Error while initialization:', err);
             } finally {
                 console.log('Store is initialized:\n', store.getState());
             }
@@ -43,6 +43,7 @@ export const Root = () => {
         initializeStore();
     }, [dispatch]);
 
+    // TODO перенести хук в игру
     useToggleFullScreen();
 
     return (
