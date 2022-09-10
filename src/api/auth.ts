@@ -20,7 +20,7 @@ export interface ISignUpRequest {
 }
 
 export const AuthAPI = {
-    signin: (data: ISignInRequest) => axiosClient.post(SIGNIN_URL, data),
+    signin: async (data: ISignInRequest) => axiosClient.post(SIGNIN_URL, data),
     signup: (data: ISignUpRequest) => axiosClient.post(SIGNUP_URL, data),
     logout: () => axiosClient.post(LOGOUT_URL),
     me: () => axiosClient.get(CURR_USER_URL),

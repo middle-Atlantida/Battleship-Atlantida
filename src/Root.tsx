@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Forums } from 'pages/Forums';
 import { Leaderboard } from 'pages/Leaderboard';
 import { MainMenu } from 'pages/MainMenu';

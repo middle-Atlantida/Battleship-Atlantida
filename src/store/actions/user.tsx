@@ -1,14 +1,29 @@
-import { IUser } from '../../api/user';
+import { Dispatch } from '@reduxjs/toolkit';
+import { AuthAPI } from '../../api/auth';
+import { IUser } from '../reducers/user';
 
 export const actions = {
-    SET_USER: 'SET_USER',
-    GET_USER: 'GET_USER',
+    GET_USER_INITIAL: 'GET_USER_INITIAL',
+    GET_USER_SUCCESS: 'GET_USER_SUCCESS',
 };
 
-export function setUser(userInfo: IUser) {
-    return { type: actions.SET_USER, user: userInfo };
-}
+const getUserInitial = () => ({
+    type: actions.GET_USER_INITIAL,
+});
 
-export function getUser() {
-    return { type: actions.GET_USER };
-}
+const getUserComplete = (user: IUser) => ({
+    type: actions.GET_USER_SUCCESS,
+    user,
+});
+
+export const getUser = () => async (dispatch: Dispatch) => {
+    dispatch({ type: actions.GET_USER_INITIAL });
+    try {
+        const user = await AuthAPI.me();
+        dispatch({ type: actions.GET_USER_SUCCESS, user });
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error);
+        }
+    }
+};

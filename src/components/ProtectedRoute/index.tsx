@@ -1,15 +1,11 @@
 import React, { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { routes } from 'src/Root';
-
-interface AuthContextType {
-    user: unknown;
-}
-
-const AuthContext = React.createContext<AuthContextType | null>(null);
+import { useStore } from 'react-redux';
 
 function useAuth() {
-    return React.useContext(AuthContext);
+    const store = useStore();
+    return store.getState().userReducer;
 }
 
 type Props = {

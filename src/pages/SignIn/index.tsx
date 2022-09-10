@@ -12,12 +12,11 @@ import {
     PASSWORD_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import { AuthAPI, ISignInRequest } from 'api/auth';
+import { AuthAPI } from 'api/auth';
 import cn from 'classnames';
-import { routes } from 'pages/Root';
-import { useDispatch } from 'react-redux';
-import { setUser } from 'store/actions/user';
-import { Dispatch } from 'redux';
+import { useDispatch, useStore } from 'react-redux';
+import { getUser } from 'store/actions/user';
+import { routes } from 'src/Root';
 import css from './SignIn.css';
 
 interface ISignInFormikValues {
@@ -63,29 +62,26 @@ export const SignIn = () => {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
 
-    function signInSubmit(values: ISignInRequest) {
-        return (dispatch: Dispatch) => {
-            AuthAPI.signin(values).then((res: any) => {
-                dispatch(setUser(JSON.parse(res)));
-                navigate(routes.main);
-            }).catch(err => {
-                setErrorMessage(err);
-            });
-        };
-    }
-
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: values => {
-            dispatch(signInSubmit(values));
+        onSubmit: async values => {
+            try {
+                const data: string | unknown = await AuthAPI.signin(values);
+                if (data && typeof data === 'string') {
+                    await dispatch(getUser());
+                    navigate(routes.main);
+                }
+            } catch (error) {
+                if (error instanceof Error) { setErrorMessage(error.message); }
+            }
         },
     });
 
     return (
         <main>
             <div className={cn(css.container)}>
-                <Image src={sailor} alt="Sailor" height={600}/>
+                <Image src={sailor} alt="Sailor" height={600} />
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}

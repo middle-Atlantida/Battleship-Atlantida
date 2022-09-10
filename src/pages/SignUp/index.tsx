@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import cn from 'classnames';
-import React, { useState } from 'react';
+import React, { Dispatch, useState } from 'react';
 import sailor from 'img/sailor.svg';
 import { FormikProps, useFormik } from 'formik';
 import { Image } from 'components/Image';
@@ -22,11 +22,11 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import { setUser } from 'store/actions/user';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from 'redux';
+import { actions } from 'store/actions/user';
 import { routes } from 'src/Root';
+import { useDispatch } from 'react-redux';
 import css from './SignUp.css';
+import { getUser } from '../../store/actions/user';
 
 interface ISignUpFormikValues {
     firstName: string;
@@ -111,31 +111,31 @@ export const SignUp = () => {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
 
-    function signUpSubmit(values) {
-        return (dispatch: Dispatch) => {
-            AuthAPI.signin(values).then((res: any) => {
-                dispatch(setUser(JSON.parse(res)));
-                navigate(routes.main);
-            }).catch(err => {
-                setErrorMessage(err);
-            });
-        };
-    }
-
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: values => {
+        onSubmit: async values => {
             // eslint-disable-next-line camelcase
             const { firstName: first_name, secondName: second_name, ...rest } = values;
-            dispatch(signUpSubmit({ firstName: first_name, secondName: second_name, ...rest }));
+            try {
+                // eslint-disable-next-line max-len
+                const data: string | unknown = await AuthAPI.signup({ first_name, second_name, ...rest });
+                if (data && typeof data === 'string') {
+                    await dispatch(getUser());
+                    navigate(routes.main);
+                }
+            } catch (error) {
+                if (error instanceof Error) {
+                    setErrorMessage(error.message);
+                }
+            }
         },
     });
 
     return (
         <main>
             <div className={cn(css.container)}>
-                <Image src={sailor} alt="Sailor" height={600}/>
+                <Image src={sailor} alt="Sailor" height={600} />
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}
