@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import cn from 'classnames';
-import React, { useState } from 'react';
+import React, { Dispatch, useState } from 'react';
 import sailor from 'img/sailor.svg';
 import { FormikProps, useFormik } from 'formik';
 import { Image } from 'components/Image';
@@ -22,10 +22,11 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import { setUser } from 'store/actions/user';
-import { useDispatch } from 'react-redux';
+import { actions } from 'store/actions/user';
 import { routes } from 'src/Root';
+import { useDispatch } from 'react-redux';
 import css from './SignUp.css';
+import { getUser } from '../../store/actions/user';
 
 interface ISignUpFormikValues {
     firstName: string;
@@ -109,22 +110,24 @@ export const SignUp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
         initialValues,
         validationSchema,
         onSubmit: async values => {
             // eslint-disable-next-line camelcase
             const { firstName: first_name, secondName: second_name, ...rest } = values;
-
             try {
-                const data: string | unknown = await
-                AuthAPI.signup({ first_name, second_name, ...rest });
+                // eslint-disable-next-line max-len
+                const data: string | unknown = await AuthAPI.signup({ first_name, second_name, ...rest });
                 if (data && typeof data === 'string') {
-                    dispatch(setUser(JSON.parse(data)));
+                    await dispatch(getUser());
                     navigate(routes.main);
                 }
             } catch (error) {
-                if (error instanceof Error) { setErrorMessage(error.message); }
+                if (error instanceof Error) {
+                    setErrorMessage(error.message);
+                }
             }
         },
     });

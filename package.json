@@ -96,6 +96,7 @@
     "react-router-dom": "6.3.0",
     "react-test-renderer": "18.2.0",
     "redux": "4.2.0",
+    "redux-thunk": "2.4.1",
     "regenerator-runtime": "0.13.9",
     "yup": "0.32.11"
   },

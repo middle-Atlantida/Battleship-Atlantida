@@ -13,13 +13,17 @@ export type IUser = {
 
 export function userReducer(
     state: IUser | object = {},
-    action: { type: string, payload: {
-        user: IUser
-     } },
+    action: {
+        type: string, payload: {
+            user: IUser
+        }
+    },
 ) {
     switch (action.type) {
-        case actions.SET_USER:
-            return { ...state, user: action.payload.user };
+        case actions.GET_USER_INITIAL:
+            return { ...state };
+        case actions.GET_USER_SUCCESS:
+            return { ...state, user: action };
         default:
             return state;
     }

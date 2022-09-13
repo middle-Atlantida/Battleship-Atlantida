@@ -14,8 +14,8 @@ import {
 } from 'const/validationRules';
 import { AuthAPI } from 'api/auth';
 import cn from 'classnames';
-import { useDispatch } from 'react-redux';
-import { setUser } from 'store/actions/user';
+import { useDispatch, useStore } from 'react-redux';
+import { getUser } from 'store/actions/user';
 import { routes } from 'src/Root';
 import css from './SignIn.css';
 
@@ -69,7 +69,7 @@ export const SignIn = () => {
             try {
                 const data: string | unknown = await AuthAPI.signin(values);
                 if (data && typeof data === 'string') {
-                    dispatch(setUser(JSON.parse(data)));
+                    await dispatch(getUser());
                     navigate(routes.main);
                 }
             } catch (error) {
