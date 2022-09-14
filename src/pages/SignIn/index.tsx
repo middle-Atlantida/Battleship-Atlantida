@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import sailor from 'img/sailor.svg';
 import { FormikProps, useFormik } from 'formik';
 import { Image } from 'components/Image';
@@ -14,9 +14,9 @@ import {
 } from 'const/validationRules';
 import { AuthAPI } from 'api/auth';
 import cn from 'classnames';
-import { useDispatch, useStore } from 'react-redux';
 import { getUser } from 'store/actions/user';
 import { routes } from 'src/Root';
+import { useAppDispatch, useAuth } from 'utils/hooks';
 import css from './SignIn.css';
 
 interface ISignInFormikValues {
@@ -58,20 +58,28 @@ const validationSchema = Yup.object({
 });
 
 export const SignIn = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+    const isAuthenticated = useAuth();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate(routes.main);
+        }
+    });
 
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
         onSubmit: async values => {
             try {
-                const data: string | unknown = await AuthAPI.signin(values);
-                if (data && typeof data === 'string') {
+                const data: unknown = await AuthAPI.signin(values);
+                if (data) {
                     await dispatch(getUser());
                     navigate(routes.main);
                 }
+                setErrorMessage('Incorrect response');
             } catch (error) {
                 if (error instanceof Error) { setErrorMessage(error.message); }
             }

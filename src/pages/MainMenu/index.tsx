@@ -3,16 +3,20 @@ import { Alert, Snackbar } from '@mui/material';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import { AuthAPI } from 'api/auth';
 import { routes } from 'src/Root';
+import { useAppDispatch } from 'utils/hooks';
+import { logoutUser } from 'store/actions/user';
 import css from './MainMenu.css';
 
 export const MainMenu = () => {
     const [logoutError, setLogoutError] = useState('');
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const onLogout = async () => {
         try {
             const data = await AuthAPI.logout();
             if (data) {
+                await dispatch(logoutUser());
                 navigate(routes.login);
             }
         } catch (error) {
