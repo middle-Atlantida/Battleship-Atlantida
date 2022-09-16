@@ -7,7 +7,7 @@ type PropType<T, K extends keyof T> = T[K];
 export const actions = {
     INIT_USER: 'INIT_USER',
     SET_USER: 'SET_USER',
-    SET_ERROR: 'SET_ERROR',
+    SET_ERROR_USER: 'SET_ERROR_USER',
 };
 
 const initUserAction = (isInitialized: PropType<IUserState, 'isInitialized'>) => ({
@@ -21,7 +21,7 @@ const setUserAction = (user: PropType<IUserState, 'user'>) => ({
 });
 
 const setErrorAction = (error: PropType<IUserState, 'error'>) => ({
-    type: actions.SET_ERROR,
+    type: actions.SET_ERROR_USER,
     payload: { user: null, error },
 });
 

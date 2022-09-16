@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
 import { FormikProps, useFormik } from 'formik';
 import { Image } from 'components/Image';
@@ -16,7 +16,7 @@ import { AuthAPI } from 'api/auth';
 import cn from 'classnames';
 import { getUser } from 'store/actions/user';
 import { routes } from 'src/Root';
-import { useAppDispatch, useAuth } from 'utils/hooks';
+import { useAppDispatch, useRedirectIfAuthenticated } from 'utils/hooks';
 import css from './SignIn.css';
 
 interface ISignInFormikValues {
@@ -61,13 +61,8 @@ export const SignIn = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
-    const isAuthenticated = useAuth();
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate(routes.main);
-        }
-    });
+    useRedirectIfAuthenticated(routes.main);
 
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,

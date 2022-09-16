@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Forums } from 'pages/Forums';
 import { Leaderboard } from 'pages/Leaderboard';
 import { MainMenu } from 'pages/MainMenu';
@@ -10,9 +10,9 @@ import { SignIn } from 'pages/SignIn';
 import { SignUp } from 'pages/SignUp';
 import { Topic } from 'pages/Topic';
 import { Topics } from 'pages/Topics';
-import { useAppDispatch } from 'utils/hooks';
 import { init } from 'store/actions/user';
 import { store } from 'store';
+import { useAppDispatch } from 'utils/hooks';
 
 export const routes = {
     main: '/',
@@ -27,26 +27,22 @@ export const routes = {
 
 export const Root = () => {
     const dispatch = useAppDispatch();
-    const [isStoreInitialized, setIsStoreInitialized] = useState(false);
 
     useEffect(() => {
         const initializeStore = async () => {
-            if (!isStoreInitialized) {
-                try {
-                    await dispatch(init());
-                } catch (e: unknown) {
-                    console.log('Error while initialization:', e);
-                } finally {
-                    setIsStoreInitialized(true);
-                    console.log('Store is initialized:\n', store.getState());
-                }
+            try {
+                await dispatch(init());
+            } catch (e: unknown) {
+                console.log('Error while initialization:', e);
+            } finally {
+                console.log('Store is initialized:\n', store.getState());
             }
         };
         initializeStore();
-    });
+    }, []);
 
     return (
-        !isStoreInitialized ? null : (<Routes>
+        <Routes>
             <Route path={routes.main} element={
                 <ProtectedRoute>
                     <MainMenu />
@@ -92,6 +88,6 @@ export const Root = () => {
             <Route path={routes.notfound} element={
                 <NotFound />
             } />
-        </Routes>)
+        </Routes>
     );
 };

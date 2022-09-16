@@ -3,8 +3,8 @@ import { Alert, Snackbar } from '@mui/material';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import { AuthAPI } from 'api/auth';
 import { routes } from 'src/Root';
-import { useAppDispatch } from 'utils/hooks';
 import { logoutUser } from 'store/actions/user';
+import { useAppDispatch } from 'utils/hooks';
 import css from './MainMenu.css';
 
 export const MainMenu = () => {

@@ -46,7 +46,7 @@ export function userReducer(
                 user: action.payload.user,
                 error: action.payload.error,
             };
-        case actions.SET_ERROR:
+        case actions.SET_ERROR_USER:
             return {
                 ...state,
                 user: action.payload.user,
