@@ -14,10 +14,11 @@ import {
 } from 'const/validationRules';
 import { AuthAPI } from 'api/auth';
 import cn from 'classnames';
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getUser } from 'store/actions/user';
 import { routes } from 'src/Root';
 import css from './SignIn.css';
+import { getUserForOAuth } from '../../store/actions/user';
 
 interface ISignInFormikValues {
     login: string;
@@ -77,6 +78,9 @@ export const SignIn = () => {
             }
         },
     });
+
+    const oAuth = () => {
+    };
 
     return (
         <main>
@@ -139,6 +143,10 @@ export const SignIn = () => {
                             Нет аккаунта? Зарегистрироваться
                         </Link>
                     </Stack>
+
+                    <Button type="button" variant="contained" onClick={getUserForOAuth}>
+                        Войти через Яндекс
+                    </Button>
                 </Stack>
             </div>
         </main>

@@ -27,3 +27,15 @@ export const getUser = () => async (dispatch: Dispatch) => {
         }
     }
 };
+
+export const getUserForOAuth = async () => {
+    try {
+        const id = await AuthAPI.oauthId();
+        await AuthAPI.oauthAuth({ code: id.service_id, redirect_uri: 'https://limitless-taiga-49611.herokuapp.com' });
+        getUser();
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error);
+        }
+    }
+};
