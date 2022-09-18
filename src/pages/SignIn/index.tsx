@@ -14,7 +14,7 @@ import {
 } from 'const/validationRules';
 import { AuthAPI } from 'api/auth';
 import cn from 'classnames';
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getUser } from 'store/actions/user';
 import { routes } from 'src/Root';
 import css from './SignIn.css';

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Forums } from 'pages/Forums';
 import { Leaderboard } from 'pages/Leaderboard';
 import { MainMenu } from 'pages/MainMenu';
@@ -42,9 +42,7 @@ export const Root = () => (
             </ProtectedRoute>
         } />
         <Route path={routes.leaderboard} element={
-            <ProtectedRoute>
-                <Leaderboard />
-            </ProtectedRoute>
+            <Leaderboard />
         } />
         <Route path={routes.forum}>
             <Route index element={
