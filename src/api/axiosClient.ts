@@ -20,8 +20,14 @@ const axiosInstance = axios.create({
 const successCallback = (result: AxiosResponse<unknown, unknown>) => Promise.resolve(result.data);
 const errorCallback = (error: unknown) => {
     if (axios.isAxiosError(error)) {
-        const reason = (error as ApiError).response.data.reason ?? '';
-        throw new Error(reason);
+        if (error.response) {
+            if (error.response.data) {
+                const reason = (error as ApiError).response.data.reason ?? '';
+                throw new Error(reason);
+            } else {
+                throw new Error(error.message);
+            }
+        }
     }
 };
 
