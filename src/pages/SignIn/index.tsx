@@ -17,8 +17,8 @@ import cn from 'classnames';
 import { useDispatch } from 'react-redux';
 import { getUser } from 'store/actions/user';
 import { routes } from 'src/Root';
+import { getUserForOAuth } from 'store/actions/user';
 import css from './SignIn.css';
-import { getUserForOAuth } from '../../store/actions/user';
 
 interface ISignInFormikValues {
     login: string;
