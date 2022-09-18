@@ -19,6 +19,11 @@ export interface ISignUpRequest {
   phone: string
 }
 
+export interface IOAuthId {
+    // eslint-disable-next-line camelcase
+    service_id: string,
+}
+
 export interface IOAuth {
     // eslint-disable-next-line camelcase
     code: string,
@@ -31,6 +36,6 @@ export const AuthAPI = {
     signup: (data: ISignUpRequest) => axiosClient.post(SIGNUP_URL, data),
     logout: () => axiosClient.post(LOGOUT_URL),
     me: () => axiosClient.get(CURR_USER_URL),
-    oauthId: () => axiosClient.get(OAUTH_ID),
-    oauthAuth: async (data: IOAuth) => axiosClient.post(OAUTH_AUTH, data),
+    oAuthId: () => axiosClient.get(OAUTH_ID),
+    oAuth: async (data: IOAuth) => axiosClient.post(OAUTH_AUTH, data),
 };

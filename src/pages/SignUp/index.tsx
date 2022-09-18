@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import cn from 'classnames';
-import React, { Dispatch, useState } from 'react';
+import React, { useState } from 'react';
 import sailor from 'img/sailor.svg';
 import { FormikProps, useFormik } from 'formik';
 import { Image } from 'components/Image';
@@ -22,7 +22,6 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import { actions } from 'store/actions/user';
 import { routes } from 'src/Root';
 import { useDispatch } from 'react-redux';
 import css from './SignUp.css';

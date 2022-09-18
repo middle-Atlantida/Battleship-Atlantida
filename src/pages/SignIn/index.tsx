@@ -79,9 +79,6 @@ export const SignIn = () => {
         },
     });
 
-    const oAuth = () => {
-    };
-
     return (
         <main>
             <div className={cn(css.container)}>
