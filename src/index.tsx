@@ -5,12 +5,10 @@ import { theme } from 'utils/theme';
 import { StyledEngineProvider, ThemeProvider } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'components/ErrorBoundry';
-import { configureStore } from 'store/store';
+import { store } from 'store';
 import { Root } from './Root';
 import { startServiceWorker } from './serviceWorker';
 import './index.css';
-
-const store = configureStore();
 
 const App = () => (
     <React.StrictMode>
