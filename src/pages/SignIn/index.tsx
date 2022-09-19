@@ -12,9 +12,9 @@ import {
     PASSWORD_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import { AuthAPI, IOAuthId } from 'api/auth';
+import { AuthAPI } from 'api/auth';
 import cn from 'classnames';
-import { getUser } from 'store/actions/user';
+import { getUser, oAuth } from 'store/actions/user';
 import { routes } from 'src/Root';
 import { useAppDispatch, useRedirectIfAuthenticated } from 'utils/hooks';
 import css from './SignIn.css';
@@ -64,18 +64,6 @@ export const SignIn = () => {
 
     useRedirectIfAuthenticated(routes.main);
 
-    const oAuth = async () => {
-        try {
-            const id = await AuthAPI.oAuthId() as IOAuthId;
-            await AuthAPI.oAuth({ code: id.service_id, redirect_uri: 'https://limitless-taiga-49611.herokuapp.com' });
-            await dispatch(getUser());
-            return Promise.resolve(id);
-        } catch (error: unknown) {
-            const { message } = error as Error;
-            return Promise.reject(message);
-        }
-    };
-
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
@@ -94,6 +82,10 @@ export const SignIn = () => {
             }
         },
     });
+
+    const oAuthBtn = () => {
+        dispatch(oAuth());
+    };
 
     return (
         <main>
@@ -157,7 +149,7 @@ export const SignIn = () => {
                         </Link>
                     </Stack>
 
-                    <Button type="button" variant="contained" onClick={oAuth}>
+                    <Button type="button" variant="contained" onClick={oAuthBtn}>
                         Войти через Яндекс
                     </Button>
                 </Stack>

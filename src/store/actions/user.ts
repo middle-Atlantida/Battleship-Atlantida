@@ -1,4 +1,4 @@
-import { AuthAPI } from 'api/auth';
+import { AuthAPI, IOAuthId } from 'api/auth';
 import { AppThunk } from 'store';
 import { IUser, IUserState } from 'store/reducers/user';
 
@@ -39,6 +39,18 @@ export const getUser = (): AppThunk => async dispatch => {
         const { message } = error as Error;
         await dispatch(setErrorAction(message));
         return Promise.reject(error);
+    }
+};
+
+export const oAuth = (): AppThunk => async dispatch => {
+    try {
+        const id = await AuthAPI.oAuthId() as IOAuthId;
+        await AuthAPI.oAuth({ code: id.service_id, redirect_uri: 'https://limitless-taiga-49611.herokuapp.com' });
+        await dispatch(getUser());
+        return Promise.resolve(id);
+    } catch (error: unknown) {
+        const { message } = error as Error;
+        return Promise.reject(message);
     }
 };
 
