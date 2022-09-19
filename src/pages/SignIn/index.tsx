@@ -12,12 +12,11 @@ import {
     PASSWORD_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import { AuthAPI } from 'api/auth';
+import { AuthAPI, IOAuthId } from 'api/auth';
 import cn from 'classnames';
-import { useDispatch } from 'react-redux';
 import { getUser } from 'store/actions/user';
 import { routes } from 'src/Root';
-import { getUserForOAuth } from 'store/actions/user';
+import { useAppDispatch, useRedirectIfAuthenticated } from 'utils/hooks';
 import css from './SignIn.css';
 
 interface ISignInFormikValues {
@@ -59,22 +58,39 @@ const validationSchema = Yup.object({
 });
 
 export const SignIn = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+
+    useRedirectIfAuthenticated(routes.main);
+
+    const oAuth = async () => {
+        try {
+            const id = await AuthAPI.oAuthId() as IOAuthId;
+            await AuthAPI.oAuth({ code: id.service_id, redirect_uri: 'https://limitless-taiga-49611.herokuapp.com' });
+            await dispatch(getUser());
+            return Promise.resolve(id);
+        } catch (error: unknown) {
+            const { message } = error as Error;
+            return Promise.reject(message);
+        }
+    };
 
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
         onSubmit: async values => {
             try {
-                const data: string | unknown = await AuthAPI.signin(values);
-                if (data && typeof data === 'string') {
+                const data: unknown = await AuthAPI.signin(values);
+                if (data) {
                     await dispatch(getUser());
                     navigate(routes.main);
                 }
+                setErrorMessage('Incorrect response');
             } catch (error) {
-                if (error instanceof Error) { setErrorMessage(error.message); }
+                if (error instanceof Error) {
+                    setErrorMessage(error.message);
+                }
             }
         },
     });
@@ -82,7 +98,7 @@ export const SignIn = () => {
     return (
         <main>
             <div className={cn(css.container)}>
-                <Image src={sailor} alt="Sailor" height={600} />
+                <Image src={sailor} alt="Sailor" height={600}/>
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}
@@ -141,7 +157,7 @@ export const SignIn = () => {
                         </Link>
                     </Stack>
 
-                    <Button type="button" variant="contained" onClick={getUserForOAuth}>
+                    <Button type="button" variant="contained" onClick={oAuth}>
                         Войти через Яндекс
                     </Button>
                 </Stack>

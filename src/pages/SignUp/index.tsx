@@ -23,9 +23,9 @@ import {
     REQUIRE_TEXT,
 } from 'const/validationRules';
 import { routes } from 'src/Root';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch, useRedirectIfAuthenticated } from 'utils/hooks';
+import { getUser } from 'store/actions/user';
 import css from './SignUp.css';
-import { getUser } from '../../store/actions/user';
 
 interface ISignUpFormikValues {
     firstName: string;
@@ -106,9 +106,11 @@ const validationSchema = Yup.object({
 });
 
 export const SignUp = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+
+    useRedirectIfAuthenticated(routes.main);
 
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
         initialValues,
@@ -116,17 +118,16 @@ export const SignUp = () => {
         onSubmit: async values => {
             // eslint-disable-next-line camelcase
             const { firstName: first_name, secondName: second_name, ...rest } = values;
+
             try {
-                // eslint-disable-next-line max-len
-                const data: string | unknown = await AuthAPI.signup({ first_name, second_name, ...rest });
-                if (data && typeof data === 'string') {
+                const data: unknown = await AuthAPI.signup({ first_name, second_name, ...rest });
+                if (data) {
                     await dispatch(getUser());
                     navigate(routes.main);
                 }
+                setErrorMessage('Incorrect response');
             } catch (error) {
-                if (error instanceof Error) {
-                    setErrorMessage(error.message);
-                }
+                if (error instanceof Error) { setErrorMessage(error.message); }
             }
         },
     });

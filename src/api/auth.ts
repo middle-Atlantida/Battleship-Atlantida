@@ -32,10 +32,10 @@ export interface IOAuth {
 }
 
 export const AuthAPI = {
-    signin: async (data: ISignInRequest) => axiosClient.post(SIGNIN_URL, data),
+    signin: (data: ISignInRequest) => axiosClient.post(SIGNIN_URL, data),
     signup: (data: ISignUpRequest) => axiosClient.post(SIGNUP_URL, data),
     logout: () => axiosClient.post(LOGOUT_URL),
     me: () => axiosClient.get(CURR_USER_URL),
     oAuthId: () => axiosClient.get(OAUTH_ID),
-    oAuth: async (data: IOAuth) => axiosClient.post(OAUTH_AUTH, data),
+    oAuth: (data: IOAuth) => axiosClient.post(OAUTH_AUTH, data),
 };
