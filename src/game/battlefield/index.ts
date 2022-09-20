@@ -135,10 +135,15 @@ export class Battlefield {
   getShipCounter() {
       const result = [];
       for (let i = 4; i > 0; i--) {
-          const counter = this.ships.filter(ship => ship.size === i && !ship.killed).length || 0;
-          const ship = JSON.parse(JSON.stringify(this.ships.find(item => item.size === i))) as Ship;
-          result.push({ counter, ship });
+          const shipsSelectedSize = this.ships.filter(ship => ship.size === i && !ship.killed);
+          result.push({
+              counter: shipsSelectedSize.length,
+              ship: shipsSelectedSize.length
+                  ? shipsSelectedSize?.[0] as Ship
+                  : JSON.parse(JSON.stringify(this.ships.find(item => item.size === i))) as Ship,
+          });
       }
+
       return result;
   }
 
@@ -251,8 +256,6 @@ export class Battlefield {
           cellWithShip.color = flag && !this.isComputer ? BACKGROUND_COLOR_CELL_WITH_SHIP : BACKGROUND_COLOR_CELL;
           // eslint-disable-next-line max-len
           cellWithShip.borderColor = flag && !this.isComputer ? BORDER_COLOR_CELL_WITH_SHIP : BORDER_COLOR_CELL;
-          // cellWithShip.color = flag ? BACKGROUND_COLOR_CELL_WITH_SHIP : BACKGROUND_COLOR_CELL;
-          // cellWithShip.borderColor = flag ? BORDER_COLOR_CELL_WITH_SHIP : BORDER_COLOR_CELL;
 
           if (flag) {
               ship.cells.push(cellWithShip);

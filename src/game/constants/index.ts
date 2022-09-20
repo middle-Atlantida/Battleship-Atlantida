@@ -1,14 +1,14 @@
 const CANVAS_WIDTH = 1200;
-const CANVAS_HEIGHT = 800;
-const OPPONENT_SCREEN_START_FIELD_COORD_Y = 45;
+const CANVAS_HEIGHT = 1000;
+const OPPONENT_SCREEN_START_FIELD_COORD_Y = 145;
 const BATTLEFIELD_WIDTH = 445;
 const BATTLEFIELD_HEIGHT = 445;
 const PREPARATION_SCREEN_START_FIELD_COORD_X = CANVAS_WIDTH / 2 - BATTLEFIELD_WIDTH + 50;
-const PREPARATION_SCREEN_START_FIELD_COORD_Y = 45;
+const PREPARATION_SCREEN_START_FIELD_COORD_Y = 145;
 const GAP_BITWIN_BATTLEFIELDS = 220;
 // eslint-disable-next-line max-len
 const PLAYER_SCREEN_START_FIELD_COORD_X = CANVAS_WIDTH / 2 - BATTLEFIELD_WIDTH - GAP_BITWIN_BATTLEFIELDS / 2;
-const PLAYER_SCREEN_START_FIELD_COORD_Y = 45;
+const PLAYER_SCREEN_START_FIELD_COORD_Y = 145;
 const OPPONENT_SCREEN_START_FIELD_COORD_X = CANVAS_WIDTH / 2 + GAP_BITWIN_BATTLEFIELDS / 2;
 const BACKGROUND_COLOR_CELL = 'white';
 const BORDER_COLOR_CELL = '#818181';
@@ -23,8 +23,10 @@ const BORDER_COLOR_BUTTON = '#222222';
 const BACKGROUND_COLOR_BUTTON_DANGER = '#F16858';
 const BORDER_COLOR_BUTTON_DANGER = '#222222';
 const TEXT_COLOR_EMPTY_SHOT = '#B3B3B3';
-const TEXT_CELL_WITH_WRECKED_SHIP = '❌';
-const TEXT_CELL_WITHOUT_SHIP = '●';
+const TEXT_CELL_WITH_WRECKED_SHIP = '×';
+const TEXT_CELL_WITHOUT_SHIP = '∙';
+const NAME_PLAYER_BATTLEFIELD = 'Мой флот';
+const NAME_OPPONENT_BATTLEFIELD = 'Флот противника';
 
 const RADIUS = 10;
 const CELL_HEIGHT = 40;
@@ -33,12 +35,36 @@ const CELL_GAP = 5;
 
 const COLUMN_MARKERS = 'АБВГДЕЖЗИК';
 
+const POSITION_SHIPS_MARKER = {
+    ships: {
+        1: { x: 395, y: 150 },
+        2: { x: 350, y: 100 },
+        3: { x: 0, y: 150 },
+        4: { x: 0, y: 100 },
+    },
+    text: {
+        1: { x: 450, y: 175 },
+        2: { x: 450, y: 125 },
+        3: { x: 150, y: 175 },
+        4: { x: 200, y: 125 },
+    },
+};
+
+const START_COORD_POSITION_SHIPS_MARKER_PLAYER = {
+    x: 10, y: 560,
+};
+
+const START_COORD_POSITION_SHIPS_MARKER_OPPONENT = {
+    x: CANVAS_WIDTH / 2 + GAP_BITWIN_BATTLEFIELDS / 2 - 30, y: 560,
+};
+
 const enum Drawing {
   Button,
   Cell,
   Clear,
   Marker,
   Ship,
+  Text,
 }
 
 const shipDatas = [
@@ -245,6 +271,11 @@ export {
     CELL_WIDTH,
     CELL_GAP,
     COLUMN_MARKERS,
+    POSITION_SHIPS_MARKER,
     shipDatas,
+    START_COORD_POSITION_SHIPS_MARKER_PLAYER,
+    START_COORD_POSITION_SHIPS_MARKER_OPPONENT,
+    NAME_PLAYER_BATTLEFIELD,
+    NAME_OPPONENT_BATTLEFIELD,
     Drawing,
 };
