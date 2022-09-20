@@ -1,5 +1,5 @@
 import { Battlefield } from './battlefield';
-import CanvasContainer from './renderer';
+import { CanvasContainer } from './renderer';
 import { PreparationScreen } from './screens/PreparationScreen';
 import { ButtleScreen } from './screens/BattleScreen';
 import { ScreenClass } from './types';
