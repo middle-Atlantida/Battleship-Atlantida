@@ -1,5 +1,5 @@
 import { Game } from '..';
-import CanvasContainer from '../renderer';
+import { CanvasContainer } from '../renderer';
 
 export class GameManager {
   private canvasContainer: CanvasContainer | null = null;

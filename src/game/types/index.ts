@@ -9,9 +9,13 @@ type Rect = {
   borderColor?: string| undefined;
   text?: string;
   textColor?: string;
+  radius?: number;
 };
 
 type Text = {
+  x?: number;
+  y?: number;
+  fontSize?: number;
   text: string;
   textColor: string;
 };
@@ -24,14 +28,8 @@ type Cell = {
   isMarker: boolean,
   markerText?: string,
   markerColor?: string,
-  position: {
-    x: number,
-    y: number,
-  },
-  drawingCoordinate: {
-    x: number,
-    y: number,
-  },
+  position: Coord,
+  drawingCoordinate: Coord,
   row: number,
   column: number,
   width: number,
@@ -48,14 +46,8 @@ type Ship = {
   id: number,
   size: number,
   direction: string,
-  startPosition: {
-    x: number,
-    y: number,
-  },
-  position: {
-    x: number,
-    y: number,
-  },
+  startPosition: Coord,
+  position: Coord,
   cells: Cell[]
   color?: string | undefined,
   borderColor?: string | undefined,
@@ -69,7 +61,7 @@ type ScreenClass = {
   update: () => void,
 }
 
-type StartDraggedCoord = {
+type Coord = {
   x: number,
   y: number,
 }
@@ -95,5 +87,5 @@ type Element= {
 }
 
 export {
-    Rect, Update, Cell, Ship, ScreenClass, StartDraggedCoord, Button, Element,
+    Rect, Text, Update, Cell, Ship, ScreenClass, Coord, Button, Element,
 };

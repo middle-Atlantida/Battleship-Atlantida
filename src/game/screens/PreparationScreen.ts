@@ -13,11 +13,11 @@ import {
     BORDER_COLOR_BUTTON,
 } from '../constants';
 
-import CanvasContainer from '../renderer';
+import { CanvasContainer } from '../renderer';
 
 import { Battlefield } from '../battlefield';
 import { Game } from '..';
-import { Ship, StartDraggedCoord, Button } from '../types';
+import { Ship, Coord, Button } from '../types';
 
 import { isOverElement } from '../utils';
 
@@ -28,9 +28,9 @@ export class PreparationScreen {
 
   private draggedShip: null | Ship;
 
-  private startDraggedCoord: StartDraggedCoord;
+  private startDraggedCoord: Coord;
 
-  private mouseCoord: StartDraggedCoord;
+  private mouseCoord: Coord;
 
   private buttons: Record<string, Button | null>;
 
@@ -97,7 +97,7 @@ export class PreparationScreen {
   renderTextShips() {
       this.canvas.update({
           x: 860,
-          y: 140,
+          y: 240,
           width: 0,
           height: 0,
           color: 'white',
