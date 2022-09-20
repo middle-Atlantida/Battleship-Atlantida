@@ -7,6 +7,7 @@ import { AuthAPI } from 'api/auth';
 import { useAppDispatch } from 'hooks';
 import { routes } from 'src/Root';
 import { logoutUser } from 'store/actions/user';
+import { setError } from 'utils/setError';
 
 import css from './MainMenu.css';
 
@@ -24,11 +25,7 @@ export const MainMenu = () => {
                 navigate(routes.signIn);
             }
         } catch (error) {
-            if (error instanceof Error) {
-                setLogoutError(error.message);
-            } else {
-                setLogoutError(`Unknown error: ${error}`);
-            }
+            setError(error, setLogoutError);
         }
     };
 

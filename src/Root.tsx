@@ -15,6 +15,7 @@ import { Topic } from 'pages/Topic';
 import { Topics } from 'pages/Topics';
 import { store } from 'store';
 import { init } from 'store/actions/user';
+import { consoleLog } from 'utils/consoleLog';
 
 export const routes = {
     main: '/',
@@ -35,9 +36,9 @@ export const Root = () => {
             try {
                 await dispatch(init());
             } catch (err) {
-                console.log('Error while initialization:', err);
+                consoleLog('Error while initialization:', err);
             } finally {
-                console.log('Store is initialized:\n', store.getState());
+                consoleLog('Store is initialized:\n', store.getState());
             }
         };
         initializeStore();
