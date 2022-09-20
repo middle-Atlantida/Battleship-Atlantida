@@ -24,6 +24,7 @@ import {
 } from 'const/validationRules';
 import avatar from 'img/avatar.svg';
 import { routes } from 'src/Root';
+import { setError } from 'utils/setError';
 
 import { AvatarSettings } from './components/AvatarSettings';
 import { PasswordSettings } from './components/PasswordSettings';
@@ -155,7 +156,7 @@ export const Settings = () => {
                     setIsResultOK(true);
                 }
             } catch (error) {
-                if (error instanceof Error) { setErrorMessage(error.message); }
+                setError(error, setErrorMessage);
             }
         },
     });

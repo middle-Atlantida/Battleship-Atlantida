@@ -27,6 +27,7 @@ import { useAppDispatch, useRedirectIfAuthenticated } from 'hooks';
 import sailor from 'img/sailor.svg';
 import { routes } from 'src/Root';
 import { getUser } from 'store/actions/user';
+import { setError } from 'utils/setError';
 
 import css from './SignUp.css';
 
@@ -130,7 +131,7 @@ export const SignUp = () => {
                 }
                 setErrorMessage('Incorrect response');
             } catch (error) {
-                if (error instanceof Error) { setErrorMessage(error.message); }
+                setError(error, setErrorMessage);
             }
         },
     });

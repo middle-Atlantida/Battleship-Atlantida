@@ -18,6 +18,7 @@ import {
     PASSWORD_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
+import { setError } from 'utils/setError';
 
 import css from './PasswordSettings.css';
 
@@ -87,7 +88,7 @@ export const PasswordSettings = () => {
                     setIsResultOK(true);
                 }
             } catch (error) {
-                if (error instanceof Error) { setErrorMessage(error.message); }
+                setError(error, setErrorMessage);
             }
         },
     });

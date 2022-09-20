@@ -13,6 +13,7 @@ import { UserAPI } from 'api/user';
 import { FileInput } from 'components/FileInput';
 import { Image } from 'components/Image';
 import avatarSvg from 'img/avatar.svg';
+import { setError } from 'utils/setError';
 
 import css from './AvatarSettings.css';
 
@@ -78,7 +79,7 @@ export const AvatarSettings = () => {
                     setIsResultOK(true);
                 }
             } catch (error) {
-                if (error instanceof Error) { setErrorMessage(error.message); }
+                setError(error, setErrorMessage);
             }
         },
     });
