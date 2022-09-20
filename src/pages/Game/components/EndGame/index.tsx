@@ -7,27 +7,44 @@ import {
 import { Link as RouteLink } from 'react-router-dom';
 import { Image } from 'components/Image';
 import { routes } from 'pages/Root';
-import arrowLeft from 'img/arrowLeft.svg';
+import arrowBlack from 'img/arrowBlack.svg';
+import rotate from 'img/rotate.svg';
+import star from 'img/star.svg';
 import cn from 'classnames';
 import css from './EndGame.css';
 
 interface IEndGame {
     onClick: () => void;
+    winner: boolean;
 }
 
-export const EndGame = ({ onClick }: IEndGame) => (
+export const EndGame = ({ onClick, winner }: IEndGame) => (
     <div className={css.container}>
+        <h2 className={cn(css.title)}>
+            { winner ? 'Победа' : 'Поражение'}
+        </h2>
         <Stack
+            component="ul"
             direction="column"
-            spacing={{ xs: 1, sm: 2, md: 4 }}
+            justifyContent="center"
+            alignItems="center"
+            className={cn(css.list)}
         >
-            <Button type="button" variant="text" className={cn(css.button)} onClick={onClick} >Начать заново</Button>
-            <Link color="primary" className={cn(css.backButton)} component={RouteLink} to={routes.main}>
-                <Image src={arrowLeft} alt="back" width={24} />{ 'В главное меню' }
-            </Link>
-            <Link color="primary" className={cn(css.backButton)} component={RouteLink} to={routes.leaderboard}>
-                <Image src={arrowLeft} alt="back" width={24} />{ 'Таблица лидеров' }
-            </Link>
+            <li className={cn(css.list__item)}>
+                <Button type="button" variant="text" className={cn(css.button)} onClick={onClick}>
+                    <Image src={rotate} alt="back" width={24} className={cn(css.img)}/>{ 'Начать заново' }
+                </Button>
+            </li>
+            <li className={cn(css.list__item)}>
+                <Link color="primary" className={cn(css.button)} component={RouteLink} to={routes.leaderboard}>
+                    <Image src={star} alt="back" width={24} className={cn(css.img)}/>{ 'Таблица лидеров' }
+                </Link>
+            </li>
+            <li className={cn(css.list__item)}>
+                <Link color="primary" className={cn(css.button)} component={RouteLink} to={routes.main}>
+                    <Image src={arrowBlack} alt="back" width={24} className={cn(css.img)}/>{ 'В главное меню' }
+                </Link>
+            </li>
         </Stack>
     </div>
 );
