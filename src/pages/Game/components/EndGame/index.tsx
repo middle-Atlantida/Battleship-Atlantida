@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import { Link as RouteLink } from 'react-router-dom';
 import { Image } from 'components/Image';
-import { routes } from 'pages/Root';
+import { routes } from 'src/Root';
 import arrowBlack from 'img/arrowBlack.svg';
 import rotate from 'img/rotate.svg';
 import star from 'img/star.svg';

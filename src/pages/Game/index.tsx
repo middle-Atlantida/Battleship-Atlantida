@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Header } from 'components/Header';
-import { routes } from 'pages/Root';
+import { routes } from 'src/Root';
 import cn from 'classnames';
 import { Modal } from 'components/Modal';
 import { EndGame } from './components/EndGame';

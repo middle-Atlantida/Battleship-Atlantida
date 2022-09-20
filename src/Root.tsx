@@ -13,6 +13,7 @@ import { SignIn } from 'pages/SignIn';
 import { SignUp } from 'pages/SignUp';
 import { Topic } from 'pages/Topic';
 import { Topics } from 'pages/Topics';
+import { Game } from 'pages/Game';
 import { store } from 'store';
 import { init } from 'store/actions/user';
 import { consoleLog } from 'utils/consoleLog';
@@ -58,7 +59,7 @@ export const Root = () => {
             <Route path={routes.signUp} element={<SignUp />} />
             <Route path={routes.game} element={
                 <ProtectedRoute>
-                    <SignUp />
+                    <Game />
                 </ProtectedRoute>
             } />
             <Route path={routes.settings} element={
