@@ -28,7 +28,7 @@ export const routes = {
 export const Root = () => {
     const dispatch = useAppDispatch();
 
-    useEffect(() => () => {
+    useEffect(() => {
         const initializeStore = async () => {
             try {
                 await dispatch(init());

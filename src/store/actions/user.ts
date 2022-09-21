@@ -47,7 +47,7 @@ export const oAuth = (): AppThunk => async dispatch => {
         const id = await AuthAPI.oAuthId() as IOAuthId;
         await AuthAPI.oAuth({ code: id.service_id, redirect_uri: 'https://limitless-taiga-49611.herokuapp.com' });
         await dispatch(getUser());
-        return Promise.resolve(id);
+        return Promise.resolve();
     } catch (error: unknown) {
         const { message } = error as Error;
         return Promise.reject(message);
