@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { AnyAction } from 'redux';
 import thunk, { ThunkAction } from 'redux-thunk';
+
 import { rootReducer } from 'store/reducers';
 
 export const store = configureStore({

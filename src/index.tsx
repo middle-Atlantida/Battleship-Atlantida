@@ -1,11 +1,14 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { createRoot } from 'react-dom/client';
-import { theme } from 'utils/theme';
+
 import { StyledEngineProvider, ThemeProvider } from '@mui/material';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+
 import { ErrorBoundary } from 'components/ErrorBoundry';
 import { store } from 'store';
+import { theme } from 'utils/theme';
+
 import { Root } from './Root';
 import { startServiceWorker } from './serviceWorker';
 import './index.css';

@@ -1,6 +1,7 @@
 import {
     AVATAR_URL, PASSWORD_URL, PROFILE_URL, USER_URL,
 } from 'const/apiConstants';
+
 import { axiosClient } from './axiosClient';
 
 export interface IChangeProfileRequest {

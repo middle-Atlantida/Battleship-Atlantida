@@ -1,9 +1,12 @@
 import React from 'react';
+
 import { Link } from '@mui/material';
+import cn from 'classnames';
 import { Link as RouteLink, LinkProps } from 'react-router-dom';
+
 import { Image } from 'components/Image';
 import arrowLeft from 'img/arrowLeft.svg';
-import cn from 'classnames';
+
 import css from './Header.css';
 
 type IHeaderProps = {

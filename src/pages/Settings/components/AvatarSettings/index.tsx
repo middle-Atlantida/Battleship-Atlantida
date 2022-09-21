@@ -1,16 +1,20 @@
-import avatarSvg from 'img/avatar.svg';
-import cn from 'classnames';
 import React, { ChangeEvent, useState } from 'react';
-import { UserAPI } from 'api/user';
-import { FileInput } from 'components/FileInput';
-import { FormikProps, useFormik } from 'formik';
-import { Image } from 'components/Image';
+
 import {
     Stack,
     Typography,
     Button,
     FormHelperText,
 } from '@mui/material';
+import cn from 'classnames';
+import { FormikProps, useFormik } from 'formik';
+
+import { UserAPI } from 'api/user';
+import { FileInput } from 'components/FileInput';
+import { Image } from 'components/Image';
+import avatarSvg from 'img/avatar.svg';
+import { setError } from 'utils/setError';
+
 import css from './AvatarSettings.css';
 
 interface ISettingsAvatarFormikValues {
@@ -75,7 +79,7 @@ export const AvatarSettings = () => {
                     setIsResultOK(true);
                 }
             } catch (error) {
-                if (error instanceof Error) { setErrorMessage(error.message); }
+                setError(error, setErrorMessage);
             }
         },
     });

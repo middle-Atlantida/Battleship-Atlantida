@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+
+import { LeaderboardAPI } from 'api/leaderboard';
 import { Image } from 'components/Image';
 import { PageWithHeader } from 'components/PageWithHeader';
 import { routes } from 'src/Root';
+
 import css from './Leaderboard.css';
-import { LeaderboardAPI } from '../../api/leaderboard';
 
 type ILeaderProfile = {
   urlImg: string;
