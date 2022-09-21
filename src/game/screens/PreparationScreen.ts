@@ -1,3 +1,5 @@
+import { Game } from '..';
+import { Battlefield } from '../battlefield';
 import {
     Drawing,
     CELL_HEIGHT,
@@ -12,13 +14,8 @@ import {
     BORDER_COLOR_SHIP,
     BORDER_COLOR_BUTTON,
 } from '../constants';
-
 import { CanvasContainer } from '../renderer';
-
-import { Battlefield } from '../battlefield';
-import { Game } from '..';
 import { Ship, Coord, Button } from '../types';
-
 import { isOverElement } from '../utils';
 
 export class PreparationScreen {

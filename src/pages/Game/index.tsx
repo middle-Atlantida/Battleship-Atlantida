@@ -1,10 +1,13 @@
 import React, { useState, useCallback } from 'react';
-import { Header } from 'components/Header';
-import { routes } from 'src/Root';
+
 import cn from 'classnames';
+
+import { Header } from 'components/Header';
 import { Modal } from 'components/Modal';
-import { EndGame } from './components/EndGame';
+import { routes } from 'src/Root';
+
 import { useGame } from '../../hooks/useGame';
+import { EndGame } from './components/EndGame';
 import css from './Game.css';
 
 export const Game = () => {

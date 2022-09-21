@@ -1,16 +1,19 @@
 import React from 'react';
+
 import {
     Stack,
     Button,
     Link,
 } from '@mui/material';
+import cn from 'classnames';
 import { Link as RouteLink } from 'react-router-dom';
+
 import { Image } from 'components/Image';
-import { routes } from 'src/Root';
 import arrowBlack from 'img/arrowBlack.svg';
 import rotate from 'img/rotate.svg';
 import star from 'img/star.svg';
-import cn from 'classnames';
+import { routes } from 'src/Root';
+
 import css from './EndGame.css';
 
 interface IEndGame {

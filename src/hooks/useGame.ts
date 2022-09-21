@@ -4,6 +4,7 @@ import {
     useCallback,
     useEffect,
 } from 'react';
+
 import { GameManager } from '../game/gameManager';
 
 export const useGame = (

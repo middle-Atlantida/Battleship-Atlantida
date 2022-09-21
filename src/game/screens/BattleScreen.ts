@@ -1,4 +1,6 @@
 /* eslint-disable no-param-reassign */
+import { Game } from '..';
+import { Battlefield } from '../battlefield';
 import {
     CELL_HEIGHT,
     CELL_WIDTH,
@@ -21,14 +23,11 @@ import {
     BORDER_COLOR_SHIP,
     Drawing,
 } from '../constants';
-
-import { getRandomBetween, isOverElement } from '../utils';
 import { CanvasContainer } from '../renderer';
-import { Battlefield } from '../battlefield';
-import { Game } from '..';
 import {
     Button, Cell, Ship, Coord,
 } from '../types';
+import { getRandomBetween, isOverElement } from '../utils';
 
 export class ButtleScreen {
   player: Battlefield;
