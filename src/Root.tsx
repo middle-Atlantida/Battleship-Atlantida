@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from 'components/ProtectedRoute';
 import { useToggleFullScreen, useAppDispatch } from 'hooks';
 import { Forums } from 'pages/Forums';
+import { Game } from 'pages/Game';
 import { Leaderboard } from 'pages/Leaderboard';
 import { MainMenu } from 'pages/MainMenu';
 import { NotFound } from 'pages/NotFound';
@@ -58,7 +59,7 @@ export const Root = () => {
             <Route path={routes.signUp} element={<SignUp />} />
             <Route path={routes.game} element={
                 <ProtectedRoute>
-                    <SignUp />
+                    <Game />
                 </ProtectedRoute>
             } />
             <Route path={routes.settings} element={

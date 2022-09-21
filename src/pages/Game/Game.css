@@ -1,0 +1,8 @@
+@import "../../utils/mixins/text.css";
+
+.container {
+  display: block;
+  width: 50%;
+  margin: 60px auto auto;
+  color: black;
+}

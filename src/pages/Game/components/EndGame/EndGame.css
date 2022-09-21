@@ -1,0 +1,54 @@
+@import "../../../../utils/mixins/button";
+@import "../../../../utils/mixins/text";
+@import "../../../../utils/mixins/window";
+
+.container {
+  @mixin Bordered-window
+
+  outline: none;
+  padding: 50px;
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .title {
+    font-size: 24px;
+    line-height: 29px;
+    text-transform: uppercase;
+    color: var(--main-dark-color, black);
+    margin: 0 0 65px;
+  }
+
+  .list {
+    padding: 0;
+    margin: 0;
+    color: green;
+    list-style: none;
+  }
+
+  .list__item + .list__item {
+    margin-top: 30px;
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    color: var(--main-dark-color, black);
+    line-height: 19px;
+    font-size: 16px;
+    text-transform: none;
+    text-decoration: none;
+    padding: 0;
+  }
+
+  .button:hover,
+  .button:active,
+  .button:visited {
+    text-decoration: none;
+  }
+
+  .img {
+    margin-right: 20px;
+  }
+}
