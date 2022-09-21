@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
+
 import { useNavigate } from 'react-router';
+
 import { routes } from 'Root';
+
 import { useAuth } from './useAuth';
 
 export const useRedirectIfAuthenticated = (redirectUrl = routes.main) => {
@@ -11,5 +14,5 @@ export const useRedirectIfAuthenticated = (redirectUrl = routes.main) => {
         if (isAuthenticated) {
             navigate(redirectUrl);
         }
-    }, [isAuthenticated]);
+    }, [isAuthenticated, navigate, redirectUrl]);
 };

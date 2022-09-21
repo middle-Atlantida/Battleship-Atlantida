@@ -1,11 +1,5 @@
-import * as Yup from 'yup';
-import cn from 'classnames';
 import React, { useState } from 'react';
-import sailor from 'img/sailor.svg';
-import { FormikProps, useFormik } from 'formik';
-import { Image } from 'components/Image';
-import { Link as RouteLink, useNavigate } from 'react-router-dom';
-import { AuthAPI } from 'api/auth';
+
 import {
     Button,
     FormHelperText,
@@ -14,6 +8,13 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
+import cn from 'classnames';
+import { FormikProps, useFormik } from 'formik';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+
+import { AuthAPI } from 'api/auth';
+import { Image } from 'components/Image';
 import {
     NAME_RULES,
     LOGIN_RULES,
@@ -22,6 +23,8 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
+import { useAppDispatch, useRedirectIfAuthenticated } from 'hooks';
+import sailor from 'img/sailor.svg';
 import { routes } from 'src/Root';
 import { useAppDispatch, useRedirectIfAuthenticated } from 'utils/hooks';
 import { getUser } from 'store/actions/user';
@@ -127,7 +130,7 @@ export const SignUp = () => {
                 }
                 setErrorMessage('Incorrect response');
             } catch (error) {
-                if (error instanceof Error) { setErrorMessage(error.message); }
+                setError(error, setErrorMessage);
             }
         },
     });
@@ -188,7 +191,7 @@ export const SignUp = () => {
                             color="primary"
                             className={cn(css.link)}
                             component={RouteLink}
-                            to={routes.login}
+                            to={routes.signIn}
                         >
                             Войти
                         </Link>

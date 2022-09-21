@@ -1,12 +1,15 @@
-import * as Yup from 'yup';
 import React, { useState } from 'react';
-import sailor from 'img/sailor.svg';
-import { FormikProps, useFormik } from 'formik';
-import { Image } from 'components/Image';
-import { Link as RouteLink, useNavigate } from 'react-router-dom';
+
 import {
     Button, FormHelperText, Link, Stack, TextField, Typography,
 } from '@mui/material';
+import cn from 'classnames';
+import { FormikProps, useFormik } from 'formik';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+
+import { AuthAPI } from 'api/auth';
+import { Image } from 'components/Image';
 import {
     LOGIN_RULES,
     PASSWORD_RULES,
@@ -15,8 +18,12 @@ import {
 import { AuthAPI } from 'api/auth';
 import cn from 'classnames';
 import { getUser, oAuth } from 'store/actions/user';
+import { useAppDispatch, useRedirectIfAuthenticated } from 'hooks';
+import sailor from 'img/sailor.svg';
 import { routes } from 'src/Root';
-import { useAppDispatch, useRedirectIfAuthenticated } from 'utils/hooks';
+import { getUser } from 'store/actions/user';
+import { setError } from 'utils/setError';
+
 import css from './SignIn.css';
 
 interface ISignInFormikValues {
@@ -143,7 +150,7 @@ export const SignIn = () => {
                             color="primary"
                             className={cn(css.link)}
                             component={RouteLink}
-                            to={routes.registration}
+                            to={routes.signUp}
                         >
                             Нет аккаунта? Зарегистрироваться
                         </Link>
