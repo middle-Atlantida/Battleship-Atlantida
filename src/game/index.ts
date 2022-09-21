@@ -1,7 +1,7 @@
 import { Battlefield } from './battlefield';
 import { CanvasContainer } from './renderer';
-import { PreparationScreen } from './screens/PreparationScreen';
 import { ButtleScreen } from './screens/BattleScreen';
+import { PreparationScreen } from './screens/PreparationScreen';
 import { ScreenClass } from './types';
 
 export class Game {
