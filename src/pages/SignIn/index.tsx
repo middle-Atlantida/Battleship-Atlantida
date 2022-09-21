@@ -18,7 +18,7 @@ import {
 import { useAppDispatch, useRedirectIfAuthenticated } from 'hooks';
 import sailor from 'img/sailor.svg';
 import { routes } from 'src/Root';
-import { getUser } from 'store/actions/user';
+import { getUser, oAuth } from 'store/actions/user';
 import { setError } from 'utils/setError';
 
 import css from './SignIn.css';
@@ -85,10 +85,14 @@ export const SignIn = () => {
         },
     });
 
+    const oAuthBtn = () => {
+        dispatch(oAuth());
+    };
+
     return (
         <main>
             <div className={cn(css.container)}>
-                <Image src={sailor} alt="Sailor" height={600} />
+                <Image src={sailor} alt="Sailor" height={600}/>
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}
@@ -146,6 +150,10 @@ export const SignIn = () => {
                             Нет аккаунта? Зарегистрироваться
                         </Link>
                     </Stack>
+
+                    <Button type="button" variant="contained" onClick={oAuthBtn}>
+                        Войти через Яндекс
+                    </Button>
                 </Stack>
             </div>
         </main>

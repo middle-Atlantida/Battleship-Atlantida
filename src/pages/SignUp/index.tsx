@@ -23,10 +23,10 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import { useAppDispatch, useRedirectIfAuthenticated } from 'hooks';
 import sailor from 'img/sailor.svg';
 import { routes } from 'src/Root';
 import { getUser } from 'store/actions/user';
+import { useAppDispatch, useRedirectIfAuthenticated } from 'utils/hooks';
 import { setError } from 'utils/setError';
 
 import css from './SignUp.css';

@@ -3,5 +3,8 @@
     "postcss-import": true,
     "postcss-mixins": true,
     "postcss-nested": true
+  },
+  "compilerOptions": {
+    "jsx": "react"
   }
 }

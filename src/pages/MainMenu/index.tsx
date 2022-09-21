@@ -21,7 +21,6 @@ export const MainMenu = () => {
             const data = await AuthAPI.logout();
             if (data) {
                 await dispatch(logoutUser());
-
                 navigate(routes.signIn);
             }
         } catch (error) {

@@ -52,49 +52,49 @@ export const Root = () => {
         <Routes>
             <Route path={routes.main} element={
                 <ProtectedRoute>
-                    <MainMenu />
+                    <MainMenu/>
                 </ProtectedRoute>
-            } />
-            <Route path={routes.signIn} element={<SignIn />} />
-            <Route path={routes.signUp} element={<SignUp />} />
+            }/>
+            <Route path={routes.signIn} element={<SignIn/>}/>
+            <Route path={routes.signUp} element={<SignUp/>}/>
             <Route path={routes.game} element={
                 <ProtectedRoute>
-                    <Game />
+                    <Game/>
                 </ProtectedRoute>
-            } />
+            }/>
             <Route path={routes.settings} element={
                 <ProtectedRoute>
                     <Settings/>
                 </ProtectedRoute>
-            } />
+            }/>
             <Route path={routes.leaderboard} element={
                 <ProtectedRoute>
-                    <Leaderboard />
+                    <Leaderboard/>
                 </ProtectedRoute>
-            } />
+            }/>
             <Route path={routes.forums}>
                 <Route index element={
                     <ProtectedRoute>
-                        <Forums />
+                        <Forums/>
                     </ProtectedRoute>
-                } />
+                }/>
                 <Route path=":forumId">
                     <Route index element={
                         <ProtectedRoute>
-                            <Topics />
+                            <Topics/>
                         </ProtectedRoute>
-                    } />
+                    }/>
                     <Route path=":topicId" element={
                         <ProtectedRoute>
-                            <Topic />
+                            <Topic/>
                         </ProtectedRoute>
-                    } />
+                    }/>
                 </Route>
 
             </Route>
             <Route path={routes.notfound} element={
-                <NotFound />
-            } />
+                <NotFound/>
+            }/>
         </Routes>
     );
 };
