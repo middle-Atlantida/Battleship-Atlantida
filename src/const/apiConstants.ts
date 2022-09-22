@@ -14,3 +14,7 @@ export const USER_URL = '/user';
 export const PROFILE_URL = `${USER_URL}/profile`;
 export const AVATAR_URL = `${PROFILE_URL}/avatar`;
 export const PASSWORD_URL = `${USER_URL}/password`;
+
+// leaderboard
+export const LEADERBOARD_URL = '/leaderboard';
+export const LEADERBOARD_USERS_URL = `${LEADERBOARD_URL}/atlantida`;
