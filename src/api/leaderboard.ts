@@ -1,5 +1,5 @@
-import { axiosClient } from './axiosClient';
 import { LEADERBOARD_URL, LEADERBOARD_USERS_URL } from '../const/apiConstants';
+import { axiosClient } from './axiosClient';
 
 export interface IUserAddLeaderboard {
     data: {
