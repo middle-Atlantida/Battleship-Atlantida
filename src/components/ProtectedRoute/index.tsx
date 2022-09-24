@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 import { Navigate, useLocation } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ import { routes } from 'src/Root';
 
 type Props = {
     children?: ReactNode;
-}
+};
 
 export const ProtectedRoute = ({ children }: Props): JSX.Element => {
     const location = useLocation();

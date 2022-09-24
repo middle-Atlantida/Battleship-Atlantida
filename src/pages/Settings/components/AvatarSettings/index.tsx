@@ -1,11 +1,6 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
-import {
-    Stack,
-    Typography,
-    Button,
-    FormHelperText,
-} from '@mui/material';
+import { Stack, Typography, Button, FormHelperText } from '@mui/material';
 import cn from 'classnames';
 import { FormikProps, useFormik } from 'formik';
 
@@ -67,7 +62,9 @@ export const AvatarSettings = () => {
     const formik: FormikProps<ISettingsAvatarFormikValues> = useFormik({
         initialValues,
         onSubmit: async () => {
-            if (!selectedFile) { return; }
+            if (!selectedFile) {
+                return;
+            }
 
             const formData = new FormData();
             formData.append('avatar', selectedFile);
@@ -86,13 +83,15 @@ export const AvatarSettings = () => {
 
     return (
         <div className={cn(css.container)}>
-            <Typography variant="h1" className={cn(css.title)}>Поменять фото профиля</Typography>
+            <Typography variant="h1" className={cn(css.title)}>
+                Поменять фото профиля
+            </Typography>
 
-            {
-                isImageSelected
-                    ? <Image className={css.avatar} src={imagePreviewSrc} alt="Avatar" width={116} />
-                    : <Image className={css.avatar} src={avatarSvg} alt="Avatar" width={116} />
-            }
+            {isImageSelected ? (
+                <Image className={css.avatar} src={imagePreviewSrc} alt="Avatar" width={116} />
+            ) : (
+                <Image className={css.avatar} src={avatarSvg} alt="Avatar" width={116} />
+            )}
 
             <Stack
                 component="form"
@@ -114,19 +113,20 @@ export const AvatarSettings = () => {
                         id={id}
                         label={title}
                         value={formik.values[id]}
-                        onChange={e => { formik.handleChange(e); showImagePreview(e); }}
+                        onChange={e => {
+                            formik.handleChange(e);
+                            showImagePreview(e);
+                        }}
                         onBlur={formik.handleBlur}
                     />
-                    {
-                        errorMessage
-                        && <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
-                    }
-                    {
-                        isResultOK
-                        && <FormHelperText>Аватар изменён.</FormHelperText>
-                    }
+                    {errorMessage && (
+                        <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
+                    )}
+                    {isResultOK && <FormHelperText>Аватар изменён.</FormHelperText>}
                 </Stack>
-                <Button type="submit" variant="contained" className={cn(css.button)}>Сохранить</Button>
+                <Button type="submit" variant="contained" className={cn(css.button)}>
+                    Сохранить
+                </Button>
             </Stack>
         </div>
     );

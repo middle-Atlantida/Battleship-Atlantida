@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 
@@ -32,69 +32,90 @@ export const routes = {
 export const Root = () => {
     const dispatch = useAppDispatch();
 
-    useEffect(() => () => {
-        const initializeStore = async () => {
-            try {
-                await dispatch(init());
-            } catch (err) {
-                consoleLog('Error while initialization:', err);
-            } finally {
-                consoleLog('Store is initialized:\n', store.getState());
-            }
-        };
-        initializeStore();
-    }, [dispatch]);
+    useEffect(
+        () => () => {
+            const initializeStore = async () => {
+                try {
+                    await dispatch(init());
+                } catch (err) {
+                    consoleLog('Error while initialization:', err);
+                } finally {
+                    consoleLog('Store is initialized:\n', store.getState());
+                }
+            };
+            initializeStore();
+        },
+        [dispatch],
+    );
 
     // TODO перенести хук в игру
     useToggleFullScreen();
 
     return (
         <Routes>
-            <Route path={routes.main} element={
-                <ProtectedRoute>
-                    <MainMenu/>
-                </ProtectedRoute>
-            }/>
-            <Route path={routes.signIn} element={<SignIn/>}/>
-            <Route path={routes.signUp} element={<SignUp/>}/>
-            <Route path={routes.game} element={
-                <ProtectedRoute>
-                    <Game/>
-                </ProtectedRoute>
-            }/>
-            <Route path={routes.settings} element={
-                <ProtectedRoute>
-                    <Settings/>
-                </ProtectedRoute>
-            }/>
-            <Route path={routes.leaderboard} element={
-                <ProtectedRoute>
-                    <Leaderboard/>
-                </ProtectedRoute>
-            }/>
-            <Route path={routes.forums}>
-                <Route index element={
+            <Route
+                path={routes.main}
+                element={
                     <ProtectedRoute>
-                        <Forums/>
+                        <MainMenu />
                     </ProtectedRoute>
-                }/>
+                }
+            />
+            <Route path={routes.signIn} element={<SignIn />} />
+            <Route path={routes.signUp} element={<SignUp />} />
+            <Route
+                path={routes.game}
+                element={
+                    <ProtectedRoute>
+                        <Game />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path={routes.settings}
+                element={
+                    <ProtectedRoute>
+                        <Settings />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path={routes.leaderboard}
+                element={
+                    <ProtectedRoute>
+                        <Leaderboard />
+                    </ProtectedRoute>
+                }
+            />
+            <Route path={routes.forums}>
+                <Route
+                    index
+                    element={
+                        <ProtectedRoute>
+                            <Forums />
+                        </ProtectedRoute>
+                    }
+                />
                 <Route path=":forumId">
-                    <Route index element={
-                        <ProtectedRoute>
-                            <Topics/>
-                        </ProtectedRoute>
-                    }/>
-                    <Route path=":topicId" element={
-                        <ProtectedRoute>
-                            <Topic/>
-                        </ProtectedRoute>
-                    }/>
+                    <Route
+                        index
+                        element={
+                            <ProtectedRoute>
+                                <Topics />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path=":topicId"
+                        element={
+                            <ProtectedRoute>
+                                <Topic />
+                            </ProtectedRoute>
+                        }
+                    />
                 </Route>
-
             </Route>
-            <Route path={routes.notfound} element={
-                <NotFound/>
-            }/>
+            <Route path={routes.notfound} element={<NotFound />} />
         </Routes>
     );
 };

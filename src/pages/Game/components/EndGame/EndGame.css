@@ -5,7 +5,8 @@
 .container {
   @mixin Bordered-window
 
-  outline: none;
+    outline: none;
+
   padding: 50px;
   min-width: 400px;
   display: flex;
