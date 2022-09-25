@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import { LeaderboardAPI } from 'api/leaderboard';
 import { Image } from 'components/Image';
@@ -8,9 +8,9 @@ import { routes } from 'src/Root';
 import css from './Leaderboard.css';
 
 type ILeaderProfile = {
-  urlImg: string;
-  nickname: string;
-  score: string;
+    urlImg: string;
+    nickname: string;
+    score: string;
 };
 
 export const Leaderboard = () => {
@@ -24,7 +24,8 @@ export const Leaderboard = () => {
                 limit: 0,
             };
             // eslint-disable-next-line max-len
-            const leaderboardList: ILeaderProfile[] | unknown = await LeaderboardAPI.leaderboardUsers(data);
+            const leaderboardList: ILeaderProfile[] | unknown =
+                await LeaderboardAPI.leaderboardUsers(data);
             if (leaderboardList && Array.isArray(leaderboardList)) {
                 setLeadersInfo(leaderboardList);
             }
@@ -35,33 +36,31 @@ export const Leaderboard = () => {
         }
     };
 
-    useEffect(() => () => {
-        getLeaderboard().then();
-    }, []);
+    useEffect(
+        () => () => {
+            getLeaderboard().then();
+        },
+        [],
+    );
 
     return (
         <>
-            <PageWithHeader
-                headerTitle='Таблица лидеров'
-                headerBackLink={routes.main}
-            >
+            <PageWithHeader headerTitle="Таблица лидеров" headerBackLink={routes.main}>
                 <ul className={css.tableRow}>
                     <li>#</li>
                     <li className={css.profileInfo}>Игрок</li>
                     <li>Счёт</li>
                 </ul>
-                {leadersInfo.map(
-                    ({ urlImg, nickname, score }: ILeaderProfile, index: number) => (
-                        <ul className={css.tableRow} key={`leaderProfile${index}`}>
-                            <li className={css.rowNumber}>{index + 1}</li>
-                            <li className={css.profileInfo}>
-                                <Image src={urlImg} alt="avatar" className={css.profileImg} />
-                                {nickname}
-                            </li>
-                            <li>{score}</li>
-                        </ul>
-                    ),
-                )}
+                {leadersInfo.map(({ urlImg, nickname, score }: ILeaderProfile, index: number) => (
+                    <ul className={css.tableRow} key={`leaderProfile${index}`}>
+                        <li className={css.rowNumber}>{index + 1}</li>
+                        <li className={css.profileInfo}>
+                            <Image src={urlImg} alt="avatar" className={css.profileImg} />
+                            {nickname}
+                        </li>
+                        <li>{score}</li>
+                    </ul>
+                ))}
             </PageWithHeader>
         </>
     );

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Image } from 'components/Image';
 
 import css from './ForumMessage.css';
@@ -8,7 +6,7 @@ export type ForumMessageProps = {
     userName: string;
     userAvatar: string;
     content: string;
-}
+};
 
 export const ForumMessage = ({ userName, userAvatar, content }: ForumMessageProps) => (
     <div className={css.container}>

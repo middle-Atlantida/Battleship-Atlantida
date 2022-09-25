@@ -1,12 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import {
-    Button,
-    FormHelperText,
-    Link,
-    Stack,
-    TextField,
-} from '@mui/material';
+import { Button, FormHelperText, Link, Stack, TextField } from '@mui/material';
 import cn from 'classnames';
 import { FormikProps, useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -88,24 +82,12 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
-    firstName: Yup.string()
-        .matches(NAME_RULES.regexp, NAME_RULES.error)
-        .required(REQUIRE_TEXT),
-    secondName: Yup.string()
-        .matches(NAME_RULES.regexp, NAME_RULES.error)
-        .required(REQUIRE_TEXT),
-    displayName: Yup.string()
-        .matches(NAME_RULES.regexp, NAME_RULES.error)
-        .required(REQUIRE_TEXT),
-    email: Yup.string()
-        .matches(EMAIL_RULES.regexp, EMAIL_RULES.error)
-        .required(REQUIRE_TEXT),
-    phone: Yup.string()
-        .matches(PHONE_RULES.regexp, PHONE_RULES.error)
-        .required(REQUIRE_TEXT),
-    login: Yup.string()
-        .matches(LOGIN_RULES.regexp, LOGIN_RULES.error)
-        .required(REQUIRE_TEXT),
+    firstName: Yup.string().matches(NAME_RULES.regexp, NAME_RULES.error).required(REQUIRE_TEXT),
+    secondName: Yup.string().matches(NAME_RULES.regexp, NAME_RULES.error).required(REQUIRE_TEXT),
+    displayName: Yup.string().matches(NAME_RULES.regexp, NAME_RULES.error).required(REQUIRE_TEXT),
+    email: Yup.string().matches(EMAIL_RULES.regexp, EMAIL_RULES.error).required(REQUIRE_TEXT),
+    phone: Yup.string().matches(PHONE_RULES.regexp, PHONE_RULES.error).required(REQUIRE_TEXT),
+    login: Yup.string().matches(LOGIN_RULES.regexp, LOGIN_RULES.error).required(REQUIRE_TEXT),
 });
 
 const MODAL_VARIANTS = {
@@ -143,13 +125,20 @@ export const Settings = () => {
         onSubmit: async values => {
             const {
                 // eslint-disable-next-line camelcase
-                firstName: first_name, secondName: second_name, displayName: display_name,
+                firstName: first_name,
+                // eslint-disable-next-line camelcase
+                secondName: second_name,
+                // eslint-disable-next-line camelcase
+                displayName: display_name,
                 ...rest
             } = values;
 
             try {
                 const data = await UserAPI.profile({
-                    first_name, second_name, display_name, ...rest,
+                    first_name,
+                    second_name,
+                    display_name,
+                    ...rest,
                 });
                 if (data) {
                     setErrorMessage('');
@@ -163,12 +152,15 @@ export const Settings = () => {
 
     return (
         <>
-            <PageWithHeader
-                headerTitle='Настройки'
-                headerBackLink={routes.main}
-            >
+            <PageWithHeader headerTitle="Настройки" headerBackLink={routes.main}>
                 <div className={css.container}>
-                    <Image className={css.avatar} src={avatar} alt="Avatar" width={116} onClick={handleOpenAvatar} />
+                    <Image
+                        className={css.avatar}
+                        src={avatar}
+                        alt="Avatar"
+                        width={116}
+                        onClick={handleOpenAvatar}
+                    />
                     <Stack
                         component="form"
                         onSubmit={formik.handleSubmit}
@@ -176,10 +168,7 @@ export const Settings = () => {
                         spacing={3}
                         sx={{ width: 1 }}
                     >
-                        <Stack
-                            direction="column"
-                            spacing={2}
-                        >
+                        <Stack direction="column" spacing={2}>
                             {fields.map(({ id, title, type }: IField) => (
                                 <TextField
                                     key={id}
@@ -199,7 +188,13 @@ export const Settings = () => {
                                     variant="standard"
                                 />
                             ))}
-                            <Link color="primary" className={cn(css.link)} onClick={handleOpenPassword}>Поменять пароль</Link>
+                            <Link
+                                color="primary"
+                                className={cn(css.link)}
+                                onClick={handleOpenPassword}
+                            >
+                                Поменять пароль
+                            </Link>
                         </Stack>
                         <Stack
                             direction="column"
@@ -208,29 +203,26 @@ export const Settings = () => {
                             spacing={2}
                             sx={{ paddingTop: '26px' }}
                         >
-                            {
-                                errorMessage
-                                && <FormHelperText error={!!errorMessage}>
+                            {errorMessage && (
+                                <FormHelperText error={!!errorMessage}>
                                     {errorMessage}
                                 </FormHelperText>
-                            }
-                            {
-                                isResultOK
-                                && <FormHelperText>Данные профиля изменены.</FormHelperText>
-                            }
-                            <Button type="submit" variant="contained" className={cn(css.button)}>Сохранить</Button>
+                            )}
+                            {isResultOK && (
+                                <FormHelperText>Данные профиля изменены.</FormHelperText>
+                            )}
+                            <Button type="submit" variant="contained" className={cn(css.button)}>
+                                Сохранить
+                            </Button>
                         </Stack>
                     </Stack>
                 </div>
-                <Modal
-                    open={open}
-                    onClose={handleClose}
-                >
-                    {
-                        currentModal === MODAL_VARIANTS.avatar
-                            ? <AvatarSettings/>
-                            : <PasswordSettings/>
-                    }
+                <Modal open={open} onClose={handleClose}>
+                    {currentModal === MODAL_VARIANTS.avatar ? (
+                        <AvatarSettings />
+                    ) : (
+                        <PasswordSettings />
+                    )}
                 </Modal>
             </PageWithHeader>
         </>

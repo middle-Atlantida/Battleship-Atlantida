@@ -1,4 +1,4 @@
-import React, { ImgHTMLAttributes } from 'react';
+import { ImgHTMLAttributes } from 'react';
 
 type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
     className?: string | undefined;
@@ -6,11 +6,6 @@ type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
     alt: string;
 };
 
-export const Image = ({
-    src,
-    alt,
-    className,
-    ...props
-}: ImageProps) => (
+export const Image = ({ src, alt, className, ...props }: ImageProps) => (
     <img className={className} src={src} alt={alt} {...props} />
 );

@@ -32,7 +32,7 @@ export class ErrorBoundary extends PureComponent<ErrorBoundaryProps, ErrorBounda
         const { children } = this.props;
 
         if (hasError && err) {
-            return <ErrorLayout title={err.name} text={err.message} withoutBackButton/>;
+            return <ErrorLayout title={err.name} text={err.message} withoutBackButton />;
         }
 
         return children;
