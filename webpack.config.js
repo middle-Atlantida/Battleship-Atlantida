@@ -93,6 +93,7 @@ module.exports = {
         modules: [
             __dirname,
             'src',
+            'ssr',
             'node_modules',
         ],
         extensions: ['.tsx', '.ts', '.js'],

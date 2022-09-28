@@ -49,6 +49,14 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
+  "paths": {
+    "server/*": [
+      "server/*"
+    ],
+    "client/*": [
+      "client/*"
+    ]
+  },
   "include": ["src"],
   "exclude": ["node_modules"]
 }
