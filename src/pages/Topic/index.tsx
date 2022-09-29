@@ -1,11 +1,14 @@
-import cn from 'classnames';
 import React from 'react';
-import { useParams } from 'react-router';
+
 import { Button } from '@mui/material';
+import cn from 'classnames';
+import { useParams } from 'react-router';
+
 import { ForumMessage } from 'components/ForumMessage';
-import { forumsData, IReply } from 'const/mockForumsData';
 import { PageWithHeader } from 'components/PageWithHeader';
+import { forumsData, IReply } from 'const/mockForumsData';
 import { routes } from 'src/Root';
+
 import css from './Topic.module.css';
 
 export const Topic = () => {
@@ -18,7 +21,7 @@ export const Topic = () => {
             <PageWithHeader
                 headerTitle={topic?.title ?? ''}
                 headerBackText={forum?.title ?? ''}
-                headerBackLink={`${routes.forum}/${forumId}`}
+                headerBackLink={`${routes.forums}/${forumId}`}
             >
                 <div className={cn(css.container)}>
                     <div className={css.repliesList}>

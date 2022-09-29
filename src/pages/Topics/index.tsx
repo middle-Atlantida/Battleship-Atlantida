@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { Button, Link } from '@mui/material';
-import { forumsData, ITopic } from 'const/mockForumsData';
-import { Link as RouteLink } from 'react-router-dom';
-import { PageWithHeader } from 'components/PageWithHeader';
 import { useParams } from 'react-router';
+import { Link as RouteLink } from 'react-router-dom';
+
+import { PageWithHeader } from 'components/PageWithHeader';
+import { forumsData, ITopic } from 'const/mockForumsData';
 import { routes } from 'src/Root';
+
 import css from './Topics.module.css';
 
 export const Topics = () => {
@@ -16,7 +19,7 @@ export const Topics = () => {
             <PageWithHeader
                 headerTitle={forum?.title ?? ''}
                 headerBackText='К форумам'
-                headerBackLink={routes.forum}
+                headerBackLink={routes.forums}
                 headerChildren={
                     <Button
                         type="submit"

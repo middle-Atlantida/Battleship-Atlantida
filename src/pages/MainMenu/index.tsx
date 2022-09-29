@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
+
 import { Alert, Snackbar } from '@mui/material';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
+
 import { AuthAPI } from 'api/auth';
+import { useAppDispatch } from 'hooks';
 import { routes } from 'src/Root';
+import { logoutUser } from 'store/actions/user';
+import { setError } from 'utils/setError';
+
 import css from './MainMenu.css';
 
 export const MainMenu = () => {
     const [logoutError, setLogoutError] = useState('');
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const onLogout = async () => {
         try {
             const data = await AuthAPI.logout();
             if (data) {
-                navigate(routes.login);
+                await dispatch(logoutUser());
+                navigate(routes.signIn);
             }
         } catch (error) {
-            if (error instanceof Error) { setLogoutError(error.message); }
+            setError(error, setLogoutError);
         }
     };
 
@@ -30,7 +38,7 @@ export const MainMenu = () => {
                 <RouteLink to={routes.leaderboard}>
                     <li>Таблица лидеров</li>
                 </RouteLink>
-                <RouteLink to={routes.forum}>
+                <RouteLink to={routes.forums}>
                     <li>Форум</li>
                 </RouteLink>
                 <RouteLink to={routes.settings}>

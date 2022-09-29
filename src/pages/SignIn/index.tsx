@@ -1,22 +1,26 @@
-import * as Yup from 'yup';
 import React, { useState } from 'react';
-import sailor from 'img/sailor.svg';
-import { FormikProps, useFormik } from 'formik';
-import { Image } from 'components/Image';
-import { Link as RouteLink, useNavigate } from 'react-router-dom';
+
 import {
     Button, FormHelperText, Link, Stack, TextField, Typography,
 } from '@mui/material';
+import cn from 'classnames';
+import { FormikProps, useFormik } from 'formik';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+
+import { AuthAPI } from 'api/auth';
+import { Image } from 'components/Image';
 import {
     LOGIN_RULES,
     PASSWORD_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import { AuthAPI } from 'api/auth';
-import cn from 'classnames';
-import { useDispatch, useStore } from 'react-redux';
-import { getUser } from 'store/actions/user';
+import { useAppDispatch, useRedirectIfAuthenticated } from 'hooks';
+import sailor from 'img/sailor.svg';
 import { routes } from 'src/Root';
+import { getUser, oAuth } from 'store/actions/user';
+import { setError } from 'utils/setError';
+
 import css from './SignIn.css';
 
 interface ISignInFormikValues {
@@ -58,30 +62,37 @@ const validationSchema = Yup.object({
 });
 
 export const SignIn = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+
+    useRedirectIfAuthenticated(routes.main);
 
     const formik: FormikProps<ISignInFormikValues> = useFormik({
         initialValues,
         validationSchema,
         onSubmit: async values => {
             try {
-                const data: string | unknown = await AuthAPI.signin(values);
-                if (data && typeof data === 'string') {
+                const data: unknown = await AuthAPI.signin(values);
+                if (data) {
                     await dispatch(getUser());
                     navigate(routes.main);
                 }
+                setErrorMessage('Incorrect response');
             } catch (error) {
-                if (error instanceof Error) { setErrorMessage(error.message); }
+                setError(error, setErrorMessage);
             }
         },
     });
 
+    const oAuthBtn = () => {
+        dispatch(oAuth());
+    };
+
     return (
         <main>
             <div className={cn(css.container)}>
-                <Image src={sailor} alt="Sailor" height={600} />
+                <Image src={sailor} alt="Sailor" height={600}/>
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}
@@ -134,11 +145,15 @@ export const SignIn = () => {
                             color="primary"
                             className={cn(css.link)}
                             component={RouteLink}
-                            to={routes.registration}
+                            to={routes.signUp}
                         >
                             Нет аккаунта? Зарегистрироваться
                         </Link>
                     </Stack>
+
+                    <Button type="button" variant="contained" onClick={oAuthBtn}>
+                        Войти через Яндекс
+                    </Button>
                 </Stack>
             </div>
         </main>

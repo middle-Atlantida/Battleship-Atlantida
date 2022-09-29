@@ -1,11 +1,5 @@
-import * as Yup from 'yup';
-import cn from 'classnames';
-import React, { Dispatch, useState } from 'react';
-import sailor from 'img/sailor.svg';
-import { FormikProps, useFormik } from 'formik';
-import { Image } from 'components/Image';
-import { Link as RouteLink, useNavigate } from 'react-router-dom';
-import { AuthAPI } from 'api/auth';
+import React, { useState } from 'react';
+
 import {
     Button,
     FormHelperText,
@@ -14,6 +8,13 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
+import cn from 'classnames';
+import { FormikProps, useFormik } from 'formik';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+
+import { AuthAPI } from 'api/auth';
+import { Image } from 'components/Image';
 import {
     NAME_RULES,
     LOGIN_RULES,
@@ -22,11 +23,13 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import { actions } from 'store/actions/user';
+import sailor from 'img/sailor.svg';
 import { routes } from 'src/Root';
-import { useDispatch } from 'react-redux';
+import { getUser } from 'store/actions/user';
+import { useAppDispatch, useRedirectIfAuthenticated } from 'utils/hooks';
+import { setError } from 'utils/setError';
+
 import css from './SignUp.css';
-import { getUser } from '../../store/actions/user';
 
 interface ISignUpFormikValues {
     firstName: string;
@@ -107,9 +110,11 @@ const validationSchema = Yup.object({
 });
 
 export const SignUp = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+
+    useRedirectIfAuthenticated(routes.main);
 
     const formik: FormikProps<ISignUpFormikValues> = useFormik({
         initialValues,
@@ -117,17 +122,16 @@ export const SignUp = () => {
         onSubmit: async values => {
             // eslint-disable-next-line camelcase
             const { firstName: first_name, secondName: second_name, ...rest } = values;
+
             try {
-                // eslint-disable-next-line max-len
-                const data: string | unknown = await AuthAPI.signup({ first_name, second_name, ...rest });
-                if (data && typeof data === 'string') {
+                const data: unknown = await AuthAPI.signup({ first_name, second_name, ...rest });
+                if (data) {
                     await dispatch(getUser());
                     navigate(routes.main);
                 }
+                setErrorMessage('Incorrect response');
             } catch (error) {
-                if (error instanceof Error) {
-                    setErrorMessage(error.message);
-                }
+                setError(error, setErrorMessage);
             }
         },
     });
@@ -188,7 +192,7 @@ export const SignUp = () => {
                             color="primary"
                             className={cn(css.link)}
                             component={RouteLink}
-                            to={routes.login}
+                            to={routes.signIn}
                         >
                             Войти
                         </Link>
