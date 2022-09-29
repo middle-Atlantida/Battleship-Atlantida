@@ -1,9 +1,4 @@
-import React from 'react';
-
-import {
-    Button,
-    Typography,
-} from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import cn from 'classnames';
 
 import css from './ErrorLayout.css';
@@ -20,8 +15,10 @@ export const ErrorLayout = ({ title, text, withoutBackButton }: ErrorLayoutProps
             {title}
         </Typography>
         <Typography className={cn(css.text)}>{text}</Typography>
-        {
-            !withoutBackButton && <Button type="submit" variant="contained" className={cn(css.button)}>Вернуться</Button>
-        }
+        {!withoutBackButton && (
+            <Button type="submit" variant="contained" className={cn(css.button)}>
+                Вернуться
+            </Button>
+        )}
     </div>
 );

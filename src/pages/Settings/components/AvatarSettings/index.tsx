@@ -1,11 +1,6 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
-import {
-    Stack,
-    Typography,
-    Button,
-    FormHelperText,
-} from '@mui/material';
+import { Stack, Typography, Button, FormHelperText } from '@mui/material';
 import cn from 'classnames';
 import { FormikProps, useFormik } from 'formik';
 

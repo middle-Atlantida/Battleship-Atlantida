@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Image } from 'components/Image';
 
 import css from './ForumMessage.css';

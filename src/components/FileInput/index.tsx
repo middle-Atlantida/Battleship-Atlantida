@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 
 import { Image } from 'components/Image';
 import uploadFile from 'img/uploadFile.svg';

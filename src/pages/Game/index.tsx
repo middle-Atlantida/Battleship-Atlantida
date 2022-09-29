@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 import cn from 'classnames';
 
@@ -50,21 +50,17 @@ export const Game = () => {
         restart();
     }, [handleClose, restart]);
 
-    return <>
-        <Header
-            title={title}
-            backLink={routes.main}
-        />
-        <main className={cn(css.container)}>
-            <canvas ref={canvasRef} />
-            <Modal
-                open={open}
-                onClose={handleClose}
-            >
-                <div>
-                    <EndGame onClick={onClickRestartGame} winner={winner} />
-                </div>
-            </Modal>
-        </main>
-    </>;
+    return (
+        <>
+            <Header title={title} backLink={routes.main} />
+            <main className={cn(css.container)}>
+                <canvas ref={canvasRef} />
+                <Modal open={open} onClose={handleClose}>
+                    <div>
+                        <EndGame onClick={onClickRestartGame} winner={winner} />
+                    </div>
+                </Modal>
+            </main>
+        </>
+    );
 };

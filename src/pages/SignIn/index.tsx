@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-import {
-    Button, FormHelperText, Link, Stack, TextField, Typography,
-} from '@mui/material';
+import { Button, FormHelperText, Link, Stack, TextField, Typography } from '@mui/material';
 import cn from 'classnames';
 import { FormikProps, useFormik } from 'formik';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
@@ -10,11 +8,7 @@ import * as Yup from 'yup';
 
 import { AuthAPI } from 'api/auth';
 import { Image } from 'components/Image';
-import {
-    LOGIN_RULES,
-    PASSWORD_RULES,
-    REQUIRE_TEXT,
-} from 'const/validationRules';
+import { LOGIN_RULES, PASSWORD_RULES, REQUIRE_TEXT } from 'const/validationRules';
 import { useAppDispatch, useRedirectIfAuthenticated } from 'hooks';
 import sailor from 'img/sailor.svg';
 import { routes } from 'src/Root';
@@ -90,7 +84,7 @@ export const SignIn = () => {
     return (
         <main>
             <div className={cn(css.container)}>
-                <Image src={sailor} alt="Sailor" height={600}/>
+                <Image src={sailor} alt="Sailor" height={600} />
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}

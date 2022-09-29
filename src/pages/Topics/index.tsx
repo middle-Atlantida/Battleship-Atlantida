@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button, Link } from '@mui/material';
 import { useParams } from 'react-router';
 import { Link as RouteLink } from 'react-router-dom';
@@ -18,7 +16,7 @@ export const Topics = () => {
         <>
             <PageWithHeader
                 headerTitle={forum?.title ?? ''}
-                headerBackText='К форумам'
+                headerBackText="К форумам"
                 headerBackLink={routes.forums}
                 headerChildren={
                     <Button type="submit" variant="contained" className={css.button ?? ''}>

@@ -37,7 +37,6 @@
     "@types/jest": "29.0.0",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
-    "@types/react-loadable": "5.5.6",
     "@types/react-redux": "7.1.24",
     "@types/react-test-renderer": "18.0.0",
     "@types/redux": "3.6.0",
@@ -45,7 +44,6 @@
     "@typescript-eslint/parser": "5.30.4",
     "babel-loader": "8.2.5",
     "babel-plugin-module-resolver": "4.1.0",
-    "connected-react-router": "6.9.3",
     "css-loader": "6.7.1",
     "eslint": "7.32.0",
     "eslint-config-airbnb-base": "15.0.0",
@@ -62,14 +60,11 @@
     "jest-environment-jsdom": "29.0.1",
     "jest-transform-stub": "2.0.0",
     "lint-staged": "13.0.3",
-    "merge-options": "3.0.4",
     "mini-css-extract-plugin": "2.6.1",
     "npm-run-all": "4.1.5",
     "postcss-loader": "7.0.0",
     "postcss-normalize": "10.0.1",
     "prettier": "2.7.1",
-    "react-loadable": "5.5.0",
-    "react-loadable-ssr-addon": "1.0.2",
     "style-loader": "3.3.1",
     "stylelint": "14.9.1",
     "stylelint-config-standard": "26.0.0",
@@ -134,8 +129,7 @@
       "^img/(.*)$": "<rootDir>/src/img/$1",
       "^utils/(.*)$": "<rootDir>/src/utils/$1",
       "^const/(.*)$": "<rootDir>/src/const/$1",
-      "^store/(.*)$": "<rootDir>/src/store/$1",
-      "^client/(.*)$": "<rootDir>/client/$1"
+      "^store/(.*)$": "<rootDir>/src/store/$1"
     }
   }
 }

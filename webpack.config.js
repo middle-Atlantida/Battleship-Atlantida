@@ -90,11 +90,7 @@ module.exports = {
             store: path.join('src', 'store'),
             hooks: path.join('src', 'hooks'),
         },
-        modules: [
-            __dirname,
-            'src',
-            'node_modules',
-        ],
+        modules: [__dirname, 'src', 'node_modules'],
         extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: [
