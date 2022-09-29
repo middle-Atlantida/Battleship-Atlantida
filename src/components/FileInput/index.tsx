@@ -8,7 +8,7 @@ import css from './FileInput.css';
 type IFileInputProps = InputHTMLAttributes<HTMLInputElement> & {
     id: string;
     label?: string;
-} ;
+};
 
 export const FileInput = ({ id, label = '', ...inputProps }: IFileInputProps) => (
     <div className={css.container}>

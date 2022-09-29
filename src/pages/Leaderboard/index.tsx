@@ -8,9 +8,9 @@ import { routes } from 'src/Root';
 import css from './Leaderboard.css';
 
 type ILeaderProfile = {
-  urlImg: string;
-  nickname: string;
-  score: string;
+    urlImg: string;
+    nickname: string;
+    score: string;
 };
 
 export const Leaderboard = () => {

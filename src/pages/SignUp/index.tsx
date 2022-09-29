@@ -89,21 +89,11 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
-    firstName: Yup.string()
-        .matches(NAME_RULES.regexp, NAME_RULES.error)
-        .required(REQUIRE_TEXT),
-    secondName: Yup.string()
-        .matches(NAME_RULES.regexp, NAME_RULES.error)
-        .required(REQUIRE_TEXT),
-    email: Yup.string()
-        .matches(EMAIL_RULES.regexp, EMAIL_RULES.error)
-        .required(REQUIRE_TEXT),
-    phone: Yup.string()
-        .matches(PHONE_RULES.regexp, PHONE_RULES.error)
-        .required(REQUIRE_TEXT),
-    login: Yup.string()
-        .matches(LOGIN_RULES.regexp, LOGIN_RULES.error)
-        .required(REQUIRE_TEXT),
+    firstName: Yup.string().matches(NAME_RULES.regexp, NAME_RULES.error).required(REQUIRE_TEXT),
+    secondName: Yup.string().matches(NAME_RULES.regexp, NAME_RULES.error).required(REQUIRE_TEXT),
+    email: Yup.string().matches(EMAIL_RULES.regexp, EMAIL_RULES.error).required(REQUIRE_TEXT),
+    phone: Yup.string().matches(PHONE_RULES.regexp, PHONE_RULES.error).required(REQUIRE_TEXT),
+    login: Yup.string().matches(LOGIN_RULES.regexp, LOGIN_RULES.error).required(REQUIRE_TEXT),
     password: Yup.string()
         .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
         .required(REQUIRE_TEXT),

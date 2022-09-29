@@ -53,9 +53,7 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
-    login: Yup.string()
-        .matches(LOGIN_RULES.regexp, LOGIN_RULES.error)
-        .required(REQUIRE_TEXT),
+    login: Yup.string().matches(LOGIN_RULES.regexp, LOGIN_RULES.error).required(REQUIRE_TEXT),
     password: Yup.string()
         .matches(PASSWORD_RULES.regexp, PASSWORD_RULES.error)
         .required(REQUIRE_TEXT),

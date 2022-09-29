@@ -8,11 +8,13 @@ import { Header } from './index';
 
 describe('components/Header', () => {
     it('to match snapshot', () => {
-        const tree = renderer.create(
-            <MemoryRouter>
-                <Header/>
-            </MemoryRouter>,
-        ).toJSON();
+        const tree = renderer
+            .create(
+                <MemoryRouter>
+                    <Header />
+                </MemoryRouter>,
+            )
+            .toJSON();
 
         expect(tree).toMatchSnapshot();
     });

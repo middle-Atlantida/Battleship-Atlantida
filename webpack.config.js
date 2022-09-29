@@ -34,7 +34,7 @@ module.exports = {
                     options: {
                         presets: [
                             '@babel/preset-env',
-                            '@babel/preset-react',
+                            ['@babel/preset-react', { 'runtime': 'automatic' }],
                             '@babel/preset-typescript',
                         ],
                     },
@@ -65,7 +65,7 @@ module.exports = {
                 loader: 'file-loader',
             },
             {
-                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                test: /\.(woff(2)?|ttf|eot|svg|mp3)(\?v=\d+\.\d+\.\d+)?$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -93,7 +93,6 @@ module.exports = {
         modules: [
             __dirname,
             'src',
-            'ssr',
             'node_modules',
         ],
         extensions: ['.tsx', '.ts', '.js'],

@@ -95,13 +95,10 @@ export const PasswordSettings = () => {
 
     return (
         <div className={css.container}>
-            <Stack
-                component="form"
-                onSubmit={formik.handleSubmit}
-                spacing={3}
-                sx={{ gap: '50px' }}
-            >
-                <Typography variant="h2" className={cn(css.title)}>Поменять пароль</Typography>
+            <Stack component="form" onSubmit={formik.handleSubmit} spacing={3} sx={{ gap: '50px' }}>
+                <Typography variant="h2" className={cn(css.title)}>
+                    Поменять пароль
+                </Typography>
                 <Stack
                     direction="column"
                     justifyContent="center"
@@ -128,16 +125,14 @@ export const PasswordSettings = () => {
                             variant="standard"
                         />
                     ))}
-                    {
-                        errorMessage
-                        && <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
-                    }
-                    {
-                        isResultOK
-                        && <FormHelperText>Пароль изменён.</FormHelperText>
-                    }
+                    {errorMessage && (
+                        <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
+                    )}
+                    {isResultOK && <FormHelperText>Пароль изменён.</FormHelperText>}
                 </Stack>
-                <Button type="submit" variant="contained" className={cn(css.button)}>Сохранить</Button>
+                <Button type="submit" variant="contained" className={cn(css.button)}>
+                    Сохранить
+                </Button>
             </Stack>
         </div>
     );

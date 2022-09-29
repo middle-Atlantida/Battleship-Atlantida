@@ -8,7 +8,7 @@ export type ForumMessageProps = {
     userName: string;
     userAvatar: string;
     content: string;
-}
+};
 
 export const ForumMessage = ({ userName, userAvatar, content }: ForumMessageProps) => (
     <div className={css.container}>

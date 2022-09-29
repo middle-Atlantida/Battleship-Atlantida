@@ -11,8 +11,12 @@ export const useRedirectIfAuthenticated = (redirectUrl = routes.main) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isAuthenticated) {
-            navigate(redirectUrl);
-        }
+        const awaitIsAuth = async () => {
+            if (await isAuthenticated) {
+                navigate(redirectUrl);
+            }
+        };
+
+        awaitIsAuth();
     }, [isAuthenticated, navigate, redirectUrl]);
 };

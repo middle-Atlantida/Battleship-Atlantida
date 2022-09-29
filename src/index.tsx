@@ -20,7 +20,7 @@ const App = () => (
                 <ErrorBoundary>
                     <StyledEngineProvider injectFirst>
                         <ThemeProvider theme={theme}>
-                            <Root/>
+                            <Root />
                         </ThemeProvider>
                     </StyledEngineProvider>
                 </ErrorBoundary>
@@ -30,6 +30,6 @@ const App = () => (
 );
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-createRoot(document.getElementById('root')!).render(<App/>);
+createRoot(document.getElementById('root')!).render(<App />);
 
 startServiceWorker();

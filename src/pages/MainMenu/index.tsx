@@ -46,8 +46,14 @@ export const MainMenu = () => {
                 </RouteLink>
                 <li onClick={onLogout}>Выйти</li>
             </ul>
-            <Snackbar open={!!logoutError} onClose={() => setLogoutError('')} autoHideDuration={2000}>
-                <Alert severity="error" variant="filled">{logoutError}</Alert>
+            <Snackbar
+                open={!!logoutError}
+                onClose={() => setLogoutError('')}
+                autoHideDuration={2000}
+            >
+                <Alert severity="error" variant="filled">
+                    {logoutError}
+                </Alert>
             </Snackbar>
         </div>
     );

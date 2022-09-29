@@ -25,16 +25,22 @@ export const Topic = () => {
             >
                 <div className={cn(css.container)}>
                     <div className={css.repliesList}>
-                        {topic?.replies && topic?.replies.map(({
-                            userName, userAvatar, content,
-                        }: IReply, index: number) => (
-                            <ForumMessage key={`reply${index}`} userName={userName} userAvatar={userAvatar} content={content}/>
-                        ))}
+                        {topic?.replies &&
+                            topic?.replies.map(
+                                ({ userName, userAvatar, content }: IReply, index: number) => (
+                                    <ForumMessage
+                                        key={`reply${index}`}
+                                        userName={userName}
+                                        userAvatar={userAvatar}
+                                        content={content}
+                                    />
+                                ),
+                            )}
                     </div>
                     <form className={css.sendMessageForm}>
-                        <input className={cn(css.input)} placeholder={'Начни писать...'}/>
+                        <input className={cn(css.input)} placeholder={'Начни писать...'} />
                         <Button type="submit" variant="contained" className={cn(css.button)}>
-                        Отправить
+                            Отправить
                         </Button>
                     </form>
                 </div>

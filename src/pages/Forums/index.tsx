@@ -11,25 +11,16 @@ import css from './Forums.css';
 
 export const Forums = () => (
     <>
-        <PageWithHeader
-            headerTitle='Форумы'
-            headerBackLink={routes.main}
-        >
+        <PageWithHeader headerTitle="Форумы" headerBackLink={routes.main}>
             <ul className={css.tableRow}>
                 <li>Форумы</li>
                 <li>Темы</li>
                 <li>Ответы</li>
             </ul>
-            {forumsData.map(({
-                id, title, topicCount, replies,
-            }: IForum, index: number) => (
+            {forumsData.map(({ id, title, topicCount, replies }: IForum, index: number) => (
                 <ul className={css.tableRow} key={`forum${index}`}>
                     <li>
-                        <Link
-                            color="primary"
-                            component={RouteLink}
-                            to={`${id}`}
-                        >
+                        <Link color="primary" component={RouteLink} to={`${id}`}>
                             {title}
                         </Link>
                     </li>

@@ -21,11 +21,7 @@ export const Topics = () => {
                 headerBackText='К форумам'
                 headerBackLink={routes.forums}
                 headerChildren={
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        className={css.button ?? ''}
-                    >
+                    <Button type="submit" variant="contained" className={css.button ?? ''}>
                         Создать тему
                     </Button>
                 }
@@ -34,22 +30,17 @@ export const Topics = () => {
                     <li>Темы</li>
                     <li>Ответы</li>
                 </ul>
-                {forum?.topics && forum.topics.map(({
-                    id, title, replyCount,
-                }: ITopic, index: number) => (
-                    <ul className={css.tableRow} key={`topic${index}`}>
-                        <li>
-                            <Link
-                                color="primary"
-                                component={RouteLink}
-                                to={`${id}`}
-                            >
-                                {title}
-                            </Link>
-                        </li>
-                        <li>{replyCount}</li>
-                    </ul>
-                ))}
+                {forum?.topics &&
+                    forum.topics.map(({ id, title, replyCount }: ITopic, index: number) => (
+                        <ul className={css.tableRow} key={`topic${index}`}>
+                            <li>
+                                <Link color="primary" component={RouteLink} to={`${id}`}>
+                                    {title}
+                                </Link>
+                            </li>
+                            <li>{replyCount}</li>
+                        </ul>
+                    ))}
             </PageWithHeader>
         </>
     );
