@@ -48,6 +48,9 @@ export const darkTheme = {
                     root: {
                         borderColor: baseColors.text.inverted,
                     },
+                    outlined: {
+                        color: baseColors.text.inverted,
+                    },
                 },
             },
             MuiPaper: {

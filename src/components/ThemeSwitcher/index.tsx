@@ -15,7 +15,7 @@ export const ThemeSwitcher = () => {
         <>
             {theme === Theme.LIGHT ? (
                 <Button className={classNames(css.themeSwitcher)} onClick={toggleTheme}>
-                    <Image src={LightIcon} alt="Light" />
+                    <LightIcon />
                 </Button>
             ) : (
                 <Button
@@ -23,7 +23,7 @@ export const ThemeSwitcher = () => {
                     className={classNames(css.themeSwitcher)}
                     onClick={toggleTheme}
                 >
-                    <Image src={DarkIcon} alt="Dark" />
+                    <DarkIcon />
                 </Button>
             )}
         </>

@@ -10,7 +10,7 @@ import { AuthAPI } from 'api/auth';
 import { Image } from 'components/Image';
 import { LOGIN_RULES, PASSWORD_RULES, REQUIRE_TEXT } from 'const/validationRules';
 import { useAppDispatch, useRedirectIfAuthenticated } from 'hooks';
-import sailor from 'img/sailor.svg';
+import SailorIcon from 'img/sailor.svg';
 import { routes } from 'src/Root';
 import { getUser, oAuth } from 'store/actions/user';
 import { setError } from 'utils/setError';
@@ -84,7 +84,7 @@ export const SignIn = () => {
     return (
         <main className={cn(css.main)}>
             <Paper className={cn(css.container)}>
-                <Image src={sailor} alt="Sailor" height={600} />
+                <SailorIcon />
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}

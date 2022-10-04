@@ -7,7 +7,7 @@ import { FormikProps, useFormik } from 'formik';
 import { UserAPI } from 'api/user';
 import { FileInput } from 'components/FileInput';
 import { Image } from 'components/Image';
-import avatarSvg from 'img/avatar.svg';
+import AvatarIcon from 'img/avatar.png';
 import { setError } from 'utils/setError';
 
 import css from './AvatarSettings.css';
@@ -90,7 +90,7 @@ export const AvatarSettings = () => {
             {isImageSelected ? (
                 <Image className={css.avatar} src={imagePreviewSrc} alt="Avatar" width={116} />
             ) : (
-                <Image className={css.avatar} src={avatarSvg} alt="Avatar" width={116} />
+                <Image className={css.avatar} src={AvatarIcon} alt="Avatar" width={116} />
             )}
 
             <Stack

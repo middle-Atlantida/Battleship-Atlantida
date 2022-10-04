@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { Button, Link, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import cn from 'classnames';
 import { Link as RouteLink, LinkProps } from 'react-router-dom';
 
-import { Image } from 'components/Image';
-import arrowLeft from 'img/arrowLeft.svg';
+import ArrowLeft from 'img/arrowLeft.svg';
 
 import css from './Header.css';
 
@@ -34,7 +33,7 @@ export const Header = ({
             component={ForwardRouteLink}
             to={backLink}
         >
-            <Image src={arrowLeft} alt="back" width={24} className={css.backButtonIcon} />
+            <ArrowLeft className={cn(css.backButtonIcon)} />
             {backText}
         </Button>
         <div className={css.headerGroup}>

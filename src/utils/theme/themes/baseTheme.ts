@@ -65,6 +65,9 @@ export const baseTheme = createTheme({
                     borderRadius: '25px',
                     border: `solid 2px ${baseColors.text.primary}`,
                     fontWeight: 'bold',
+                    color: baseColors.text.primary,
+                },
+                contained: {
                     color: baseColors.text.inverted,
                 },
                 outlined: {
