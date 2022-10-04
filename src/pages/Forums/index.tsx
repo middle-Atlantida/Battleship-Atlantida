@@ -1,4 +1,4 @@
-import { Link } from '@mui/material';
+import { Link, ListItemText, Typography } from '@mui/material';
 import { Link as RouteLink } from 'react-router-dom';
 
 import { PageWithHeader } from 'components/PageWithHeader';
@@ -11,19 +11,43 @@ export const Forums = () => (
     <>
         <PageWithHeader headerTitle="Форумы" headerBackLink={routes.main}>
             <ul className={css.tableRow}>
-                <li>Форумы</li>
-                <li>Темы</li>
-                <li>Ответы</li>
+                <ListItemText>
+                    <Typography variant="body1" fontWeight="bold">
+                        Форумы
+                    </Typography>
+                </ListItemText>
+
+                <ListItemText>
+                    <Typography variant="body1" fontWeight="bold" textAlign="center">
+                        Темы
+                    </Typography>
+                </ListItemText>
+
+                <ListItemText>
+                    <Typography variant="body1" fontWeight="bold" textAlign="end">
+                        Ответы
+                    </Typography>
+                </ListItemText>
             </ul>
             {forumsData.map(({ id, title, topicCount, replies }: IForum, index: number) => (
                 <ul className={css.tableRow} key={`forum${index}`}>
-                    <li>
+                    <ListItemText>
                         <Link color="primary" component={RouteLink} to={`${id}`}>
                             {title}
                         </Link>
-                    </li>
-                    <li>{topicCount}</li>
-                    <li>{replies}</li>
+                    </ListItemText>
+
+                    <ListItemText>
+                        <Typography variant="body1" textAlign="center">
+                            {topicCount}
+                        </Typography>
+                    </ListItemText>
+
+                    <ListItemText>
+                        <Typography variant="body1" textAlign="end">
+                            {replies}
+                        </Typography>
+                    </ListItemText>
                 </ul>
             ))}
         </PageWithHeader>

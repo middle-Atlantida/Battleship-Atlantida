@@ -2,7 +2,7 @@ import { Battlefield } from './battlefield';
 import { CanvasContainer } from './renderer';
 import { ButtleScreen } from './screens/BattleScreen';
 import { PreparationScreen } from './screens/PreparationScreen';
-import { ScreenClass } from './types';
+import { CanvasArgs, ScreenClass } from './types';
 
 export class Game {
     private activeScreen: 'preparation' | 'buttle';
@@ -19,22 +19,32 @@ export class Game {
 
     opponent: Battlefield;
 
+    canvasArgs: CanvasArgs;
+
     constructor(
         canvas: CanvasContainer,
         gameIsFininsh: (playerWinner: boolean, couterShots: number) => void,
         checkScreenName: (screenName: string) => void,
+        canvasArgs: CanvasArgs,
     ) {
         console.log('Game constructor');
         this.canvas = canvas;
         this.player = new Battlefield({ isComputer: false });
         this.opponent = new Battlefield({ isComputer: true });
+        this.canvasArgs = canvasArgs;
         this.screens = {
-            preparation: new PreparationScreen(this.canvas as CanvasContainer, this.player, this),
+            preparation: new PreparationScreen(
+                this.canvas as CanvasContainer,
+                this.player,
+                this.canvasArgs,
+                this,
+            ),
             // eslint-disable-next-line max-len
             buttle: new ButtleScreen(
                 this.canvas as CanvasContainer,
                 this.player,
                 this.opponent,
+                this.canvasArgs,
                 this,
             ),
         };
@@ -46,6 +56,14 @@ export class Game {
     start() {
         this.checkScreenName(this.activeScreen);
         this.screens[this.activeScreen].start();
+    }
+
+    updateCurrentScreen(canvasArgs: CanvasArgs) {
+        Object.values(this.screens).forEach(screen => {
+            // eslint-disable-next-line no-param-reassign
+            screen.canvasArgs = canvasArgs;
+        });
+        this.screens[this.activeScreen].update();
     }
 
     update(screenName: 'buttle') {

@@ -1,5 +1,7 @@
 import { InputHTMLAttributes } from 'react';
 
+import { Typography } from '@mui/material';
+
 import { Image } from 'components/Image';
 import uploadFile from 'img/uploadFile.svg';
 
@@ -14,7 +16,7 @@ export const FileInput = ({ id, label = '', ...inputProps }: IFileInputProps) =>
     <div className={css.container}>
         <label className={css.label} htmlFor={id}>
             <Image className={css.uploadLogo} src={uploadFile} alt="upload" width={24} />
-            <span>{label}</span>
+            <Typography variant="body1">{label}</Typography>
         </label>
         <input className={css.input} type="file" id={id} {...inputProps} />
     </div>

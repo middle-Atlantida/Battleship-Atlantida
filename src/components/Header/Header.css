@@ -1,5 +1,3 @@
-@import "../../utils/mixins/text.css";
-
 header {
   display: flex;
   align-items: center;
@@ -10,14 +8,19 @@ header {
 }
 
 .backButton {
-  @mixin Uppercase-important-text;
-
+  font-weight: 600;
+  text-transform: uppercase;
   position: absolute;
   left: 20px;
   display: flex;
   align-items: center;
-  color: white;
   text-decoration: none;
+  padding: 0;
+  border: 0;
+
+  &:hover {
+    border: 0;
+  }
 }
 
 .backButtonIcon {
@@ -32,8 +35,5 @@ header {
 }
 
 .headerTitle {
-  @mixin Uppercase-header-text;
-
-  color: white;
   cursor: default;
 }

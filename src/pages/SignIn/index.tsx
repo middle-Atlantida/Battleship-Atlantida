@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
-import { Button, FormHelperText, Link, Stack, TextField, Typography } from '@mui/material';
+import { Button, FormHelperText, Link, Paper, Stack, TextField, Typography } from '@mui/material';
 import cn from 'classnames';
 import { FormikProps, useFormik } from 'formik';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
@@ -82,19 +82,24 @@ export const SignIn = () => {
     };
 
     return (
-        <main>
-            <div className={cn(css.container)}>
+        <main className={cn(css.main)}>
+            <Paper className={cn(css.container)}>
                 <Image src={sailor} alt="Sailor" height={600} />
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}
                     direction="column"
                     justifyContent="center"
-                    alignItems="center"
+                    alignItems="stretch"
                     spacing={3}
                     sx={{ width: '251px' }}
                 >
-                    <Typography variant="h1" className={cn(css.title)}>
+                    <Typography
+                        variant="h1"
+                        className={cn(css.title)}
+                        color="text.primary"
+                        alignSelf="center"
+                    >
                         Вход
                     </Typography>
                     <Stack
@@ -126,28 +131,29 @@ export const SignIn = () => {
                     <Stack
                         direction="column"
                         justifyContent="center"
-                        alignItems="center"
+                        alignItems="stretch"
                         spacing={2}
                     >
                         <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
                         <Button type="submit" variant="contained" className={cn(css.button)}>
                             Авторизация
                         </Button>
+                        <Button type="button" variant="contained" onClick={oAuthBtn}>
+                            Войти через Яндекс
+                        </Button>
                         <Link
                             color="primary"
                             className={cn(css.link)}
                             component={RouteLink}
                             to={routes.signUp}
+                            textAlign="center"
+                            alignSelf="center"
                         >
                             Нет аккаунта? Зарегистрироваться
                         </Link>
                     </Stack>
-
-                    <Button type="button" variant="contained" onClick={oAuthBtn}>
-                        Войти через Яндекс
-                    </Button>
                 </Stack>
-            </div>
+            </Paper>
         </main>
     );
 };

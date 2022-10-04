@@ -1,5 +1,3 @@
-@import "../../utils/mixins/text";
-
 .container {
   display: flex;
   align-items: center;
@@ -15,7 +13,8 @@
   line-height: 77px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--main-dark-color);
+
+  /* color: var(--main-dark-color); */
   margin-top: 0;
   margin-bottom: 110px;
   cursor: default;
@@ -25,25 +24,26 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  font-weight: 700;
-  font-size: 64px;
-  line-height: 77px;
   margin: 0;
   padding: 0;
   transition: 0.3s ease;
 
   a {
     text-decoration: none;
-    color: var(--main-dark-color);
+
+    /* color: var(--main-dark-color); */
   }
 
   li {
-    @mixin Uppercase-important-text;
-
     margin-bottom: 20px;
     list-style-type: none;
     width: fit-content;
     cursor: pointer;
+
+    * {
+      font-weight: 600;
+      text-transform: uppercase;
+    }
   }
 
   li:hover {

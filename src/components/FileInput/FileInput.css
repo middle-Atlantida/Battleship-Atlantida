@@ -1,12 +1,9 @@
-@import "../../utils/mixins/text";
-
 .input {
   display: none;
 }
 
 .label {
-  @mixin Important-text;
-
+  font-weight: 600;
   display: flex;
   align-items: center;
   cursor: pointer;

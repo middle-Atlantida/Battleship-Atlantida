@@ -1,16 +1,17 @@
 import React from 'react';
 
-import { StyledEngineProvider, ThemeProvider } from '@mui/material';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { ErrorBoundary } from 'components/ErrorBoundry';
+import { ThemeSwitcher } from 'components/ThemeSwitcher';
 import { store } from 'store';
-import { theme } from 'utils/theme';
+import { ThemeProvider } from 'utils/theme';
 
 import { Root } from './Root';
 import { startServiceWorker } from './serviceWorker';
+
 import './index.css';
 
 const App = () => (
@@ -18,11 +19,10 @@ const App = () => (
         <Provider store={store}>
             <BrowserRouter>
                 <ErrorBoundary>
-                    <StyledEngineProvider injectFirst>
-                        <ThemeProvider theme={theme}>
-                            <Root />
-                        </ThemeProvider>
-                    </StyledEngineProvider>
+                    <ThemeProvider>
+                        <Root />
+                        <ThemeSwitcher />
+                    </ThemeProvider>
                 </ErrorBoundary>
             </BrowserRouter>
         </Provider>

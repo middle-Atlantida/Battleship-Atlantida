@@ -1,29 +1,21 @@
-@import "../../utils/mixins/button";
-@import "../../utils/mixins/text";
-
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 50px;
-  width: 516px;
+  width: 100%;
+  height: 100vh;
   padding: 50px;
 }
 
 .title {
-  @mixin Header-main-text;
-
+  font-size: 64px;
+  line-height: 1.5;
   text-align: center;
 }
 
 .text {
-  @mixin Regular-text;
-
   text-align: center;
   white-space: pre-wrap;
-}
-
-.button {
-  @mixin Button;
 }

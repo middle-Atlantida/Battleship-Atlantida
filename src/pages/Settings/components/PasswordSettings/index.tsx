@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Button, FormHelperText, Stack, TextField, Typography } from '@mui/material';
+import { Button, FormHelperText, Paper, Stack, TextField, Typography } from '@mui/material';
 import cn from 'classnames';
 import { FormikProps, useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -88,9 +88,9 @@ export const PasswordSettings = () => {
     });
 
     return (
-        <div className={css.container}>
+        <Paper className={css.container}>
             <Stack component="form" onSubmit={formik.handleSubmit} spacing={3} sx={{ gap: '50px' }}>
-                <Typography variant="h2" className={cn(css.title)}>
+                <Typography variant="h1" className={cn(css.title)} color="text.primary">
                     Поменять пароль
                 </Typography>
                 <Stack
@@ -128,6 +128,6 @@ export const PasswordSettings = () => {
                     Сохранить
                 </Button>
             </Stack>
-        </div>
+        </Paper>
     );
 };

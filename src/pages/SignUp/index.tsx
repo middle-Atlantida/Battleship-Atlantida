@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Button, FormHelperText, Link, Stack, TextField, Typography } from '@mui/material';
+import { Button, FormHelperText, Link, Paper, Stack, TextField, Typography } from '@mui/material';
 import cn from 'classnames';
 import { FormikProps, useFormik } from 'formik';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
@@ -16,10 +16,10 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
+import { useAppDispatch, useRedirectIfAuthenticated } from 'hooks';
 import sailor from 'img/sailor.svg';
 import { routes } from 'src/Root';
 import { getUser } from 'store/actions/user';
-import { useAppDispatch, useRedirectIfAuthenticated } from 'utils/hooks';
 import { setError } from 'utils/setError';
 
 import css from './SignUp.css';
@@ -120,19 +120,24 @@ export const SignUp = () => {
     });
 
     return (
-        <main>
-            <div className={cn(css.container)}>
+        <main className={cn(css.main)}>
+            <Paper className={cn(css.container)}>
                 <Image src={sailor} alt="Sailor" height={600} />
                 <Stack
                     component="form"
                     onSubmit={formik.handleSubmit}
                     direction="column"
                     justifyContent="center"
-                    alignItems="center"
+                    alignItems="stretch"
                     spacing={3}
                     sx={{ width: '251px' }}
                 >
-                    <Typography variant="h1" className={cn(css.title)}>
+                    <Typography
+                        variant="h1"
+                        className={cn(css.title)}
+                        color="text.primary"
+                        alignSelf="center"
+                    >
                         Регистрация
                     </Typography>
                     <Stack
@@ -164,7 +169,7 @@ export const SignUp = () => {
                     <Stack
                         direction="column"
                         justifyContent="center"
-                        alignItems="center"
+                        alignItems="stretch"
                         spacing={2}
                     >
                         <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
@@ -176,12 +181,13 @@ export const SignUp = () => {
                             className={cn(css.link)}
                             component={RouteLink}
                             to={routes.signIn}
+                            alignSelf="center"
                         >
                             Войти
                         </Link>
                     </Stack>
                 </Stack>
-            </div>
+            </Paper>
         </main>
     );
 };

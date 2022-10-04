@@ -1,25 +1,10 @@
-@import "../../../../utils/mixins/button";
-@import "../../../../utils/mixins/text";
-@import "../../../../utils/mixins/window";
-
 .container {
-  @mixin Bordered-window
-
-    outline: none;
-
   padding: 50px;
   min-width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  .title {
-    font-size: 24px;
-    line-height: 29px;
-    text-transform: uppercase;
-    color: var(--main-dark-color, black);
-    margin: 0 0 65px;
-  }
+  gap: 50px;
 
   .list {
     padding: 0;
@@ -35,12 +20,11 @@
   .button {
     display: flex;
     align-items: center;
-    color: var(--main-dark-color, black);
-    line-height: 19px;
-    font-size: 16px;
     text-transform: none;
     text-decoration: none;
     padding: 0;
+    border: 0;
+    height: auto;
   }
 
   .button:hover,

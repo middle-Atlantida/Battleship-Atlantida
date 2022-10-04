@@ -18,7 +18,7 @@ import {
     OPPONENT_SCREEN_START_FIELD_COORD_Y,
     BACKGROUND_COLOR_BUTTON_DANGER,
     BORDER_COLOR_BUTTON_DANGER,
-    BORDER_COLOR_BUTTON,
+    // BORDER_COLOR_BUTTON,
     POSITION_SHIPS_MARKER,
     START_COORD_POSITION_SHIPS_MARKER_PLAYER,
     START_COORD_POSITION_SHIPS_MARKER_OPPONENT,
@@ -29,7 +29,7 @@ import {
     Drawing,
 } from '../constants';
 import { CanvasContainer } from '../renderer';
-import { Button, Cell, Ship, Coord } from '../types';
+import { Button, Cell, Ship, Coord, CanvasArgs } from '../types';
 import { getRandomBetween, isOverElement } from '../utils';
 
 export class ButtleScreen {
@@ -49,11 +49,20 @@ export class ButtleScreen {
 
     private shipsAvailable: number[][];
 
-    constructor(canvas: CanvasContainer, player: Battlefield, opponent: Battlefield, app: Game) {
+    canvasArgs: CanvasArgs;
+
+    constructor(
+        canvas: CanvasContainer,
+        player: Battlefield,
+        opponent: Battlefield,
+        canvasArgs: CanvasArgs,
+        app: Game,
+    ) {
         this.app = app;
         this.player = player;
         this.opponent = opponent;
         this.canvas = canvas;
+        this.canvasArgs = canvasArgs;
         this.buttons = {
             surrenderButton: null,
         };
@@ -152,7 +161,7 @@ export class ButtleScreen {
                     borderColor: cell.borderColor,
                     type: cell.type,
                     text: cell?.markerText || '',
-                    textColor: cell?.markerColor || 'black',
+                    textColor: cell?.markerColor || this.canvasArgs.textColor,
                 });
             });
         });
@@ -193,7 +202,7 @@ export class ButtleScreen {
                 this.canvas.update({
                     x: coordinate.text.x,
                     y: coordinate.text.y,
-                    textColor: counter ? BORDER_COLOR_BUTTON : BACKGROUND_COLOR_BUTTON_DANGER,
+                    textColor: counter ? this.canvasArgs.textColor : BACKGROUND_COLOR_BUTTON_DANGER,
                     text: `X ${counter}`,
                     fontSize: 16,
                     type: Drawing.Text,
@@ -218,7 +227,7 @@ export class ButtleScreen {
             this.canvas.update({
                 x: coords[index as 0 | 1].x,
                 y: coords[index as 0 | 1].y,
-                textColor: BORDER_COLOR_BUTTON,
+                textColor: this.canvasArgs.textColor,
                 text: name.toUpperCase(),
                 fontSize: 24,
                 type: Drawing.Text,

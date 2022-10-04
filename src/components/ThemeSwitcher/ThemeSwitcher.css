@@ -1,0 +1,10 @@
+.themeSwitcher {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 40px;
+}

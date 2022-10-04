@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 
-import { Stack, Typography, Button, FormHelperText } from '@mui/material';
+import { Stack, Typography, Button, FormHelperText, Paper } from '@mui/material';
 import cn from 'classnames';
 import { FormikProps, useFormik } from 'formik';
 
@@ -82,8 +82,8 @@ export const AvatarSettings = () => {
     });
 
     return (
-        <div className={cn(css.container)}>
-            <Typography variant="h1" className={cn(css.title)}>
+        <Paper className={cn(css.container)}>
+            <Typography variant="h1" className={cn(css.title)} color="text.primary">
                 Поменять фото профиля
             </Typography>
 
@@ -128,6 +128,6 @@ export const AvatarSettings = () => {
                     Сохранить
                 </Button>
             </Stack>
-        </div>
+        </Paper>
     );
 };
