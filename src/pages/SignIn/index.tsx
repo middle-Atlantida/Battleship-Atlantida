@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 
 import { Button, FormHelperText, Link, Paper, Stack, TextField, Typography } from '@mui/material';
 import cn from 'classnames';
@@ -7,7 +7,6 @@ import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { AuthAPI } from 'api/auth';
-import { Image } from 'components/Image';
 import { LOGIN_RULES, PASSWORD_RULES, REQUIRE_TEXT } from 'const/validationRules';
 import { useAppDispatch, useRedirectIfAuthenticated } from 'hooks';
 import SailorIcon from 'img/sailor.svg';

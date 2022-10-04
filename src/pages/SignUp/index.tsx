@@ -7,7 +7,6 @@ import { Link as RouteLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { AuthAPI } from 'api/auth';
-import { Image } from 'components/Image';
 import {
     NAME_RULES,
     LOGIN_RULES,

@@ -1,7 +1,6 @@
 import { Button } from '@mui/material';
 import classNames from 'classnames';
 
-import { Image } from 'components/Image';
 import DarkIcon from 'img/dark.svg';
 import LightIcon from 'img/light.svg';
 import { Theme, useTheme } from 'utils/theme';

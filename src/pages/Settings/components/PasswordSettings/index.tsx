@@ -88,7 +88,7 @@ export const PasswordSettings = () => {
     });
 
     return (
-        <Paper className={css.container}>
+        <Paper className={cn(css.container)}>
             <Stack component="form" onSubmit={formik.handleSubmit} spacing={3} sx={{ gap: '50px' }}>
                 <Typography variant="h1" className={cn(css.title)} color="text.primary">
                     Поменять пароль
