@@ -1,5 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
+import { Theme } from '../lib/ThemeContext';
+
 export const baseColors = {
     text: {
         primary: '#222222',
@@ -26,7 +28,7 @@ export const baseColors = {
 
 export const baseTheme = createTheme({
     palette: {
-        mode: 'light',
+        mode: Theme.LIGHT,
         primary: {
             main: baseColors.primary,
         },

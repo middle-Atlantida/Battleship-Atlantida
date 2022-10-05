@@ -7,7 +7,7 @@ export const darkTheme = {
     name: Theme.DARK,
     theme: createTheme(baseTheme, {
         palette: {
-            mode: 'dark',
+            mode: Theme.DARK,
             primary: {
                 main: baseColors.primary,
             },
