@@ -1,17 +1,21 @@
-@import "../../utils/mixins/text";
+.container {
+  height: 44px;
+  padding: 10px 20px;
+}
 
 .input {
   display: none;
 }
 
 .label {
-  @mixin Important-text;
-
+  font-weight: 600;
   display: flex;
   align-items: center;
   cursor: pointer;
+  height: 100%;
 }
 
 .uploadLogo {
   margin-right: 10px;
+  height: 100%;
 }

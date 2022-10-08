@@ -80,6 +80,7 @@
     "@emotion/styled": "11.10.0",
     "@mui/material": "5.9.3",
     "@reduxjs/toolkit": "1.8.3",
+    "@svgr/webpack": "6.4.0",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.3.0",
     "axios": "0.27.2",
@@ -113,7 +114,7 @@
     ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest",
-      "^.+.(css|png|jpg|svg)$": "jest-transform-stub"
+      "^.+.(css|png|jpg)$": "jest-transform-stub"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [
@@ -122,10 +123,18 @@
       "js",
       "json"
     ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
     "moduleNameMapper": {
       "^api/(.*)$": "<rootDir>/src/api/$1",
       "^components/(.*)$": "<rootDir>/src/components/$1",
       "^pages/(.*)$": "<rootDir>/src/pages/$1",
+      "\\.svg": "<rootDir>src/tests/__mocks__/svg.tsx",
       "^img/(.*)$": "<rootDir>/src/img/$1",
       "^utils/(.*)$": "<rootDir>/src/utils/$1",
       "^const/(.*)$": "<rootDir>/src/const/$1",

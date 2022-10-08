@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Snackbar, Typography } from '@mui/material';
+import classNames from 'classnames';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
 
 import { AuthAPI } from 'api/auth';
@@ -30,21 +31,35 @@ export const MainMenu = () => {
 
     return (
         <div className={css.container}>
-            <h1 className={css.mainPageTitle}>МОРСКОЙ БОЙ</h1>
+            <Typography variant="h1" className={classNames(css.mainPageTitle)} color="text.primary">
+                МОРСКОЙ БОЙ
+            </Typography>
             <ul className={css.menuSelection}>
                 <RouteLink to={routes.game}>
-                    <li>Играть</li>
+                    <li>
+                        <Typography variant="body1">Играть</Typography>
+                    </li>
                 </RouteLink>
                 <RouteLink to={routes.leaderboard}>
-                    <li>Таблица лидеров</li>
+                    <li>
+                        <Typography variant="body1">Таблица лидеров</Typography>
+                    </li>
                 </RouteLink>
                 <RouteLink to={routes.forums}>
-                    <li>Форум</li>
+                    <li>
+                        <Typography variant="body1">Форум</Typography>
+                    </li>
                 </RouteLink>
                 <RouteLink to={routes.settings}>
-                    <li>Настройки</li>
+                    <li>
+                        <Typography variant="body1">Настройки</Typography>
+                    </li>
                 </RouteLink>
-                <li onClick={onLogout}>Выйти</li>
+                <li onClick={onLogout}>
+                    <Typography variant="body1" color="error.main">
+                        Выйти
+                    </Typography>
+                </li>
             </ul>
             <Snackbar
                 open={!!logoutError}

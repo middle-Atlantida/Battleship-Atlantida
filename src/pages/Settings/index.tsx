@@ -16,7 +16,7 @@ import {
     PHONE_RULES,
     REQUIRE_TEXT,
 } from 'const/validationRules';
-import avatar from 'img/avatar.svg';
+import AvatarIcon from 'img/avatar.png';
 import { routes } from 'src/Root';
 import { setError } from 'utils/setError';
 
@@ -156,7 +156,7 @@ export const Settings = () => {
                 <div className={css.container}>
                     <Image
                         className={css.avatar}
-                        src={avatar}
+                        src={AvatarIcon}
                         alt="Avatar"
                         width={116}
                         onClick={handleOpenAvatar}

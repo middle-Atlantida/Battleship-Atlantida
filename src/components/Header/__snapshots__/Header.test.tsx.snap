@@ -3,21 +3,31 @@
 exports[`components/Header to match snapshot 1`] = `
 <header>
   <a
-    className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ps4owl-MuiTypography-root-MuiLink-root"
+    className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium css-1rwt2y5-MuiButtonBase-root-MuiButton-root"
     href="/"
     onBlur={[Function]}
     onClick={[Function]}
+    onContextMenu={[Function]}
+    onDragLeave={[Function]}
     onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    role="button"
+    tabIndex={0}
   >
-    <img
-      alt="back"
-      src=""
-      width={24}
-    />
+    <div />
     В главное меню
   </a>
   <div>
-    <h1 />
+    <h1
+      className="MuiTypography-root MuiTypography-h1 css-o2w69a-MuiTypography-root"
+    />
   </div>
 </header>
 `;

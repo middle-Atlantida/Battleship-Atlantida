@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { Link } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import cn from 'classnames';
 import { Link as RouteLink, LinkProps } from 'react-router-dom';
 
-import { Image } from 'components/Image';
-import arrowLeft from 'img/arrowLeft.svg';
+import ArrowLeft from 'img/arrowLeft.svg';
 
 import css from './Header.css';
 
@@ -28,17 +27,17 @@ export const Header = ({
     children,
 }: IHeaderProps) => (
     <header className={css.header}>
-        <Link
-            color="primary"
+        <Button
+            variant="outlined"
             className={cn(css.backButton)}
             component={ForwardRouteLink}
             to={backLink}
         >
-            <Image src={arrowLeft} alt="back" width={24} className={css.backButtonIcon} />
+            <ArrowLeft className={cn(css.backButtonIcon)} />
             {backText}
-        </Link>
+        </Button>
         <div className={css.headerGroup}>
-            <h1 className={css.headerTitle}>{title}</h1>
+            <Typography variant="h1">{title}</Typography>
             {children}
         </div>
     </header>

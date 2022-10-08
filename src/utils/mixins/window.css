@@ -1,7 +1,0 @@
-@define-mixin Bordered-window {
-  padding: 50px;
-  border: solid 4px var(--main-dark-color);
-  border-radius: 5px;
-  backdrop-filter: blur(4px);
-  background-color: rgb(255 255 255 / 80%);
-}

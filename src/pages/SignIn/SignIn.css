@@ -1,24 +1,12 @@
-@import "../../utils/mixins/button";
-@import "../../utils/mixins/text";
-@import "../../utils/mixins/window";
+.main {
+  min-height: 100vh;
+}
 
 .container {
-  @mixin Bordered-window;
-
   display: flex;
   gap: 50px;
 
-  .title {
-    @mixin Uppercase-header-text;
-  }
-
   .button {
-    @mixin Button;
-
     margin-top: 50px;
-  }
-
-  .link {
-    @mixin Link-text;
   }
 }

@@ -1,12 +1,7 @@
 @import "../../utils/mixins/table.css";
-@import "../../utils/mixins/button.css";
 
 .tableRow {
   @mixin Table-row;
 
   grid-template-columns: 1fr 100px;
-}
-
-.button {
-  @mixin Outline-button;
 }

@@ -1,13 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 
-import { Stack, Typography, Button, FormHelperText } from '@mui/material';
+import { Stack, Typography, Button, FormHelperText, Paper } from '@mui/material';
 import cn from 'classnames';
 import { FormikProps, useFormik } from 'formik';
 
 import { UserAPI } from 'api/user';
 import { FileInput } from 'components/FileInput';
 import { Image } from 'components/Image';
-import avatarSvg from 'img/avatar.svg';
+import AvatarIcon from 'img/avatar.png';
 import { setError } from 'utils/setError';
 
 import css from './AvatarSettings.css';
@@ -82,15 +82,15 @@ export const AvatarSettings = () => {
     });
 
     return (
-        <div className={cn(css.container)}>
-            <Typography variant="h1" className={cn(css.title)}>
+        <Paper className={cn(css.container)}>
+            <Typography variant="h1" className={cn(css.title)} color="text.primary">
                 Поменять фото профиля
             </Typography>
 
             {isImageSelected ? (
                 <Image className={css.avatar} src={imagePreviewSrc} alt="Avatar" width={116} />
             ) : (
-                <Image className={css.avatar} src={avatarSvg} alt="Avatar" width={116} />
+                <Image className={css.avatar} src={AvatarIcon} alt="Avatar" width={116} />
             )}
 
             <Stack
@@ -128,6 +128,6 @@ export const AvatarSettings = () => {
                     Сохранить
                 </Button>
             </Stack>
-        </div>
+        </Paper>
     );
 };

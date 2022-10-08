@@ -1,3 +1,5 @@
+import { Typography } from '@mui/material';
+
 import { Image } from 'components/Image';
 
 import css from './ForumMessage.css';
@@ -12,8 +14,10 @@ export const ForumMessage = ({ userName, userAvatar, content }: ForumMessageProp
     <div className={css.container}>
         <div className={css.header}>
             <Image src={userAvatar} alt="avatar" className={css.profileImg} />
-            {userName}
+            <Typography variant="body1" fontWeight="bold">
+                {userName}
+            </Typography>
         </div>
-        {content}
+        <Typography variant="body2">{content}</Typography>
     </div>
 );

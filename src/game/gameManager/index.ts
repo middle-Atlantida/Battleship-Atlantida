@@ -1,36 +1,56 @@
+import { CanvasArgs } from 'game/types';
+
 import { Game } from '..';
 import { CanvasContainer } from '../renderer';
 
 export class GameManager {
-  private canvasContainer: CanvasContainer | null = null;
+    private canvasContainer: CanvasContainer | null = null;
 
-  private game: Game;
+    private game: Game;
 
-  private gameIsFininsh: (playerWinner: boolean, couterShots: number) => void;
+    private gameIsFininsh: (playerWinner: boolean, couterShots: number) => void;
 
-  private checkScreenName: (screenName: string) => void
+    private checkScreenName: (screenName: string) => void;
 
-  constructor(
-      canvas: HTMLCanvasElement,
-      gameIsFininsh: (playerWinner: boolean, couterShots: number) => void,
-      checkScreenName: (screenName: string) => void,
-  ) {
-      this.canvasContainer = new CanvasContainer(canvas);
-      this.gameIsFininsh = gameIsFininsh;
-      this.checkScreenName = checkScreenName;
+    canvasArgs: CanvasArgs;
 
-      // eslint-disable-next-line max-len
-      this.game = new Game(this.canvasContainer as CanvasContainer, this.gameIsFininsh, this.checkScreenName);
-  }
+    constructor(
+        canvas: HTMLCanvasElement,
+        gameIsFininsh: (playerWinner: boolean, couterShots: number) => void,
+        checkScreenName: (screenName: string) => void,
+        canvasArgs: CanvasArgs,
+    ) {
+        this.canvasContainer = new CanvasContainer(canvas);
+        this.gameIsFininsh = gameIsFininsh;
+        this.checkScreenName = checkScreenName;
+        this.canvasArgs = canvasArgs;
 
-  run() {
-      this.game.start();
-  }
+        // eslint-disable-next-line max-len
+        this.game = new Game(
+            this.canvasContainer as CanvasContainer,
+            this.gameIsFininsh,
+            this.checkScreenName,
+            canvasArgs,
+        );
+    }
 
-  restart() {
-      // eslint-disable-next-line max-len
-      this.game = new Game(this.canvasContainer as CanvasContainer, this.gameIsFininsh, this.checkScreenName);
+    run() {
+        this.game.start();
+    }
 
-      this.game.start();
-  }
+    updateScreen(canvasArgs: CanvasArgs) {
+        this.game.updateCurrentScreen(canvasArgs);
+    }
+
+    restart() {
+        // eslint-disable-next-line max-len
+        this.game = new Game(
+            this.canvasContainer as CanvasContainer,
+            this.gameIsFininsh,
+            this.checkScreenName,
+            this.canvasArgs,
+        );
+
+        this.game.start();
+    }
 }
