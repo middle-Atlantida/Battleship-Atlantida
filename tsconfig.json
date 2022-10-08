@@ -46,7 +46,9 @@
 		"noImplicitOverride": true, /* Ensure overriding members in derived classes are marked with an override modifier. */
 		"noPropertyAccessFromIndexSignature": false, /* Enforces using indexed accessors for keys declared using an indexed type */
 		"skipLibCheck": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
 	},
 	"include": [
 		"src"
