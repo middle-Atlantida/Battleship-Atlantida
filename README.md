@@ -36,7 +36,7 @@ docker-compose down
 - Password: `postgres` (default)
 
 ## Доступ к PgAdmin
-- URL: `http://localhost:5050`
+- URL: `http://localhost:8080`
 - Username: `pgadmin4@pgadmin.org` (default)
 - Password: `admin` (default)
 
