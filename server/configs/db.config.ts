@@ -3,7 +3,7 @@ import {SequelizeOptions} from "sequelize-typescript";
 export const sequelizeOptions: SequelizeOptions = {
     host: "localhost",
     username: "postgres",
-    password: "123",
+    password: "postgres",
     database: "battleship-db",
     dialect: "postgres",
 };
