@@ -1,10 +1,13 @@
 import {Sequelize} from "sequelize-typescript";
 import {sequelizeOptions} from "../configs/db.config";
+import {forumModel} from "../models/forum";
+import {forumCommentModel} from "../models/forumComment";
 
 export const sequelize = new Sequelize(sequelizeOptions);
 
 // Инициализируем здесь модели
-// export const User = sequelize.define('User', userModel, {});
+export const forumName = sequelize.define('ForumName', forumModel, {});
+export const forumComment = sequelize.define('ForumComment', forumCommentModel, {});
 
 export async function dbConnect() {
     try {
