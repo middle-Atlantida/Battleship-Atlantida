@@ -18,9 +18,7 @@ const client = new Client({
 
 client.connect().then(() => {
     try {
-        dbConnect().then(res => {
-            console.log(res);
-        });
+        dbConnect().then();
         app.use(express.static(`${__dirname}/build/`));
 
         app.get('/*', (req, res) => {

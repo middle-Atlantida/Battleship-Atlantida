@@ -5,6 +5,7 @@ import {resolve} from 'path';
 import {Loadable} from 'react-loadable';
 import {makeStartLogsText} from "./startLogs";
 import * as https from "https";
+import {dbConnect} from "../init";
 
 interface Options {
     server: Express;
@@ -19,21 +20,22 @@ const APP_HOSTS: string[] = [
 ];
 
 export function startApp({server}: Options) {
-    // @ts-ignore
-    Loadable.preloadAll().then(() => {
-        if (process.env.__DEV__ && pem) {
-            https
-                .createServer({key: pem, cert: pem}, server)
-                .listen(PORT, () => {
-                    // eslint-disable-next-line
-                    console.log(makeStartLogsText(APP_HOSTS, 'https', PORT));
-                });
-            return;
-        }
+    dbConnect().then(() => {
+        Loadable.preloadAll().then(() => {
+            if (process.env.__DEV__ && pem) {
+                https
+                    .createServer({key: pem, cert: pem}, server)
+                    .listen(PORT, () => {
+                        // eslint-disable-next-line
+                        console.log(makeStartLogsText(APP_HOSTS, 'https', PORT));
+                    });
+                return;
+            }
 
-        server.listen(PORT, () => {
-            // eslint-disable-next-line
-            console.log(makeStartLogsText(APP_HOSTS, 'http', PORT));
+            server.listen(PORT, () => {
+                // eslint-disable-next-line
+                console.log(makeStartLogsText(APP_HOSTS, 'http', PORT));
+            });
         });
     });
 }
