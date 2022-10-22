@@ -2,7 +2,6 @@
 
 import _ from 'lodash';
 
-import killedAudioSrc from 'game/assets/audio/boom.mp3';
 import { Battlefield } from 'game/battlefield';
 
 import { Game } from '..';
@@ -175,7 +174,7 @@ export class ButtleScreen {
         ];
         const shipsDataChanged = !_.isEqual(shipsAvailable, this.shipsAvailable);
         if (shipsDataChanged) {
-            const killedAudio = new Audio(killedAudioSrc);
+            const killedAudio = new Audio('https://storage.yandexcloud.net/battleship-storage/boom.mp3');
 
             try {
                 await killedAudio.play();
