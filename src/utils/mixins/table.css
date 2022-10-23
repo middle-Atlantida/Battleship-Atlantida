@@ -1,8 +1,4 @@
-@import "./text.css";
-
 @define-mixin Table-row {
-  @mixin Regular-text;
-
   display: grid;
   grid-column-gap: 20px;
   justify-items: stretch;
@@ -12,21 +8,4 @@
   margin: 0;
   padding: 12px 0;
   height: 74px;
-
-  &:first-child {
-    @mixin Important-text;
-
-    height: auto;
-    padding-bottom: 27px;
-  }
-
-  & li:not(:first-child, :last-child) {
-    text-align: center;
-    width: 100%;
-  }
-
-  & li:last-child {
-    text-align: end;
-    width: 100%;
-  }
 }

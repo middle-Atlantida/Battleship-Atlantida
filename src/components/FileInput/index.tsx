@@ -1,7 +1,9 @@
 import { InputHTMLAttributes } from 'react';
 
-import { Image } from 'components/Image';
-import uploadFile from 'img/uploadFile.svg';
+import { Typography } from '@mui/material';
+import classNames from 'classnames';
+
+import UploadFile from 'img/uploadFile.svg';
 
 import css from './FileInput.css';
 
@@ -13,8 +15,8 @@ type IFileInputProps = InputHTMLAttributes<HTMLInputElement> & {
 export const FileInput = ({ id, label = '', ...inputProps }: IFileInputProps) => (
     <div className={css.container}>
         <label className={css.label} htmlFor={id}>
-            <Image className={css.uploadLogo} src={uploadFile} alt="upload" width={24} />
-            <span>{label}</span>
+            <UploadFile className={classNames(css.uploadLogo)} />
+            <Typography variant="body1">{label}</Typography>
         </label>
         <input className={css.input} type="file" id={id} {...inputProps} />
     </div>

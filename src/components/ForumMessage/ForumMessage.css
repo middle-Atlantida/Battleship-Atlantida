@@ -1,5 +1,3 @@
-@import "../../utils/mixins/text.css";
-
 .container {
   display: flex;
   flex-direction: column;
@@ -11,8 +9,8 @@
   border: solid 2px var(--dark-grey-color);
 
   & .header {
-    @mixin Uppercase-important-text;
-
+    font-weight: 600;
+    text-transform: uppercase;
     display: flex;
     flex-direction: row;
     align-items: center;

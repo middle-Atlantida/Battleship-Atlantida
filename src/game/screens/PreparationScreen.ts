@@ -15,385 +15,407 @@ import {
     BORDER_COLOR_BUTTON,
 } from '../constants';
 import { CanvasContainer } from '../renderer';
-import { Ship, Coord, Button } from '../types';
+import { Ship, Coord, Button, CanvasArgs } from '../types';
 import { isOverElement } from '../utils';
 
 export class PreparationScreen {
-  player: Battlefield;
+    player: Battlefield;
 
-  private canvas: CanvasContainer;
+    private canvas: CanvasContainer;
 
-  private draggedShip: null | Ship;
+    private draggedShip: null | Ship;
 
-  private startDraggedCoord: Coord;
+    private startDraggedCoord: Coord;
 
-  private mouseCoord: Coord;
+    private mouseCoord: Coord;
 
-  private buttons: Record<string, Button | null>;
+    private buttons: Record<string, Button | null>;
 
-  private app: Game;
+    private app: Game;
 
-  private handlers: Record<string, Array<(event: Event) => void>>
+    private handlers: Record<string, Array<(event: Event) => void>>;
 
-  constructor(canvas: CanvasContainer, player: Battlefield, app: Game) {
-      this.app = app;
-      this.player = player;
-      this.canvas = canvas;
-      this.draggedShip = null;
-      this.startDraggedCoord = {
-          x: 0,
-          y: 0,
-      };
-      this.mouseCoord = {
-          x: 0,
-          y: 0,
-      };
-      this.buttons = {
-          startButton: null,
-          randomButton: null,
-      };
-      this.handlers = {};
-  }
+    canvasArgs: CanvasArgs;
 
-  clearCanvas() {
-      this.canvas.clear();
-  }
+    constructor(canvas: CanvasContainer, player: Battlefield, canvasArgs: CanvasArgs, app: Game) {
+        this.app = app;
+        this.player = player;
+        this.canvas = canvas;
+        this.canvasArgs = canvasArgs;
+        this.draggedShip = null;
+        this.startDraggedCoord = {
+            x: 0,
+            y: 0,
+        };
+        this.mouseCoord = {
+            x: 0,
+            y: 0,
+        };
+        this.buttons = {
+            startButton: null,
+            randomButton: null,
+        };
+        this.handlers = {};
+    }
 
-  renderBattlefield() {
-      this.player.battlefield.forEach(row => {
-          row.forEach(cell => {
-              this.canvas.update({
-                  x: cell.drawingCoordinate.x,
-                  y: cell.drawingCoordinate.y,
-                  width: cell.width,
-                  height: cell.height,
-                  color: cell.color,
-                  borderColor: cell.borderColor,
-                  type: cell.type,
-                  text: cell?.markerText || '',
-                  textColor: 'black',
-              });
-          });
-      });
-  }
+    clearCanvas() {
+        this.canvas.clear();
+    }
 
-  renderShips() {
-      this.player.ships.forEach(ship => {
-          this.canvas.update({
-              x: ship.position.x,
-              y: ship.position.y,
-              width: this.getWidthShip(ship),
-              height: this.getHeightShip(ship),
-              color: ship.color,
-              borderColor: ship.borderColor,
-              type: ship.type,
-          });
-      });
-  }
+    renderBattlefield() {
+        this.player.battlefield.forEach(row => {
+            row.forEach(cell => {
+                this.canvas.update({
+                    x: cell.drawingCoordinate.x,
+                    y: cell.drawingCoordinate.y,
+                    width: cell.width,
+                    height: cell.height,
+                    color: cell.color,
+                    borderColor: cell.borderColor,
+                    type: cell.type,
+                    text: cell?.markerText || '',
+                    textColor: this.canvasArgs.textColor,
+                });
+            });
+        });
+    }
 
-  renderTextShips() {
-      this.canvas.update({
-          x: 860,
-          y: 240,
-          width: 0,
-          height: 0,
-          color: 'white',
-          type: Drawing.Button,
-          text: 'Корабли',
-          textColor: 'black',
-      });
-  }
+    renderShips() {
+        this.player.ships.forEach(ship => {
+            this.canvas.update({
+                x: ship.position.x,
+                y: ship.position.y,
+                width: this.getWidthShip(ship),
+                height: this.getHeightShip(ship),
+                color: ship.color,
+                borderColor: ship.borderColor,
+                type: ship.type,
+            });
+        });
+    }
 
-  getWidthShip = (ship: Ship) => (ship.direction === 'row'
-      ? ship.size * CELL_WIDTH + (ship.size - 1) * CELL_GAP
-      : CELL_WIDTH);
+    renderTextShips() {
+        this.canvas.update({
+            x: 860,
+            y: 240,
+            width: 0,
+            height: 0,
+            color: 'white',
+            type: Drawing.Button,
+            text: 'Корабли',
+            textColor: this.canvasArgs.textColor,
+        });
+    }
 
-  getHeightShip = (ship: Ship) => (ship.direction === 'row'
-      ? CELL_HEIGHT
-      : ship.size * CELL_HEIGHT + (ship.size - 1) * CELL_GAP)
+    getWidthShip = (ship: Ship) =>
+        ship.direction === 'row' ? ship.size * CELL_WIDTH + (ship.size - 1) * CELL_GAP : CELL_WIDTH;
 
-  removeDraggedShip() {
-      if (this.draggedShip) {
-          this.draggedShip = null;
-      }
-      this.startDraggedCoord = {
-          x: 0,
-          y: 0,
-      };
-  }
+    getHeightShip = (ship: Ship) =>
+        ship.direction === 'row'
+            ? CELL_HEIGHT
+            : ship.size * CELL_HEIGHT + (ship.size - 1) * CELL_GAP;
 
-  takeShip = (event: Event) => {
-      if (event.type !== 'mousedown') {
-          return;
-      }
-      const { offsetX, offsetY } = event as MouseEvent;
-      this.startDraggedCoord = {
-          x: offsetX,
-          y: offsetY,
-      };
+    removeDraggedShip() {
+        if (this.draggedShip) {
+            this.draggedShip = null;
+        }
+        this.startDraggedCoord = {
+            x: 0,
+            y: 0,
+        };
+    }
 
-      const ship = this.player.ships.find(shipItem => isOverElement(
-          {
-              x: offsetX, y: offsetY, width: 0, height: 0,
-          },
-          {
-              // eslint-disable-next-line max-len
-              x: shipItem.position.x, y: shipItem.position.y, width: this.getWidthShip(shipItem), height: this.getHeightShip(shipItem),
-          },
-      ));
+    takeShip = (event: Event) => {
+        if (event.type !== 'mousedown') {
+            return;
+        }
+        const { offsetX, offsetY } = event as MouseEvent;
+        this.startDraggedCoord = {
+            x: offsetX,
+            y: offsetY,
+        };
 
-      if (ship) {
-          this.draggedShip = ship;
-      }
-  }
+        const ship = this.player.ships.find(shipItem =>
+            isOverElement(
+                {
+                    x: offsetX,
+                    y: offsetY,
+                    width: 0,
+                    height: 0,
+                },
+                {
+                    // eslint-disable-next-line max-len
+                    x: shipItem.position.x,
+                    y: shipItem.position.y,
+                    width: this.getWidthShip(shipItem),
+                    height: this.getHeightShip(shipItem),
+                },
+            ),
+        );
 
-  rotateShip = (event: Event) => {
-      if (event.type !== 'keydown') {
-          return;
-      }
+        if (ship) {
+            this.draggedShip = ship;
+        }
+    };
 
-      const { code } = event as KeyboardEvent;
+    rotateShip = (event: Event) => {
+        if (event.type !== 'keydown') {
+            return;
+        }
 
-      if (code !== 'Space') {
-          return;
-      }
+        const { code } = event as KeyboardEvent;
 
-      if (!this.draggedShip) {
-          return;
-      }
+        if (code !== 'Space') {
+            return;
+        }
 
-      const newShipCoord = {
-          x: this.mouseCoord.x + (this.draggedShip.position.y - this.mouseCoord.y),
-          y: this.mouseCoord.y + (this.draggedShip.position.x - this.mouseCoord.x),
-      };
+        if (!this.draggedShip) {
+            return;
+        }
 
-      this.draggedShip.position = newShipCoord;
+        const newShipCoord = {
+            x: this.mouseCoord.x + (this.draggedShip.position.y - this.mouseCoord.y),
+            y: this.mouseCoord.y + (this.draggedShip.position.x - this.mouseCoord.x),
+        };
 
-      this.draggedShip.direction = this.draggedShip.direction === 'column' ? 'row' : 'column';
+        this.draggedShip.position = newShipCoord;
 
-      this.update();
-  }
+        this.draggedShip.direction = this.draggedShip.direction === 'column' ? 'row' : 'column';
 
-  moveShip = (event: Event) => {
-      if (event.type !== 'mousemove') {
-          return;
-      }
+        this.update();
+    };
 
-      if (!this.draggedShip) {
-          return;
-      }
+    moveShip = (event: Event) => {
+        if (event.type !== 'mousemove') {
+            return;
+        }
 
-      this.draggedShip.color = BACKGROUND_COLOR_SHIP;
-      this.draggedShip.borderColor = BORDER_COLOR_SHIP;
+        if (!this.draggedShip) {
+            return;
+        }
 
-      if (this.draggedShip.cells?.[0]) {
-          this.player.removeShipFromButtelfield(this.draggedShip);
-      }
-      const { offsetX, offsetY } = event as MouseEvent;
-      this.mouseCoord.x = offsetX;
-      this.mouseCoord.y = offsetY;
+        this.draggedShip.color = BACKGROUND_COLOR_SHIP;
+        this.draggedShip.borderColor = BORDER_COLOR_SHIP;
 
-      const newPosition = {
-          x: this.draggedShip.position.x - (this.startDraggedCoord.x - offsetX),
-          y: this.draggedShip.position.y - (this.startDraggedCoord.y - offsetY),
-      };
+        if (this.draggedShip.cells?.[0]) {
+            this.player.removeShipFromButtelfield(this.draggedShip);
+        }
+        const { offsetX, offsetY } = event as MouseEvent;
+        this.mouseCoord.x = offsetX;
+        this.mouseCoord.y = offsetY;
 
-      this.startDraggedCoord = {
-          x: offsetX,
-          y: offsetY,
-      };
-      this.clearCanvas();
-      this.update();
+        const newPosition = {
+            x: this.draggedShip.position.x - (this.startDraggedCoord.x - offsetX),
+            y: this.draggedShip.position.y - (this.startDraggedCoord.y - offsetY),
+        };
 
-      this.draggedShip.position = newPosition;
-  }
+        this.startDraggedCoord = {
+            x: offsetX,
+            y: offsetY,
+        };
+        this.clearCanvas();
+        this.update();
 
-  dropShip = () => {
-      if (!this.draggedShip) {
-          return;
-      }
+        this.draggedShip.position = newPosition;
+    };
 
-      if (isOverElement(
-          {
-              x: this.draggedShip.position.x,
-              y: this.draggedShip.position.y,
-              width: this.getWidthShip(this.draggedShip),
-              height: this.getHeightShip(this.draggedShip),
-          },
-          {
-              x: PREPARATION_SCREEN_START_FIELD_COORD_X - 20,
-              y: PREPARATION_SCREEN_START_FIELD_COORD_Y - 20,
-              width: PREPARATION_SCREEN_START_FIELD_COORD_X + BATTLEFIELD_WIDTH + 20,
-              height: PREPARATION_SCREEN_START_FIELD_COORD_Y + BATTLEFIELD_HEIGHT + 20,
-          },
-      )) {
-          const shipStartingCell = this.player.getShipStartingCell(this.draggedShip);
+    dropShip = () => {
+        if (!this.draggedShip) {
+            return;
+        }
 
-          if (!shipStartingCell
-              || !this.player.checkFreeCellsUnderShip(this.draggedShip, shipStartingCell)) {
-              this.player.moveShipToStartPositon(this.draggedShip);
-              this.removeDraggedShip();
-              this.update();
-              return;
-          }
+        if (
+            isOverElement(
+                {
+                    x: this.draggedShip.position.x,
+                    y: this.draggedShip.position.y,
+                    width: this.getWidthShip(this.draggedShip),
+                    height: this.getHeightShip(this.draggedShip),
+                },
+                {
+                    x: PREPARATION_SCREEN_START_FIELD_COORD_X - 20,
+                    y: PREPARATION_SCREEN_START_FIELD_COORD_Y - 20,
+                    width: PREPARATION_SCREEN_START_FIELD_COORD_X + BATTLEFIELD_WIDTH + 20,
+                    height: PREPARATION_SCREEN_START_FIELD_COORD_Y + BATTLEFIELD_HEIGHT + 20,
+                },
+            )
+        ) {
+            const shipStartingCell = this.player.getShipStartingCell(this.draggedShip);
 
-          this.player.addShip(this.draggedShip, shipStartingCell);
+            if (
+                !shipStartingCell ||
+                !this.player.checkFreeCellsUnderShip(this.draggedShip, shipStartingCell)
+            ) {
+                this.player.moveShipToStartPositon(this.draggedShip);
+                this.removeDraggedShip();
+                this.update();
+                return;
+            }
 
-          this.update();
-      } else {
-          this.player.moveShipToStartPositon(this.draggedShip);
-      }
-      this.removeDraggedShip();
-      this.update();
-  }
+            this.player.addShip(this.draggedShip, shipStartingCell);
 
-  onClickButton = (event: Event) => {
-      if (event.type !== 'click') {
-          return;
-      }
-      const { offsetX, offsetY } = event as MouseEvent;
+            this.update();
+        } else {
+            this.player.moveShipToStartPositon(this.draggedShip);
+        }
+        this.removeDraggedShip();
+        this.update();
+    };
 
-      const activeButton = Object.values(this.buttons).find(button => {
-          if (!button) {
-              return false;
-          }
+    onClickButton = (event: Event) => {
+        if (event.type !== 'click') {
+            return;
+        }
+        const { offsetX, offsetY } = event as MouseEvent;
 
-          return isOverElement(
-              {
-                  x: offsetX, y: offsetY, width: 0, height: 0,
-              },
-              {
-                  // eslint-disable-next-line max-len
-                  x: button.x, y: button.y, width: button.x + button.width, height: button.y + button.height,
-              },
-          );
-      });
+        const activeButton = Object.values(this.buttons).find(button => {
+            if (!button) {
+                return false;
+            }
 
-      if (!activeButton) {
-          return;
-      }
+            return isOverElement(
+                {
+                    x: offsetX,
+                    y: offsetY,
+                    width: 0,
+                    height: 0,
+                },
+                {
+                    // eslint-disable-next-line max-len
+                    x: button.x,
+                    y: button.y,
+                    width: button.x + button.width,
+                    height: button.y + button.height,
+                },
+            );
+        });
 
-      activeButton.handler();
-  }
+        if (!activeButton) {
+            return;
+        }
 
-  generateStartScreen() {
-      this.createStartButton();
-      this.createRandomButton();
-      this.addEvent('mousedown', this.takeShip);
-      this.addEvent('mousemove', this.moveShip);
-      this.addEvent('mouseup', this.dropShip);
-      this.addEvent('click', this.onClickButton);
-      this.addEvent('keydown', this.rotateShip);
-      this.update();
-  }
+        activeButton.handler();
+    };
 
-  addEvent(eventName: string, callback: (event: Event) => void) {
-      if (!this.handlers[eventName]) {
-          this.handlers[eventName] = [callback];
-      } else {
-          const duplicate = this.handlers[eventName]?.find(item => item === callback);
+    generateStartScreen() {
+        this.createStartButton();
+        this.createRandomButton();
+        this.addEvent('mousedown', this.takeShip);
+        this.addEvent('mousemove', this.moveShip);
+        this.addEvent('mouseup', this.dropShip);
+        this.addEvent('click', this.onClickButton);
+        this.addEvent('keydown', this.rotateShip);
+        this.update();
+    }
 
-          if (!duplicate) {
-              this.handlers[eventName]?.push(callback);
-          }
-      }
+    addEvent(eventName: string, callback: (event: Event) => void) {
+        if (!this.handlers[eventName]) {
+            this.handlers[eventName] = [callback];
+        } else {
+            const duplicate = this.handlers[eventName]?.find(item => item === callback);
 
-      document.addEventListener(eventName, callback);
-  }
+            if (!duplicate) {
+                this.handlers[eventName]?.push(callback);
+            }
+        }
 
-  removeEvent(eventName: string, callback: (event: Event) => void) {
-      if (!this.handlers[eventName]) {
-          return;
-      }
+        document.addEventListener(eventName, callback);
+    }
 
-      // eslint-disable-next-line max-len
-      this.handlers[eventName] = this.handlers[eventName]?.filter(event => event === callback) || [];
+    removeEvent(eventName: string, callback: (event: Event) => void) {
+        if (!this.handlers[eventName]) {
+            return;
+        }
 
-      document.removeEventListener(eventName, callback);
-  }
+        // eslint-disable-next-line max-len
+        this.handlers[eventName] =
+            this.handlers[eventName]?.filter(event => event === callback) || [];
 
-  removeAllEvents() {
-      Object.entries(this.handlers).forEach(([eventName, callbacks]) => {
-          callbacks.forEach(callback => this.removeEvent(eventName, callback));
-      });
-  }
+        document.removeEventListener(eventName, callback);
+    }
 
-  createStartButton() {
-      this.buttons.startButton = {
-          text: 'В бой',
-          width: 135,
-          height: 50,
-          x: this.canvas.element.width / 2 + 10,
-          y: PREPARATION_SCREEN_START_FIELD_COORD_Y + BATTLEFIELD_HEIGHT + 50,
-          color: BACKGROUND_COLOR_BUTTON,
-          borderColor: BORDER_COLOR_BUTTON,
-          textColor: 'white',
-          type: Drawing.Button,
-          handler: this.stop,
-      };
-  }
+    removeAllEvents() {
+        Object.entries(this.handlers).forEach(([eventName, callbacks]) => {
+            callbacks.forEach(callback => this.removeEvent(eventName, callback));
+        });
+    }
 
-  createRandomButton() {
-      this.buttons.randomButton = {
-          text: 'Random',
-          width: 135,
-          height: 50,
-          x: this.canvas.element.width / 2 - 145,
-          y: PREPARATION_SCREEN_START_FIELD_COORD_Y + BATTLEFIELD_HEIGHT + 50,
-          color: BACKGROUND_COLOR_BUTTON,
-          borderColor: BORDER_COLOR_BUTTON,
-          textColor: 'white',
-          type: Drawing.Button,
-          handler: this.randomize,
-      };
-  }
+    createStartButton() {
+        this.buttons.startButton = {
+            text: 'В бой',
+            width: 135,
+            height: 50,
+            x: this.canvas.element.width / 2 + 10,
+            y: PREPARATION_SCREEN_START_FIELD_COORD_Y + BATTLEFIELD_HEIGHT + 50,
+            color: BACKGROUND_COLOR_BUTTON,
+            borderColor: BORDER_COLOR_BUTTON,
+            textColor: 'white',
+            type: Drawing.Button,
+            handler: this.stop,
+        };
+    }
 
-  renderButtons() {
-      Object.values(this.buttons).forEach(button => {
-          if (!button) {
-              return;
-          }
+    createRandomButton() {
+        this.buttons.randomButton = {
+            text: 'Random',
+            width: 135,
+            height: 50,
+            x: this.canvas.element.width / 2 - 145,
+            y: PREPARATION_SCREEN_START_FIELD_COORD_Y + BATTLEFIELD_HEIGHT + 50,
+            color: BACKGROUND_COLOR_BUTTON,
+            borderColor: BORDER_COLOR_BUTTON,
+            textColor: 'white',
+            type: Drawing.Button,
+            handler: this.randomize,
+        };
+    }
 
-          this.canvas.update({
-              x: button.x,
-              y: button.y,
-              width: button.width,
-              height: button.height,
-              text: button.text,
-              textColor: button.textColor,
-              color: button.color,
-              borderColor: button.borderColor,
-              type: button.type,
-          });
-      });
-  }
+    renderButtons() {
+        Object.values(this.buttons).forEach(button => {
+            if (!button) {
+                return;
+            }
 
-  randomize = () => {
-      this.player.randomize();
-      this.update();
-  }
+            this.canvas.update({
+                x: button.x,
+                y: button.y,
+                width: button.width,
+                height: button.height,
+                text: button.text,
+                textColor: button.textColor,
+                color: button.color,
+                borderColor: button.borderColor,
+                type: button.type,
+            });
+        });
+    }
 
-  start() {
-      this.generateStartScreen();
-  }
+    randomize = () => {
+        this.player.randomize();
+        this.update();
+    };
 
-  checkAllShipsInBattlefield = () => !!this.player.ships.filter(ship => ship.cells.length).length
+    start() {
+        this.generateStartScreen();
+    }
 
-  stop = () => {
-      if (!this.checkAllShipsInBattlefield()) {
-          return;
-      }
-      this.removeAllEvents();
-      this.app.update('buttle');
-  }
+    checkAllShipsInBattlefield = () => !!this.player.ships.filter(ship => ship.cells.length).length;
 
-  update() {
-      requestAnimationFrame(() => {
-          this.clearCanvas();
-          this.renderBattlefield();
-          this.renderShips();
-          this.renderButtons();
-          this.renderTextShips();
-      });
-  }
+    stop = () => {
+        if (!this.checkAllShipsInBattlefield()) {
+            return;
+        }
+        this.removeAllEvents();
+        this.app.update('buttle');
+    };
+
+    update() {
+        requestAnimationFrame(() => {
+            this.clearCanvas();
+            this.renderBattlefield();
+            this.renderShips();
+            this.renderButtons();
+            this.renderTextShips();
+        });
+    }
 }
