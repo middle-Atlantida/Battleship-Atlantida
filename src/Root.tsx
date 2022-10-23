@@ -6,6 +6,7 @@ import { ProtectedRoute } from 'components/ProtectedRoute';
 import { useToggleFullScreen, useAppDispatch } from 'hooks';
 import { Forums } from 'pages/Forums';
 import { Game } from 'pages/Game';
+import { Landing } from "pages/Landing";
 import { Leaderboard } from 'pages/Leaderboard';
 import { MainMenu } from 'pages/MainMenu';
 import { NotFound } from 'pages/NotFound';
@@ -20,6 +21,7 @@ import { consoleLog } from 'utils/consoleLog';
 
 export const routes = {
     main: '/',
+    landing: '/landing',
     signIn: '/sign-in',
     signUp: '/sign-up',
     game: '/game',
@@ -61,6 +63,7 @@ export const Root = () => {
                     </ProtectedRoute>
                 }
             />
+            <Route path={routes.landing} element={<Landing />} />
             <Route path={routes.signIn} element={<SignIn />} />
             <Route path={routes.signUp} element={<SignUp />} />
             <Route
