@@ -15,6 +15,31 @@
 
 ## Релиз
 
+### Локальный запуск docker-compose c БД
+1. Сборка и запуск всех контейнеров
+```bash
+docker-compose up
+```
+
+2. Остановка всех контейнеров
+```
+Выполняется сочетанием клавиш Ctrl+C или CMD+C
+```
+3. Удаление контейнеров
+```bash
+docker-compose down
+```
+
+## Доступ к postgres
+- localhost: `5432`
+- Username: `postgres` (default)
+- Password: `postgres` (default)
+
+## Доступ к PgAdmin
+- URL: `http://localhost:8080`
+- Username: `pgadmin4@pgadmin.org` (default)
+- Password: `admin` (default)
+
 ### Локальный запуск докера
 1. Сборка докер образа
 ```bash
