@@ -30,6 +30,8 @@ import { CanvasContainer } from '../renderer';
 import { Button, Cell, Ship, Coord, CanvasArgs } from '../types';
 import { getRandomBetween, isOverElement } from '../utils';
 
+const killedAudioLink = 'https://storage.yandexcloud.net/battleship-storage/boom.mp3';
+
 export class ButtleScreen {
     player: Battlefield;
 
@@ -174,7 +176,7 @@ export class ButtleScreen {
         ];
         const shipsDataChanged = !_.isEqual(shipsAvailable, this.shipsAvailable);
         if (shipsDataChanged) {
-            const killedAudio = new Audio('https://storage.yandexcloud.net/battleship-storage/boom.mp3');
+            const killedAudio = new Audio(killedAudioLink);
 
             try {
                 await killedAudio.play();
