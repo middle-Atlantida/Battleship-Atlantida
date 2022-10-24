@@ -1,0 +1,28 @@
+.mainLanding {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+}
+
+.landingBackground {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  filter: brightness(20%);
+}
+
+.descriptionLanding {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  padding-bottom: 60px;
+}
+
+.rules {
+  width: 350px;
+  color: #fff;
+  z-index: 1;
+}
