@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { ListItemText, Typography } from '@mui/material';
 import classNames from 'classnames';
+import { createSelector } from "reselect";
 
 import { LeaderboardAPI } from 'api/leaderboard';
 import { Image } from 'components/Image';
@@ -26,11 +27,11 @@ export const Leaderboard = () => {
                 cursor: 0,
                 limit: 0,
             };
-            // eslint-disable-next-line max-len
             const leaderboardList: ILeaderProfile[] | unknown =
                 await LeaderboardAPI.leaderboardUsers(data);
             if (leaderboardList && Array.isArray(leaderboardList)) {
-                setLeadersInfo(leaderboardList);
+                const leaderboardListSelect = createSelector(leaderboardList, list => list)
+                setLeadersInfo(leaderboardListSelect);
             }
         } catch (error) {
             if (error instanceof Error) {
