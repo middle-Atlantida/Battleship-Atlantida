@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import { Header } from 'components/Header';
 import { Modal } from 'components/Modal';
+import { useToggleFullScreen } from 'hooks';
 import { routes } from 'src/Root';
 
 import { useGame } from '../../hooks/useGame';
@@ -49,6 +50,8 @@ export const Game = () => {
         handleClose();
         restart();
     }, [handleClose, restart]);
+
+    useToggleFullScreen();
 
     return (
         <>
