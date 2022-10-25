@@ -1,7 +1,6 @@
 import {EntityAPI, Empty} from 'utils';
 
-import store, {CommonStore, getStore} from 'client/utils/infrastructure/store';
-
+import {CommonStore, getStore, store} from '../../store';
 import {EntityLoaderConfig, PaginationOptions} from './types';
 
 export function entityOperation<D, R = unknown>(
@@ -28,7 +27,7 @@ export function entityOperation<D, R = unknown>(
         continue: true,
     };
 
-    return async function (params: R = {} as any): Promise<D | string> {
+    return async function entityFallback(params: R = {} as any): Promise<D | string> {
         if (initAction) {
             dispatch(initAction());
         }
@@ -54,7 +53,7 @@ export function entityOperation<D, R = unknown>(
             return result;
         } catch (error) {
             if (errorAction) {
-                dispatch(errorAction(error));
+                dispatch(errorAction(String(error)));
             }
 
             throw error;

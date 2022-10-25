@@ -64,3 +64,16 @@ declare module '*.mp3' {
     const src: string;
     export default src;
 }
+
+interface Indexed<T = any> {
+    [x: string]: T;
+}
+
+export type Nullable<T> = T | null | undefined;
+
+export type NullOrString = Nullable<string>;
+
+export type PlainObject<T = unknown> = Record<string, T>;
+
+export type Keys<T extends PlainObject> = keyof T;
+export type Values<T extends PlainObject> = T[Keys<T>];

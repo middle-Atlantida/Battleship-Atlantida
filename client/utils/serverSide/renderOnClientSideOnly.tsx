@@ -1,5 +1,6 @@
-import React = require("react");
-import isServer from "./isServerEnvCheker";
+import React from'react';
+
+import { isServer } from "./isServerEnvCheker";
 
 export function renderOnClientSideOnly(
     Component: React.ComponentType,

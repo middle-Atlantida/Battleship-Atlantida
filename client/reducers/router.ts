@@ -1,7 +1,7 @@
-import {connectRouter as router, routerActions} from 'connected-react-router';
+import {routerActions} from 'connected-react-router';
 
 export const actions = {
     ...routerActions,
 };
 
-export default router;
+export { connectRouter as routerReducer } from  'connected-react-router';

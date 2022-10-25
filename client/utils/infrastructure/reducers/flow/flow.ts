@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import produce, {Draft} from 'immer';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
@@ -5,8 +7,7 @@ import merge from 'lodash/merge';
 import {createSelector} from 'reselect';
 import {ActionType, createAction, createReducer} from 'typesafe-actions';
 
-import {CommonStore} from 'client/utils/infrastructure/store';
-
+import {CommonStore} from '../../store';
 import {baseDefaultState} from './consts';
 import {BaseActions, BaseState, EntityReducerOptions, Status} from './types';
 import {checkPending} from './utils';
@@ -28,7 +29,9 @@ export function generateBaseReducer<D>(prefix: string, defaultState: Partial<Bas
     const reducer = createReducer<BaseState<D>, ActionType<typeof actions>>(baseDefaultState)
         .handleAction(
             actions.success,
-            (state, {payload}) => produce(state, draft => {
+            // @ts-ignore
+            (state, {payload}) => produce(state, (draft: BaseState<D>) => {
+                // @ts-ignore
                 draft.data = payload as Draft<BaseState<D>['data']>;
                 draft.status = Status.Success;
 
@@ -36,8 +39,8 @@ export function generateBaseReducer<D>(prefix: string, defaultState: Partial<Bas
             }),
         )
         .handleAction(
-            // @ts-ignore
             actions.failed,
+            // @ts-ignore
             (state, {payload}) => produce(state, draft => {
                 draft.error = payload;
                 draft.status = Status.Failed;
@@ -47,6 +50,7 @@ export function generateBaseReducer<D>(prefix: string, defaultState: Partial<Bas
         )
         .handleAction(
             actions.pending,
+            // @ts-ignore
             state => produce(state, draft => {
                 draft.status = Status.Pending;
 
