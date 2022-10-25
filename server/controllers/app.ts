@@ -7,11 +7,12 @@ export function renderApp(req: Request, res: Response) {
     const {
         ip,
         nonce,
-    } = (req as any);
+    } = (req);
 
     res.renderBundle('desktop', {
         ip,
         nonce,
         resHeaders,
+        csrfToken: req.csrfToken(),
     });
 }
