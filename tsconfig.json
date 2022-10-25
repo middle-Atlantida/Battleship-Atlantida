@@ -53,7 +53,13 @@
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"typeRoots": ["./@types"],
+		"types": [
+			"jest",
+			"node",
+			"@types/jest",
+		  ]
 	},
+	"include": ["./**/*"],
 	"exclude": [
 		"node_modules"
 	],
