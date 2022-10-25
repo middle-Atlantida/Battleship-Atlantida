@@ -1,13 +1,13 @@
 import {Router} from 'express';
 
-import {renderApp} from "../controllers";
 import {routes} from "../../client/routes";
+import {renderApp} from "../controllers";
 
 
 const allRoutes = (function flatRoutes(routesMap: object): string[] {
     return Object.values(routesMap).reduce<string[]>(
-        (routes, path) =>
-            routes.concat(typeof path === 'object' ? flatRoutes(path) : path),
+        (routesArray, path) =>
+            routesArray.concat(typeof path === 'object' ? flatRoutes(path) : path),
         [],
     );
 })(routes);

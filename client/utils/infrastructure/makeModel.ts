@@ -1,6 +1,6 @@
-import pathFromFunction from './pathFromFunctions';
+import { pathFromFunction } from './pathFromFunctions';
 
-export default function model<T>(
+export function model<T>(
     path: (object?: T) => any,
     isRootPath?: boolean,
 ): string {

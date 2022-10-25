@@ -1,7 +1,6 @@
-import {Indexed, Empty} from 'utils';
+import {Empty} from 'utils';
 
-import {CommonStore} from 'client/utils/infrastructure/store';
-
+import {CommonStore} from '../../store';
 import {BaseActions} from '../flow';
 
 export interface PaginationOptions {

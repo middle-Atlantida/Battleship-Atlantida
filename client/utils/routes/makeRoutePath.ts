@@ -1,5 +1,5 @@
-import config from "../../config/config";
+import { config } from '../../config';
 
 const {BASE_PATH} = config;
 
-export default (path: string) => `${BASE_PATH}${path}`;
+export const makeRoutePath = (path: string) => `${BASE_PATH}${path}`;

@@ -1,14 +1,12 @@
 import {config} from 'dotenv';
-import {Express} from 'express';
-import express = require("express");
+import express, {Express} from 'express';
 
-// eslint-disable-next-line
-config();
-
-import {notFound, queryParser} from "./controllers";
 import router from "../client/reducers/router";
+import {notFound, queryParser} from "./controllers";
 
-const server: Express = express();
+
+config();
+export const server: Express = express();
 
 server
     .disable('x-powered-by')
@@ -16,5 +14,3 @@ server
     .set('query parser', queryParser)
     .use(router)
     .use(notFound);
-
-export default server;

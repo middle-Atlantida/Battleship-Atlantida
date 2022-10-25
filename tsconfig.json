@@ -1,5 +1,7 @@
 {
 	"compilerOptions": {
+		"importHelpers": true,
+		"sourceMap": true,
 		/* Visit https://aka.ms/tsconfig.json to read more about this file */
 		/* Projects */
 		"incremental": true, /* Enable incremental compilation */
@@ -8,14 +10,15 @@
 		"lib": [
 			"dom",
 			"dom.iterable",
-			"esnext"
+			"esnext",
+			"es2018"
 		],
 		/* Language and Environment */
 		"target": "es6", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
 		/* Modules */
 		"module": "ESNext", /* Specify what module code is generated. */
 		"moduleResolution": "node",
-		"baseUrl": "./", /* Specify the base directory to resolve non-relative module names. */
+		"baseUrl": ".", /* Specify the base directory to resolve non-relative module names. */
 		"outDir": "build",
 		"paths": {
 			"*": [
@@ -48,11 +51,9 @@
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
 		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true
+		"emitDecoratorMetadata": true,
+		"typeRoots": ["./@types"],
 	},
-	"include": [
-		"src"
-	],
 	"exclude": [
 		"node_modules"
 	],

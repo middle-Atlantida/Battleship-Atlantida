@@ -1,11 +1,13 @@
-import prepareRoutes from './prepareRoutes';
-import React = require("react");
+import React from 'react';
+
+import { prepareRoutes } from './prepareRoutes';
 
 const routes: React.ReactNode[] = [];
 
-export function extendRoutes(routes: JSX.Element[]) {
+export function extendRoutes(argRoutes: JSX.Element[]) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    routes.splice(routes.length, 0, ...prepareRoutes(routes));
+    argRoutes.splice(argRoutes.length, 0, ...prepareRoutes(routes));
 }
 
 export function getRoutes() {
