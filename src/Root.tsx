@@ -1,23 +1,23 @@
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 
-import { ProtectedRoute } from 'components/ProtectedRoute';
-import { useToggleFullScreen, useAppDispatch } from 'hooks';
-import { Forums } from 'pages/Forums';
-import { Game } from 'pages/Game';
-import { Landing } from "pages/Landing";
-import { Leaderboard } from 'pages/Leaderboard';
-import { MainMenu } from 'pages/MainMenu';
-import { NotFound } from 'pages/NotFound';
-import { Settings } from 'pages/Settings';
-import { SignIn } from 'pages/SignIn';
-import { SignUp } from 'pages/SignUp';
-import { Topic } from 'pages/Topic';
-import { Topics } from 'pages/Topics';
-import { store } from 'store';
-import { init } from 'store/actions/user';
-import { consoleLog } from 'utils/consoleLog';
+import {ProtectedRoute} from 'components/ProtectedRoute';
+import {useToggleFullScreen, useAppDispatch} from 'hooks';
+import {Forums} from 'pages/Forums';
+import {Game} from 'pages/Game';
+import {Landing} from "pages/Landing";
+import {Leaderboard} from 'pages/Leaderboard';
+import {MainMenu} from 'pages/MainMenu';
+import {NotFound} from 'pages/NotFound';
+import {Settings} from 'pages/Settings';
+import {SignIn} from 'pages/SignIn';
+import {SignUp} from 'pages/SignUp';
+import {Topic} from 'pages/Topic';
+import {Topics} from 'pages/Topics';
+import {store} from 'store';
+import {init} from 'store/actions/user';
+import {consoleLog} from 'utils/consoleLog';
 
 export const routes = {
     main: '/',
@@ -45,10 +45,8 @@ export const Root = () => {
                     consoleLog('Store is initialized:\n', store.getState());
                 }
             };
-            initializeStore();
-        },
-        [dispatch],
-    );
+            initializeStore().then();
+        }, [dispatch]);
 
     // TODO перенести хук в игру
     useToggleFullScreen();
@@ -59,18 +57,18 @@ export const Root = () => {
                 path={routes.main}
                 element={
                     <ProtectedRoute>
-                        <MainMenu />
+                        <MainMenu/>
                     </ProtectedRoute>
                 }
             />
-            <Route path={routes.landing} element={<Landing />} />
-            <Route path={routes.signIn} element={<SignIn />} />
-            <Route path={routes.signUp} element={<SignUp />} />
+            <Route path={routes.landing} element={<Landing/>}/>
+            <Route path={routes.signIn} element={<SignIn/>}/>
+            <Route path={routes.signUp} element={<SignUp/>}/>
             <Route
                 path={routes.game}
                 element={
                     <ProtectedRoute>
-                        <Game />
+                        <Game/>
                     </ProtectedRoute>
                 }
             />
@@ -78,7 +76,7 @@ export const Root = () => {
                 path={routes.settings}
                 element={
                     <ProtectedRoute>
-                        <Settings />
+                        <Settings/>
                     </ProtectedRoute>
                 }
             />
@@ -86,7 +84,7 @@ export const Root = () => {
                 path={routes.leaderboard}
                 element={
                     <ProtectedRoute>
-                        <Leaderboard />
+                        <Leaderboard/>
                     </ProtectedRoute>
                 }
             />
@@ -95,7 +93,7 @@ export const Root = () => {
                     index
                     element={
                         <ProtectedRoute>
-                            <Forums />
+                            <Forums/>
                         </ProtectedRoute>
                     }
                 />
@@ -104,7 +102,7 @@ export const Root = () => {
                         index
                         element={
                             <ProtectedRoute>
-                                <Topics />
+                                <Topics/>
                             </ProtectedRoute>
                         }
                     />
@@ -112,13 +110,13 @@ export const Root = () => {
                         path=":topicId"
                         element={
                             <ProtectedRoute>
-                                <Topic />
+                                <Topic/>
                             </ProtectedRoute>
                         }
                     />
                 </Route>
             </Route>
-            <Route path={routes.notfound} element={<NotFound />} />
+            <Route path={routes.notfound} element={<NotFound/>}/>
         </Routes>
     );
 };

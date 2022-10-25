@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { Battlefield } from 'game/battlefield';
 
 import { Game } from '..';
+import {KILLED_AUDIO_URL} from "../../const/apiConstants";
 import {
     CELL_HEIGHT,
     CELL_WIDTH,
@@ -29,8 +30,6 @@ import {
 import { CanvasContainer } from '../renderer';
 import { Button, Cell, Ship, Coord, CanvasArgs } from '../types';
 import { getRandomBetween, isOverElement } from '../utils';
-
-const killedAudioLink = 'https://storage.yandexcloud.net/battleship-storage/boom.mp3';
 
 export class ButtleScreen {
     player: Battlefield;
@@ -176,7 +175,7 @@ export class ButtleScreen {
         ];
         const shipsDataChanged = !_.isEqual(shipsAvailable, this.shipsAvailable);
         if (shipsDataChanged) {
-            const killedAudio = new Audio(killedAudioLink);
+            const killedAudio = new Audio(KILLED_AUDIO_URL);
 
             try {
                 await killedAudio.play();
