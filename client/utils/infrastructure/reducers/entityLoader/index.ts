@@ -1,10 +1,8 @@
-import {EntityAPI, Empty} from 'utils';
-
 import {CommonStore, getStore, store} from '../../store';
 import {EntityLoaderConfig, PaginationOptions} from './types';
 
 export function entityOperation<D, R = unknown>(
-    request: Empty<(...args: any[]) => Promise<any>>,
+    request: (...args: any[]) => Promise<any>,
     config: EntityLoaderConfig<D>,
 ) {
     if (!request) {
@@ -62,14 +60,14 @@ export function entityOperation<D, R = unknown>(
 }
 
 export function entityLoader<D, R = unknown>(
-    entityApiInstance: EntityAPI,
+    entityApiInstance: any,
     config: EntityLoaderConfig<D>,
 ) {
     return entityOperation<D, R>(entityApiInstance?.request, config);
 }
 
 export function entityFind<D, R = unknown>(
-    entityApiInstance: EntityAPI,
+    entityApiInstance: any,
     config: EntityLoaderConfig<D>,
 ) {
     return entityOperation<D, R>(entityApiInstance?.find, config);
