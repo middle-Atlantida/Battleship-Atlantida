@@ -75,3 +75,11 @@ type PlainObject<T = unknown> = Record<string, T>;
 type Keys<T extends PlainObject> = keyof T;
 type Values<T extends PlainObject> = T[Keys<T>];
 
+interface AppData {
+    ip: string;
+    nonce: string;
+    csrfToken: string;
+    resHeaders: Indexed;
+}
+
+
