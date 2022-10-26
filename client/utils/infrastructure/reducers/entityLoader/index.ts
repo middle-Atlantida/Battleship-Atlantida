@@ -1,11 +1,8 @@
-import {EntityAPI, Empty} from 'utils';
-
-import store, {CommonStore, getStore} from 'client/utils/infrastructure/store';
-
+import {CommonStore, getStore, store} from '../../store';
 import {EntityLoaderConfig, PaginationOptions} from './types';
 
 export function entityOperation<D, R = unknown>(
-    request: Empty<(...args: any[]) => Promise<any>>,
+    request: (...args: any[]) => Promise<any>,
     config: EntityLoaderConfig<D>,
 ) {
     if (!request) {
@@ -28,7 +25,7 @@ export function entityOperation<D, R = unknown>(
         continue: true,
     };
 
-    return async function (params: R = {} as any): Promise<D | string> {
+    return async function entityFallback(params: R = {} as any): Promise<D | string> {
         if (initAction) {
             dispatch(initAction());
         }
@@ -54,7 +51,7 @@ export function entityOperation<D, R = unknown>(
             return result;
         } catch (error) {
             if (errorAction) {
-                dispatch(errorAction(error));
+                dispatch(errorAction(String(error)));
             }
 
             throw error;
@@ -63,14 +60,14 @@ export function entityOperation<D, R = unknown>(
 }
 
 export function entityLoader<D, R = unknown>(
-    entityApiInstance: EntityAPI,
+    entityApiInstance: any,
     config: EntityLoaderConfig<D>,
 ) {
     return entityOperation<D, R>(entityApiInstance?.request, config);
 }
 
 export function entityFind<D, R = unknown>(
-    entityApiInstance: EntityAPI,
+    entityApiInstance: any,
     config: EntityLoaderConfig<D>,
 ) {
     return entityOperation<D, R>(entityApiInstance?.find, config);

@@ -1,4 +1,5 @@
 import {Sequelize} from "sequelize-typescript";
+
 import {sequelizeOptions} from "../configs/db.config";
 import {forumModel} from "../models/forum";
 import {forumCommentModel} from "../models/forumComment";

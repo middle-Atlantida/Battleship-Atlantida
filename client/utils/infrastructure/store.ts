@@ -5,13 +5,10 @@ import {
     Reducer,
 } from 'redux';
 import {ThunkAction} from 'redux-thunk';
-import configureStore from "../../store";
-import {BaseStore, reducers} from "../../reducers";
-import routerReducer from '../../reducers/router';
 
-export interface Indexed<T = any> {
-    [x: string]: T;
-}
+import {BaseStore, reducers} from "../../reducers";
+import { routerReducer } from '../../reducers/router';
+import { configureStore} from "../../store";
 
 export type Assign<T, K> = Pick<T, Exclude<keyof T, keyof K>> & K;
 
@@ -21,7 +18,7 @@ delete (window as any).__PRELOADED_STATE__;
 const {store: reduxStore, history} = configureStore(reducers, state, {isLogger: true});
 
 export function hasReducer(key: string): boolean {
-    return !!reducers[key];
+    return !!(reducers as any)[key];
 }
 
 export function rootReducerFactory<E>(extention: E = ({} as E)) {
@@ -70,7 +67,7 @@ export {
     reduxStore,
 };
 
-export default {
+export const store = {
     ...reduxStore,
     bindActions,
     recombineStoreWith,

@@ -8,38 +8,36 @@ const DEFAULT_PROXY_OPTIONS = {
 };
 
 function collect(arr: string[][]) {
-    return () => {
-        return new Proxy(
-            Object.create(null),
-            {
-                get(_: unknown, prop: string) {
-                    const currentArr: string[] = [];
-                    arr.push(currentArr);
-                    currentArr.push(prop);
-                    const childProxy: ProxyHandler<{}> = new Proxy(
-                        Object.create(null),
-                        {
-                            get(_: unknown, childProp: string) {
-                                currentArr.push(childProp);
-                                return childProxy;
-                            },
-                            ...DEFAULT_PROXY_OPTIONS,
-                        });
-                    return childProxy;
-                },
-                ...DEFAULT_PROXY_OPTIONS,
-            });
-    };
+    return () => new Proxy(
+        Object.create(null),
+        {
+            get(_: unknown, prop: string) {
+                const currentArr: string[] = [];
+                arr.push(currentArr);
+                currentArr.push(prop);
+                const childProxy: ProxyHandler<Record<string, unknown>> = new Proxy(
+                    Object.create(null),
+                    {
+                        get(__: unknown, childProp: string) {
+                            currentArr.push(childProp);
+                            return childProxy;
+                        },
+                        ...DEFAULT_PROXY_OPTIONS,
+                    });
+                return childProxy;
+            },
+            ...DEFAULT_PROXY_OPTIONS,
+        });
 }
 
 function pathToString(arr: string[]) {
     return arr.reduce((result, item) => {
         const prefix = result === '' ? '' : '.';
-        return result + (isNaN(Number(item)) ? prefix + item : `[${item}]`);
+        return result + (Number.isNaN(Number(item)) ? prefix + item : `[${item}]`);
     }, '');
 }
 
-export default function pathFromFunction<T, R>(path: (object?: T) => R): string {
+export function pathFromFunction<T, R>(path: (object?: T) => R): string {
     const arr: string[][] = [[]];
     const resultProxy = flowRight([path, collect(arr)])();
     if (!resultProxy) {

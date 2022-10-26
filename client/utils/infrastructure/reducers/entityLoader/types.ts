@@ -1,13 +1,10 @@
-import {Indexed, Empty} from 'utils';
-
-import {CommonStore} from 'client/utils/infrastructure/store';
-
+import {CommonStore} from '../../store';
 import {BaseActions} from '../flow';
 
 export interface PaginationOptions {
     start: number; // Попросить бэк поменять на skip или offset
     limit?: number; // На бэке пока игнорируется
-    continue?: Empty<true>;
+    continue?: Nullable<true>;
 }
 
 export interface EntityLoaderConfig<D> {

@@ -1,6 +1,5 @@
 import {routerMiddleware} from 'connected-react-router';
 import {createBrowserHistory, createMemoryHistory} from 'history';
-import isServer from "./utils/serverSide/isServerEnvCheker";
 import {
     applyMiddleware,
     combineReducers,
@@ -10,6 +9,8 @@ import {
 } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
+import { isServer } from "./utils/serverSide/isServerEnvCheker";
+
 interface StoreOptions {
     isLogger: boolean;
     router?: {
@@ -17,7 +18,7 @@ interface StoreOptions {
     };
 }
 
-function configureStore(reducers = {}, initialState = {}, options?: StoreOptions) {
+export function configureStore(reducers = {}, initialState = {}, options?: StoreOptions) {
     const {router} = options || ({} as StoreOptions);
 
     const history = !isServer
@@ -40,6 +41,7 @@ function configureStore(reducers = {}, initialState = {}, options?: StoreOptions
 
     if ((module as any).hot) {
         (module as any).hot.accept('./reducers', () => {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
             const nextRootReducer = require('./reducers').default;
             store.replaceReducer(nextRootReducer);
         });
@@ -47,5 +49,3 @@ function configureStore(reducers = {}, initialState = {}, options?: StoreOptions
 
     return {store, history};
 }
-
-export default configureStore;

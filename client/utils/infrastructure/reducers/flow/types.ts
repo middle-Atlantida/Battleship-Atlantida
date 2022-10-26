@@ -1,5 +1,4 @@
 import {PayloadActionCreator} from 'typesafe-actions';
-import {Nullable} from 'utils';
 
 export enum Status {
     Success = 'success',

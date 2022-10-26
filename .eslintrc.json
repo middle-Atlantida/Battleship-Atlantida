@@ -132,7 +132,9 @@
 					"caseInsensitive": true
 				}
 			}
-		]
+		],
+		"no-underscore-dangle": 0,
+		"no-undef": 0
 	},
 	"overrides": [
 		{

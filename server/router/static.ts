@@ -1,5 +1,6 @@
 import {Router, static as staticRoute} from 'express';
-import cfg from "../../lib/cfg";
+
+import { cfg } from '../../lib/cfg';
 
 export const staticRoutes = (router: Router) => {
     router

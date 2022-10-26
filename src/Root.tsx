@@ -2,22 +2,22 @@ import {useEffect} from 'react';
 
 import {Route, Routes} from 'react-router-dom';
 
-import {ProtectedRoute} from 'components/ProtectedRoute';
-import {useToggleFullScreen, useAppDispatch} from 'hooks';
-import {Forums} from 'pages/Forums';
-import {Game} from 'pages/Game';
-import {Landing} from "pages/Landing";
-import {Leaderboard} from 'pages/Leaderboard';
-import {MainMenu} from 'pages/MainMenu';
-import {NotFound} from 'pages/NotFound';
-import {Settings} from 'pages/Settings';
-import {SignIn} from 'pages/SignIn';
-import {SignUp} from 'pages/SignUp';
-import {Topic} from 'pages/Topic';
-import {Topics} from 'pages/Topics';
-import {store} from 'store';
-import {init} from 'store/actions/user';
-import {consoleLog} from 'utils/consoleLog';
+import { ProtectedRoute } from 'components/ProtectedRoute';
+import { useAppDispatch } from 'hooks';
+import { Forums } from 'pages/Forums';
+import { Game } from 'pages/Game';
+import { Landing } from "pages/Landing";
+import { Leaderboard } from 'pages/Leaderboard';
+import { MainMenu } from 'pages/MainMenu';
+import { NotFound } from 'pages/NotFound';
+import { Settings } from 'pages/Settings';
+import { SignIn } from 'pages/SignIn';
+import { SignUp } from 'pages/SignUp';
+import { Topic } from 'pages/Topic';
+import { Topics } from 'pages/Topics';
+import { store } from 'store';
+import { init } from 'store/actions/user';
+import { consoleLog } from 'utils/consoleLog';
 
 export const routes = {
     main: '/',
@@ -48,8 +48,7 @@ export const Root = () => {
             initializeStore().then();
         }, [dispatch]);
 
-    // TODO перенести хук в игру
-    useToggleFullScreen();
+
 
     return (
         <Routes>
