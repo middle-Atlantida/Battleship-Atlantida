@@ -1,5 +1,6 @@
 export const BASE_URL = 'https://ya-praktikum.tech/api/v2/';
 export const RESOURCES_URL = `${BASE_URL}resources`;
+export const KILLED_AUDIO_URL = 'https://storage.yandexcloud.net/battleship-storage/boom.mp3';
 
 // auth
 export const SIGNIN_URL = 'auth/signin';
